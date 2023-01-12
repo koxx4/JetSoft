@@ -13,7 +13,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 class SecurityConfiguration {
 
-    private final static List<String> securedEndpoints = List.of(
+    private static final List<String> securedEndpoints = List.of(
             "/secured-example-endpoint"
     );
 
