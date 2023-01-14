@@ -26,7 +26,7 @@ class FlightListController {
     String listFlights(Model model) {
 
         String formattedDate = DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(LocalDateTime.now());
-        List<FlightPublicRowDto> flights = flightQueries.getFlightPublicRowDtoList();
+        List<FlightPublicRowDto> flights = flightQueries.getFlightPublicRowDtoListPaginated(0, 10);
 
         model.addAttribute("serverTime", formattedDate);
         model.addAttribute("flights", flights);

@@ -1,6 +1,7 @@
 package org.jetsoft.web.jssystemapp.flight.domain;
 
 import jakarta.persistence.*;
+import org.jetsoft.web.jssystemapp.core.AbstractEntity;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +10,7 @@ import static java.util.Objects.isNull;
 @Entity
 @Table(schema = "data")
 @Access(AccessType.FIELD)
-public class Flight {
+public class Flight extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +57,7 @@ public class Flight {
     }
 
     //Musi istnieć przez ORM-a
-    protected Flight() {}
+    private Flight() {}
 
     void activate() {
 
@@ -66,10 +67,6 @@ public class Flight {
         }
 
         active = true;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Long getRouteId() {

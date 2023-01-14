@@ -1,11 +1,12 @@
 package org.jetsoft.web.jssystemapp.flight.domain;
 
 import jakarta.persistence.*;
+import org.jetsoft.web.jssystemapp.core.AbstractEntity;
 
 @Entity
 @Table(schema = "data")
 @Access(AccessType.FIELD)
-public class Route {
+public class Route extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +22,6 @@ public class Route {
         this.sourceCityId = sourceCityId;
         this.destinationCityId = destinationCityId;
         this.distance = distance;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Long getSourceCityId() {

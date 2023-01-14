@@ -1,6 +1,10 @@
 package org.jetsoft.web.jssystemapp.flight.application;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FlightPublicRowDto {
 
@@ -10,6 +14,8 @@ public class FlightPublicRowDto {
     private final LocalDateTime plannedArrival;
     private final String sourceCity;
     private final String destinationCity;
+    private final String sourceNationality;
+    private final String destinationNationality;
 
     public FlightPublicRowDto(
             String flightNumber,
@@ -17,7 +23,9 @@ public class FlightPublicRowDto {
             LocalDateTime plannedDeparture,
             LocalDateTime plannedArrival,
             String sourceCity,
-            String destinationCity) {
+            String destinationCity,
+            String sourceNationality,
+            String destinationNationality) {
 
         this.flightNumber = flightNumber;
         this.availablePassengersSeats = availablePassengersSeats;
@@ -25,6 +33,8 @@ public class FlightPublicRowDto {
         this.plannedArrival = plannedArrival;
         this.sourceCity = sourceCity;
         this.destinationCity = destinationCity;
+        this.sourceNationality = sourceNationality;
+        this.destinationNationality = destinationNationality;
     }
 
     public String getFlightNumber() {
@@ -35,12 +45,12 @@ public class FlightPublicRowDto {
         return availablePassengersSeats;
     }
 
-    public LocalDateTime getPlannedDeparture() {
-        return plannedDeparture;
+    public String getPlannedDeparture() {
+        return DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss").format(plannedDeparture);
     }
 
-    public LocalDateTime getPlannedArrival() {
-        return plannedArrival;
+    public String getPlannedArrival() {
+        return DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss").format(plannedArrival);
     }
 
     public String getSourceCity() {
@@ -49,5 +59,13 @@ public class FlightPublicRowDto {
 
     public String getDestinationCity() {
         return destinationCity;
+    }
+
+    public String getSourceNationality() {
+        return sourceNationality;
+    }
+
+    public String getDestinationNationality() {
+        return destinationNationality;
     }
 }

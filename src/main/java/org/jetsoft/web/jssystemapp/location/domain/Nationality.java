@@ -1,28 +1,21 @@
 package org.jetsoft.web.jssystemapp.location.domain;
 
 import jakarta.persistence.*;
+import org.jetsoft.web.jssystemapp.core.AbstractEntity;
 
 @Entity
 @Table(schema = "data")
-public enum Nationality {
-
-    POLAND("Polska"),
-    GERMANY("Niemcy"),
-    SWEDEN("Szwecja");
+public class Nationality extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    Nationality() {}
+    protected Nationality() {}
 
     Nationality(String name) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {
