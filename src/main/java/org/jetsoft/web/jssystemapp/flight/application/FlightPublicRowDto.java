@@ -46,11 +46,11 @@ public class FlightPublicRowDto {
     }
 
     public String getPlannedDeparture() {
-        return DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss").format(plannedDeparture);
+        return DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm").format(plannedDeparture);
     }
 
     public String getPlannedArrival() {
-        return DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm:ss").format(plannedArrival);
+        return DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm").format(plannedArrival);
     }
 
     public String getSourceCity() {
