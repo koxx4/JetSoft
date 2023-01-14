@@ -53,7 +53,7 @@ class JpaRouteQueries extends JpaQueries<Route> implements RouteQueries {
                 sourceNationality.getName(),
                 sourceCity.getName(),
                 destinationNationality.getName(),
-                destinationNationality.getName()
+                destinationCity.getName()
         );
     }
 }
