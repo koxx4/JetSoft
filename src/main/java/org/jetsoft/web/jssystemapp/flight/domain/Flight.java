@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 import static java.util.Objects.isNull;
 
 @Entity
-@Table(schema = "data", name = "flight")
+@Table(schema = "data")
 @Access(AccessType.FIELD)
-class Flight {
+public class Flight {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long routeId;
     private Long vehicleId;
@@ -56,7 +56,7 @@ class Flight {
     }
 
     //Musi istnieć przez ORM-a
-    public Flight() {}
+    protected Flight() {}
 
     void activate() {
 
@@ -68,4 +68,55 @@ class Flight {
         active = true;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Long getRouteId() {
+        return routeId;
+    }
+
+    public Long getVehicleId() {
+        return vehicleId;
+    }
+
+    public Long getGeneratedFromScheduleId() {
+        return generatedFromScheduleId;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getFlightNumber() {
+        return flightNumber;
+    }
+
+    public int getAvailablePassengersSeats() {
+        return availablePassengersSeats;
+    }
+
+    public int getMinPilotCount() {
+        return minPilotCount;
+    }
+
+    public boolean isConfidential() {
+        return confidential;
+    }
+
+    public boolean isArchival() {
+        return archival;
+    }
+
+    public LocalDateTime getLastModificationDate() {
+        return lastModificationDate;
+    }
+
+    public LocalDateTime getPlannedDeparture() {
+        return plannedDeparture;
+    }
+
+    public LocalDateTime getPlannedArrival() {
+        return plannedArrival;
+    }
 }

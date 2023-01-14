@@ -6,6 +6,25 @@
 </head>
 <body>
 Current time is <span th:text="${serverTime}" />
-<H1>FLIGHT LIST --- TEST ---</H1>
+
+<h1>Lista lotów</h1>
+<table>
+    <tr>
+        <th>Kod lotu</th>
+        <th>Z</th>
+        <th>Do</th>
+        <th>Planowany odlot</th>
+        <th>Planowany przylot</th>
+        <th>Liczba dostępnych miejsc</th>
+    </tr>
+    <tr th:each="flight : ${flights}">
+        <td th:text="${flight.flightNumber}"></td>
+        <td th:text="${flight.sourceCity}"></td>
+        <td th:text="${flight.destinationCity}"></td>
+        <td th:text="${flight.plannedDeparture}"></td>
+        <td th:text="${flight.plannedArrival}"></td>
+        <td th:text="${flight.availablePassengersSeats}"></td>
+    </tr>
+</table>
 </body>
 </html>
