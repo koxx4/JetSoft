@@ -33,7 +33,7 @@ insert into data.city (id, nationality_id , name) values (17, 10, 'Zagrzeb');
 -- vehicle_type
 
 insert into data.vehicle_type (id, type_name) values (1, 'Samolot');
-insert into data.vehicle_type (id, type_name) values (2, 'Smigłowiec');
+insert into data.vehicle_type (id, type_name) values (2, 'Śmigłowiec');
 
 -- pilot_status
 

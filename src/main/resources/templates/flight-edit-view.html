@@ -8,6 +8,19 @@
 <body>
     <form action="#" method="post" th:action="@{addFlight}" th:object="${flightForm}">
 
+        <div th:classappend="${#fields.hasErrors('routeId')}? form-field-error">
+            <label for="f-flight-number" class="form-label">Trasa</label>
+            <br>
+            <select th:field="*{routeId}">
+                <option th:each="route : ${routeList}"
+                        th:value="${route.routeId}"
+                        th:text="${route.sourceCityName} + ', ' + ${route.sourceNationalityName} + ' --> ' + ${route.destinationCityName} + ', ' + ${route.destinationNationalityName}"></option>
+            </select>
+
+            <div class="red-text-error" th:each="err : ${#fields.errors('routeId')}"
+                 th:text="${err}"></div>
+        </div>
+
         <div th:classappend="${#fields.hasErrors('flightNumber')}? form-field-error">
             <label for="f-flight-number" class="form-label">Numer lotu</label>
             <br>

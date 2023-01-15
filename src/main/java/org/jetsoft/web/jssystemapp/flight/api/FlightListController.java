@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.jetsoft.web.jssystemapp.flight.application.FlightPublicRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightQueries;
 import org.jetsoft.web.jssystemapp.flight.application.FlightService;
+import org.jetsoft.web.jssystemapp.location.application.RouteQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +18,19 @@ import java.util.List;
 class FlightListController {
 
     private final FlightQueries flightQueries;
+    private final RouteQueries routeQueries;
     private final FlightService flightService;
     private final FlightFormValidator flightFormValidator;
 
     @Autowired
     FlightListController(
             FlightQueries flightQueries,
+            RouteQueries routeQueries,
             FlightService flightService,
             FlightFormValidator flightFormValidator) {
 
         this.flightQueries = flightQueries;
+        this.routeQueries = routeQueries;
         this.flightService = flightService;
         this.flightFormValidator = flightFormValidator;
     }
@@ -49,6 +53,8 @@ class FlightListController {
     @GetMapping("/editFlight")
     String saveFlight(@RequestParam(required = false) Long id, Model model) {
 
+        addRouteFlatDtoList(model);
+
         if (id == null) {
 
             model.addAttribute("flightForm", new FlightForm());
@@ -63,6 +69,13 @@ class FlightListController {
         return "flight-edit-view";
     }
 
+    private void addRouteFlatDtoList(Model model) {
+
+        var routeList = routeQueries.getRouteFlatDtoList();
+
+        model.addAttribute("routeList", routeList);
+    }
+
     @PostMapping("/addFlight")
     String saveFlight(@ModelAttribute @Valid FlightForm flightForm, BindingResult bindingResult) {
 
@@ -75,5 +88,4 @@ class FlightListController {
 
         return "redirect:/flightList";
     }
-
 }
