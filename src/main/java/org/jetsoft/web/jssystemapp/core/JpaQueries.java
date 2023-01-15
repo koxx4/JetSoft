@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,8 @@ public abstract class JpaQueries<T extends AbstractEntity> {
         return criteriaBuilder.createQuery(entityClass);
     }
 
-    protected List<T> getAll() {
+    @Transactional
+    public List<T> getAll() {
 
         CriteriaQuery<T> criteriaQuery = getCriteriaQuery(getCriteriaBuilder());
         Root<T> root = criteriaQuery.from(entityClass);
@@ -37,7 +39,8 @@ public abstract class JpaQueries<T extends AbstractEntity> {
         return entityManager.createQuery(criteriaQuery).getResultList();
     }
 
-    protected List<T> getAllPaginated(int page, int pageSize) {
+    @Transactional
+    public List<T> getAllPaginated(int page, int pageSize) {
 
         CriteriaQuery<T> criteriaQuery = getCriteriaQuery(getCriteriaBuilder());
         Root<T> root = criteriaQuery.from(entityClass);
@@ -48,7 +51,8 @@ public abstract class JpaQueries<T extends AbstractEntity> {
                 .getResultList();
     }
 
-    protected Optional<T> findById(Long id) {
+    @Transactional
+    public Optional<T> findById(Long id) {
 
         return Optional.ofNullable(entityManager.find(entityClass, id));
     }
@@ -58,7 +62,8 @@ public abstract class JpaQueries<T extends AbstractEntity> {
         return Optional.ofNullable(entityManager.find(clazz, id));
     }
 
-    protected T getById(Long id) {
+    @Transactional
+    public T getById(Long id) {
 
         return entityManager.find(entityClass, id);
     }
@@ -68,9 +73,15 @@ public abstract class JpaQueries<T extends AbstractEntity> {
         return entityManager.find(clazz, id);
     }
 
-    protected void saveOrUpdate(T entity) {
+    @Transactional
+    public boolean exists(Long id) {
 
-        entityManager.persist(entity);
+        if (id == null) {
+
+            return false;
+        }
+
+        return findById(id).isPresent();
     }
 
     protected EntityManager getEntityManager() {

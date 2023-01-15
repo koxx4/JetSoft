@@ -61,9 +61,16 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
                 .toList();
     }
 
+    @Override
+    public boolean exists(Long id) {
+
+        return super.exists(id);
+    }
+
     private FlightPublicRowDto toFlightPublicRowDto(Flight flight, RouteFlatDto routeFlatDto) {
 
         return new FlightPublicRowDto(
+                flight.getId(),
                 flight.getFlightNumber(),
                 flight.getAvailablePassengersSeats(),
                 flight.getPlannedDeparture(),

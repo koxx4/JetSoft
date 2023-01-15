@@ -9,3 +9,71 @@ td {
     text-align: center;
     vertical-align: middle;
 }
+
+.form-field-error {
+    background-color: rgba(200, 0, 0, 0.3);
+}
+
+.blue-btn {
+    color: black;
+    background-color: #4767ed;
+    text-decoration: none;
+    border-radius: 0.1em;
+    border: 2px solid black;
+    padding: 0.3em;
+    margin: 0.2em;
+    display: inline-block;
+}
+
+.blue-btn:hover {
+    background-color: #3656dc;
+}
+
+.yellow-btn {
+    color: black;
+    background-color: #eddf47;
+    text-decoration: none;
+    border-radius: 0.1em;
+    border: 2px solid black;
+    padding: 0.3em;
+    margin: 0.2em;
+    display: inline-block;
+}
+
+.yellow-btn:hover {
+    background-color: #dcce36;
+}
+
+.red-btn {
+    color: black;
+    background-color: #ed4755;
+    text-decoration: none;
+    border-radius: 0.1em;
+    border: 2px solid black;
+    padding: 0.3em;
+    margin: 0.2em;
+    display: inline-block;
+}
+
+.red-btn:hover {
+    background-color: #dc3644;
+}
+
+.green-btn {
+    color: black;
+    background-color: #58ed47;
+    text-decoration: none;
+    border-radius: 0.1em;
+    border: 2px solid black;
+    padding: 0.3em;
+    margin: 0.2em;
+    display: inline-block;
+}
+
+.green-btn:hover {
+    background-color: #47dc36;
+}
+
+.red-text-error {
+    color: #dc3644;
+}

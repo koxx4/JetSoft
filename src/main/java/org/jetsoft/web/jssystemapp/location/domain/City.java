@@ -7,9 +7,6 @@ import org.jetsoft.web.jssystemapp.core.AbstractEntity;
 @Table(schema = "data")
 public class City extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private Long nationalityId;
     private String name;
 

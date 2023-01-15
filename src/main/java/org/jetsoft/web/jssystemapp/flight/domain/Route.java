@@ -8,9 +8,6 @@ import org.jetsoft.web.jssystemapp.core.AbstractEntity;
 @Access(AccessType.FIELD)
 public class Route extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private Long sourceCityId;
     private Long destinationCityId;
     private long distance;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<h1>Lista lotów</h1>
+<div>
+    <a href="/editFlight">Dodaj nowy lot</a>
+</div>
+<table>
+    <tr>
+        <th>L.P.</th>
+        <th>Kod lotu</th>
+        <th>Z</th>
+        <th>Do</th>
+        <th>Planowany odlot</th>
+        <th>Planowany przylot</th>
+        <th>Liczba dostępnych miejsc</th>
+        <th>Akcje</th>
+    </tr>
+    <tr th:each="flightRowDto,iterStat : ${flights}">
+        <td th:text="${iterStat.count}"></td>
+        <td th:text="${flightRowDto.flightNumber}"></td>
+        <td th:text="${flightRowDto.sourceCity} + ', ' + ${flightRowDto.sourceNationality}"></td>
+        <td th:text="${flightRowDto.destinationCity} + ', ' + ${flightRowDto.destinationNationality}"></td>
+        <td th:text="${flightRowDto.plannedDeparture}"></td>
+        <td th:text="${flightRowDto.plannedArrival}"></td>
+        <td th:text="${flightRowDto.availablePassengersSeats}"></td>
+        <td>
+            <a class="yellow-btn" th:href="@{/editFlight(id=${flightRowDto.flightId})}">Modyfikuj lot</a>
+            <a class="red-btn">Usuń lot</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

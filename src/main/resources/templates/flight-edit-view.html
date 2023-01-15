@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <form action="#" method="post" th:action="@{addFlight}" th:object="${flightForm}">
+
+        <div th:classappend="${#fields.hasErrors('flightNumber')}? form-field-error">
+            <label for="f-flight-number" class="form-label">Numer lotu</label>
+            <br>
+            <input type="text"
+                   th:field="*{flightNumber}"
+                   id="f-flight-number"/>
+            <div class="red-text-error" th:each="err : ${#fields.errors('flightNumber')}"
+                 th:text="${err}"></div>
+        </div>
+
+        <div th:classappend="${#fields.hasErrors('plannedDeparture')}? form-field-error">
+            <label for="f-planned-departure" class="form-label">Planowany odlot</label>
+            <br>
+            <input type="datetime-local"
+                   th:field="*{plannedDeparture}"
+                   id="f-planned-departure"/>
+            <div class="red-text-error" th:each="err : ${#fields.errors('plannedDeparture')}"
+                 th:text="${err}"></div>
+        </div>
+
+        <div th:classappend="${#fields.hasErrors('plannedArrival')}? form-field-error">
+            <label for="f-planned-arrival" class="form-label">Planowany przylot</label>
+            <br>
+            <input type="datetime-local"
+                   th:field="*{plannedArrival}"
+                   id="f-planned-arrival"/>
+            <div class="red-text-error" th:each="err : ${#fields.errors('plannedArrival')}"
+                 th:text="${err}"></div>
+        </div>
+
+        <input type="submit" value="Zapisz" class="green-btn">
+
+    </form>
+</body>
+</html>

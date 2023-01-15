@@ -12,9 +12,6 @@ import static java.util.Objects.isNull;
 @Access(AccessType.FIELD)
 public class Flight extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private Long routeId;
     private Long vehicleId;
     private Long generatedFromScheduleId;
@@ -115,5 +112,53 @@ public class Flight extends AbstractEntity {
 
     public LocalDateTime getPlannedArrival() {
         return plannedArrival;
+    }
+
+    public void setRouteId(Long routeId) {
+        this.routeId = routeId;
+    }
+
+    public void setVehicleId(Long vehicleId) {
+        this.vehicleId = vehicleId;
+    }
+
+    public void setGeneratedFromScheduleId(Long generatedFromScheduleId) {
+        this.generatedFromScheduleId = generatedFromScheduleId;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public void setAvailablePassengersSeats(int availablePassengersSeats) {
+        this.availablePassengersSeats = availablePassengersSeats;
+    }
+
+    public void setMinPilotCount(int minPilotCount) {
+        this.minPilotCount = minPilotCount;
+    }
+
+    public void setConfidential(boolean confidential) {
+        this.confidential = confidential;
+    }
+
+    public void setArchival(boolean archival) {
+        this.archival = archival;
+    }
+
+    public void setLastModificationDate(LocalDateTime lastModificationDate) {
+        this.lastModificationDate = lastModificationDate;
+    }
+
+    public void setPlannedDeparture(LocalDateTime plannedDeparture) {
+        this.plannedDeparture = plannedDeparture;
+    }
+
+    public void setPlannedArrival(LocalDateTime plannedArrival) {
+        this.plannedArrival = plannedArrival;
     }
 }

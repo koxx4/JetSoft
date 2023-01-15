@@ -1,13 +1,11 @@
 package org.jetsoft.web.jssystemapp.flight.application;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class FlightPublicRowDto {
 
+    private final Long flightId;
     private final String flightNumber;
     private final int availablePassengersSeats;
     private final LocalDateTime plannedDeparture;
@@ -18,6 +16,7 @@ public class FlightPublicRowDto {
     private final String destinationNationality;
 
     public FlightPublicRowDto(
+            Long flightId,
             String flightNumber,
             int availablePassengersSeats,
             LocalDateTime plannedDeparture,
@@ -27,6 +26,7 @@ public class FlightPublicRowDto {
             String sourceNationality,
             String destinationNationality) {
 
+        this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.availablePassengersSeats = availablePassengersSeats;
         this.plannedDeparture = plannedDeparture;
@@ -67,5 +67,9 @@ public class FlightPublicRowDto {
 
     public String getDestinationNationality() {
         return destinationNationality;
+    }
+
+    public Long getFlightId() {
+        return flightId;
     }
 }
