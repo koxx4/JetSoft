@@ -37,6 +37,20 @@ class FlightFormValidator implements Validator {
         }
     }
 
+    private void validateAvailableSeats(FlightForm form, Errors errors) {
+        var seats = form.getAvailablePassengersSeats();
+
+
+    }
+
+    private void validateSourceCity(FlightForm flightForm, Errors errors) {
+
+    }
+
+    private void validateDestinationCity(FlightForm flightForm, Errors errors) {
+
+    }
+
     private void validateRequiredFields(FlightForm flightForm, Errors errors) {
 
         if (flightForm.getPlannedArrival() == null) {
