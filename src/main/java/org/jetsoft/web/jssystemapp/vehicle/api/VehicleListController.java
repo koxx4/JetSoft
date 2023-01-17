@@ -36,7 +36,7 @@ public class VehicleListController {
     @GetMapping("/vehicleList")
     String listVehicles(Model model) {
 
-        List<VehicleRowDto> vehicles = vehicleQueries.getVehiclePublicRowDtoListPaginated(0, 50);
+        List<VehicleRowDto> vehicles = vehicleQueries.getVehicleRowDtoListPaginated(0, 50);
 
         model.addAttribute("vehicles", vehicles);
 

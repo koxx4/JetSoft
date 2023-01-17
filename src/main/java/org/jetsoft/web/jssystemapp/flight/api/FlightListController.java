@@ -5,6 +5,7 @@ import org.jetsoft.web.jssystemapp.flight.application.FlightEmployeeRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightQueries;
 import org.jetsoft.web.jssystemapp.flight.application.FlightService;
 import org.jetsoft.web.jssystemapp.location.application.RouteQueries;
+import org.jetsoft.web.jssystemapp.vehicle.application.VehicleQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ class FlightListController {
 
     private final FlightQueries flightQueries;
     private final RouteQueries routeQueries;
+    private final VehicleQueries vehicleQueries;
     private final FlightService flightService;
     private final FlightFormValidator flightFormValidator;
 
@@ -27,11 +29,13 @@ class FlightListController {
     FlightListController(
             FlightQueries flightQueries,
             RouteQueries routeQueries,
+            VehicleQueries vehicleQueries,
             FlightService flightService,
             FlightFormValidator flightFormValidator) {
 
         this.flightQueries = flightQueries;
         this.routeQueries = routeQueries;
+        this.vehicleQueries = vehicleQueries;
         this.flightService = flightService;
         this.flightFormValidator = flightFormValidator;
     }
@@ -73,8 +77,10 @@ class FlightListController {
     private void addRouteFlatDtoList(Model model) {
 
         var routeList = routeQueries.getRouteFlatDtoList();
+        var vehicleList = vehicleQueries.getVehicleInFlightFormDtoList();
 
         model.addAttribute("routeList", routeList);
+        model.addAttribute("vehicleList", vehicleList);
     }
 
     @PostMapping("/addFlight")

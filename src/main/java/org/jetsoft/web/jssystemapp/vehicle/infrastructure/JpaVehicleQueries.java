@@ -2,9 +2,12 @@ package org.jetsoft.web.jssystemapp.vehicle.infrastructure;
 
 import jakarta.persistence.EntityManager;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
+import org.jetsoft.web.jssystemapp.vehicle.application.VehicleInFlightFormDto;
 import org.jetsoft.web.jssystemapp.vehicle.application.VehicleRowDto;
 import org.jetsoft.web.jssystemapp.vehicle.application.VehicleQueries;
 import org.jetsoft.web.jssystemapp.vehicle.domain.Vehicle;
+import org.jetsoft.web.jssystemapp.vehicle.domain.VehicleModel;
+import org.jetsoft.web.jssystemapp.vehicle.domain.VehicleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +25,18 @@ public class JpaVehicleQueries extends JpaQueries<Vehicle> implements VehicleQue
 
     @Override
     @Transactional(readOnly = true)
-    public List<VehicleRowDto> getVehiclePublicRowDtoListPaginated(int page, int pageSize) {
+    public List<VehicleRowDto> getVehicleRowDtoListPaginated(int page, int pageSize) {
 
         return getAllPaginated(page, pageSize).stream()
-                .map(vehicle -> {
-                    return toVehiclePublicRowDto(vehicle);
-                })
+                .map(this::toVehiclePublicRowDto)
+                .toList();
+    }
+
+    @Override
+    public List<VehicleInFlightFormDto> getVehicleInFlightFormDtoList() {
+
+        return getAll().stream()
+                .map(this::toVehicleInFlightFormDto)
                 .toList();
     }
 
@@ -46,6 +55,22 @@ public class JpaVehicleQueries extends JpaQueries<Vehicle> implements VehicleQue
                 vehicle.getNextMaintenanceDate(),
                 vehicle.getFriendlyName(),
                 vehicle.getRentDate()
+        );
+    }
+
+    private VehicleInFlightFormDto toVehicleInFlightFormDto(Vehicle vehicle) {
+
+        String vehicleTypeName = getById(VehicleType.class, vehicle.getVehicleTypeId())
+                .getTypeName();
+
+        String vehicleModelName = getById(VehicleModel.class, vehicle.getVehicleModelId())
+                .getModelName();
+
+        return new VehicleInFlightFormDto(
+                vehicle.getId(),
+                vehicleTypeName,
+                vehicleModelName,
+                vehicle.getFriendlyName()
         );
     }
 }

@@ -5,15 +5,15 @@ import java.time.LocalDate;
 public class VehicleRowDto {
 
     private Long vehicleId;
-    private int vehicleTypeId;
-    private int vehicleModelId;
+    private Long vehicleTypeId;
+    private Long vehicleModelId;
     private LocalDate nextMaintenanceDate;
     private String friendlyName;
     private LocalDate rentDate;
 
     public VehicleRowDto(Long vehicleId,
-                         int vehicleTypeId,
-                         int vehicleModelId,
+                         Long vehicleTypeId,
+                         Long vehicleModelId,
                          LocalDate nextMaintenanceDate,
                          String friendlyName,
                          LocalDate rentDate) {
@@ -29,11 +29,11 @@ public class VehicleRowDto {
         return vehicleId;
     }
 
-    public int getVehicleTypeId() {
+    public Long getVehicleTypeId() {
         return vehicleTypeId;
     }
 
-    public int getVehicleModelId() {
+    public Long getVehicleModelId() {
         return vehicleModelId;
     }
 

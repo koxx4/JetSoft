@@ -13,14 +13,14 @@ import java.time.LocalDate;
 @Access(AccessType.FIELD)
 public class Vehicle extends AbstractEntity {
 
-    private int vehicleTypeId;
-    private int vehicleModelId;
+    private Long vehicleTypeId;
+    private Long vehicleModelId;
     private LocalDate nextMaintenanceDate;
     private String friendlyName;
     private LocalDate rentDate;
 
-    public Vehicle(int vehicleTypeId,
-                   int vehicleModelId,
+    public Vehicle(Long vehicleTypeId,
+                   Long vehicleModelId,
                    LocalDate nextMaintenanceDate,
                    String friendlyName,
                    LocalDate rentDate) {
@@ -33,19 +33,19 @@ public class Vehicle extends AbstractEntity {
 
     private Vehicle() {}
 
-    public int getVehicleTypeId() {
+    public Long getVehicleTypeId() {
         return vehicleTypeId;
     }
 
-    public void setVehicleTypeId(int vehicleTypeId) {
+    public void setVehicleTypeId(Long vehicleTypeId) {
         this.vehicleTypeId = vehicleTypeId;
     }
 
-    public int getVehicleModelId() {
+    public Long getVehicleModelId() {
         return vehicleModelId;
     }
 
-    public void setVehicleModelId(int vehicleModelId) {
+    public void setVehicleModelId(Long vehicleModelId) {
         this.vehicleModelId = vehicleModelId;
     }
 
