@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form action="#" method="post" th:action="@{addFlight}" th:object="${flightForm}">
+    <a class="blue-btn" href="/flightList"><-- Powrót do listy lotów</a>
+    <form method="post" th:action="@{addFlight}" th:object="${flightForm}">
 
         <div th:classappend="${#fields.hasErrors('routeId')}? form-field-error">
             <label for="f-flight-number" class="form-label">Trasa</label>
