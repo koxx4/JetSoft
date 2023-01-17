@@ -91,3 +91,50 @@ INSERT INTO data.flight
  planned_arrival
  )
 VALUES(2, 1, null, false, 'POLWARWŁORZY', 100, 2, false, '2022-10-14 08:27:53+02', false, '2023-10-14 12:27:53+02', '2023-10-14 15:27:53+02');
+
+-- employee_account_data
+
+insert into ppd.employee_account_data (id, login, password) values (1, 'glitherborough0', 'F7o4Trd'); -- pilot
+insert into ppd.employee_account_data (id, login, password) values (2, 'nproven1', '5qJPhZsUGSY0'); -- pilot
+insert into ppd.employee_account_data (id, login, password) values (3, 'amenzies2', 'ciLEtIbpq'); -- pilot
+insert into ppd.employee_account_data (id, login, password) values (4, 'ppearcehouse3', 'lUu3ANzEfQxc'); -- manager
+insert into ppd.employee_account_data (id, login, password) values (5, 'kjewel4', 'sffCTu2'); -- manager
+insert into ppd.employee_account_data (id, login, password) values (6, 'gdegiorgi5', 'Ad5nl6'); -- manager
+insert into ppd.employee_account_data (id, login, password) values (7, 'jhaswall6', 'hiaQGdk'); -- manager
+insert into ppd.employee_account_data (id, login, password) values (8, 'hbartleman7', '4rhPgqPR'); -- admin
+insert into ppd.employee_account_data (id, login, password) values (9, 'calstead8', 'EmeQzcV'); -- admin
+insert into ppd.employee_account_data (id, login, password) values (10, 'hbruun9', 'Uzzn97'); -- prezes
+
+--employee
+
+insert into ppd.employee (id, first_name, last_name, employment_date) values (1, 'Yolanthe', 'O''Flynn', '2021-09-07'); -- pilot
+insert into ppd.employee (id, first_name, last_name, employment_date) values (2, 'Suellen', 'Oneil', '2021-04-23'); -- pilot
+insert into ppd.employee (id, first_name, last_name, employment_date) values (3, 'Hakim', 'Stride', '2021-04-27'); -- pilot
+insert into ppd.employee (id, first_name, last_name, employment_date) values (4, 'Hieronymus', 'Bemand', '2022-06-01'); -- manager
+insert into ppd.employee (id, first_name, last_name, employment_date) values (5, 'Nonah', 'Stanett', '2022-06-26'); -- manager
+insert into ppd.employee (id, first_name, last_name, employment_date) values (6, 'Dinah', 'Hawlgarth', '2022-10-21'); -- manager
+insert into ppd.employee (id, first_name, last_name, employment_date) values (7, 'Sterne', 'Fenlon', '2020-12-11'); -- manager
+insert into ppd.employee (id, first_name, last_name, employment_date) values (8, 'Karlis', 'Elam', '2020-12-14'); --admin
+insert into ppd.employee (id, first_name, last_name, employment_date) values (9, 'Elihu', 'Dinjes', '2022-01-16'); -- admin
+insert into ppd.employee (id, first_name, last_name, employment_date) values (10, 'Thorny', 'Bedbury', '2021-07-04'); -- prezes
+
+
+insert into ppd.pilot (id, nationality_id, pilot_status_id, license_number, hours_flown) values (1, 5, 1, 'WAULH54B01N812477', 4875);
+insert into ppd.pilot (id, nationality_id, pilot_status_id, license_number, hours_flown) values (2, 7, 1, '1GYFK63807R460901', 4109);
+
+-- employee_role
+insert into ppd.employee_role (id, role) values (1, 'HEAD_MANAGER');
+insert into ppd.employee_role (id, role) values (2, 'MANAGER');
+insert into ppd.employee_role (id, role) values (3, 'PILOT');
+insert into ppd.employee_role (id, role) values (4, 'ADMINISTRATOR');
+
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (1, 3, 1, '2022-12-14 17:54:25+01');
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (2, 3, 2, '2022-12-14 17:54:25+01');
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (3, 3, 3, '2022-12-14 17:54:25+01');
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (4, 2, 4, '2022-12-14 17:54:25+01');
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (5, 2, 5, '2022-12-14 17:54:25+01');
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (6, 2, 6, '2022-12-14 17:54:25+01');
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (7, 2, 7, '2022-12-14 17:54:25+01');
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (8, 4, 8, '2022-12-14 17:54:25+01');
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (9, 4, 9, '2022-12-14 17:54:25+01');
+insert into ppd.role_to_employee (id, role_id, employee_account_id, assigned_date) values (10, 1, 10, '2022-12-14 17:54:25+01');

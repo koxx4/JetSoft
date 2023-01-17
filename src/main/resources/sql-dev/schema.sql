@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS ppd.employee_role(
                                                     START WITH
                                                         1
                                                     ),
-                                                "role" VARCHAR(50),
+                                                role VARCHAR(50),
                                                 PRIMARY KEY(id)
 );
 
@@ -181,8 +181,8 @@ CREATE TABLE IF NOT EXISTS ppd.employee_account_data(
                                                             START WITH
                                                                 1
                                                             ),
-                                                        "login" TEXT,
-                                                        "password" TEXT,
+                                                        login TEXT,
+                                                        password TEXT,
                                                         PRIMARY KEY(id)
 );
 
