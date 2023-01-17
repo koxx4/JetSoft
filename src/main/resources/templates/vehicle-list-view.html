@@ -7,8 +7,9 @@
 </head>
 <body>
   <h1>Lista pojazdów</h1>
+  <a class="blue-btn" href="/"><-- Powrót do menu</a>
     <div>
-      <a href="/editVehicle">Dodaj nowy pojazd</a>
+      <a class="green-btn" href="/editVehicle">Dodaj nowy pojazd</a>
     </div>
   <table>
     <tr>
@@ -16,20 +17,31 @@
       <th>Typ pojazdu</th>
       <th>Model pojazdu</th>
       <th>Przyjazna nazwa</th>
+      <th>Maksymalna ilość pasażerów</th>
+      <th>Maksymalna ilość pilotów</th>
+      <th>Maksymalny udźwig [kg]</th>
+      <th>Maksymalny zasięg [km]</th>
       <th>Data wypożyczenia</th>
       <th>Data następnego przeglądu</th>
       <th>Akcje</th>
     </tr>
     <tr th:each="vehicleRowDto,iterStat : ${vehicles}">
       <td th:text="${iterStat.count}"></td>
-      <td th:text="${vehicleRowDto.vehicleTypeId}"></td>
-      <td th:text="${vehicleRowDto.vehicleModelId}"></td>
+      <td th:text="${vehicleRowDto.vehicleType}"></td>
+      <td th:text="${vehicleRowDto.vehicleModel}"></td>
       <td th:text="${vehicleRowDto.friendlyName}"></td>
+      <td th:text="${vehicleRowDto.maxPassengerCount}"></td>
+      <td th:text="${vehicleRowDto.maxPilotCount}"></td>
+      <td th:text="${vehicleRowDto.liftCapacity}"></td>
+      <td th:text="${vehicleRowDto.maxDistance}"></td>
       <td th:text="${vehicleRowDto.rentDate}"></td>
       <td th:text="${vehicleRowDto.nextMaintenanceDate}"></td>
       <td>
-        <a class="yellow-btn" th:href="@{/editVehicle(id=${vehicleRowDto.vehicleId})}">Modyfikuj pojazd</a>
-        <a class="red-btn">Usuń pojazd</a>
+        <a class="yellow-btn" th:href="@{/editVehicle(id=${vehicleRowDto.vehicleId})}">Zobacz szczegóły i modyfikuj</a>
+        <form th:method="delete" th:action="@{/deleteVehicle}">
+          <input type="hidden" class="red-btn" name="deleteId"  th:value="${vehicleRowDto.vehicleId}">
+          <input type="submit" class="red-btn" value="Usuń pojazd">
+        </form>
       </td>
     </tr>
   </table>

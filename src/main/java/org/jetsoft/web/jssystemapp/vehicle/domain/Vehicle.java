@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import org.jetsoft.web.jssystemapp.core.AbstractEntity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(schema = "data")
@@ -72,4 +73,5 @@ public class Vehicle extends AbstractEntity {
     public void setRentDate(LocalDate rentDate) {
         this.rentDate = rentDate;
     }
+
 }
