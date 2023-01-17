@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class FlightForm {
 
     private Long id;
+    @NotNull
     private Long routeId;
     private Long vehicleId;
     private Long generatedFromScheduleId;

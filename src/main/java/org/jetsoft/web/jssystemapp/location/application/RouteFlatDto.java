@@ -2,13 +2,15 @@ package org.jetsoft.web.jssystemapp.location.application;
 
 public class RouteFlatDto {
 
+    private final Long routeId;
     private final String sourceNationalityName;
     private final String sourceCityName;
     private final String destinationNationalityName;
     private final String destinationCityName;
 
-    public RouteFlatDto(String sourceNationalityName, String sourceCityName, String destinationNationalityName, String destinationCityName) {
+    public RouteFlatDto(Long routeId, String sourceNationalityName, String sourceCityName, String destinationNationalityName, String destinationCityName) {
 
+        this.routeId = routeId;
         this.sourceNationalityName = sourceNationalityName;
         this.sourceCityName = sourceCityName;
         this.destinationNationalityName = destinationNationalityName;
@@ -29,5 +31,9 @@ public class RouteFlatDto {
 
     public String getDestinationCityName() {
         return destinationCityName;
+    }
+
+    public Long getRouteId() {
+        return routeId;
     }
 }

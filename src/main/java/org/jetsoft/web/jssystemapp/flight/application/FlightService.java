@@ -20,6 +20,11 @@ public class FlightService {
         this.flightQueries = flightQueries;
     }
 
+    public void removeFlightById(Long id) {
+
+        flightRepository.remove(id);
+    }
+
     public void saveFlightFromForm(FlightForm flightForm) {
 
         if (flightQueries.exists(flightForm.getId())) {
@@ -46,6 +51,11 @@ public class FlightService {
         form.setPlannedDeparture(flight.getPlannedDeparture());
         form.setPlannedArrival(flight.getPlannedArrival());
         form.setId(flight.getId());
+        form.setActive(flight.isActive());
+        form.setArchival(flight.isArchival());
+        form.setConfidential(flight.isConfidential());
+        form.setMinPilotCount(flight.getMinPilotCount());
+        form.setAvailablePassengersSeats(flight.getAvailablePassengersSeats());
 
         return form;
     }

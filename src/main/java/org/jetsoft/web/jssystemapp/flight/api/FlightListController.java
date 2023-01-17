@@ -1,12 +1,14 @@
 package org.jetsoft.web.jssystemapp.flight.api;
 
 import jakarta.validation.Valid;
-import org.jetsoft.web.jssystemapp.flight.application.FlightPublicRowDto;
+import org.jetsoft.web.jssystemapp.flight.application.FlightEmployeeRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightQueries;
 import org.jetsoft.web.jssystemapp.flight.application.FlightService;
+import org.jetsoft.web.jssystemapp.location.application.RouteQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +19,19 @@ import java.util.List;
 class FlightListController {
 
     private final FlightQueries flightQueries;
+    private final RouteQueries routeQueries;
     private final FlightService flightService;
     private final FlightFormValidator flightFormValidator;
 
     @Autowired
     FlightListController(
             FlightQueries flightQueries,
+            RouteQueries routeQueries,
             FlightService flightService,
             FlightFormValidator flightFormValidator) {
 
         this.flightQueries = flightQueries;
+        this.routeQueries = routeQueries;
         this.flightService = flightService;
         this.flightFormValidator = flightFormValidator;
     }
@@ -39,7 +44,7 @@ class FlightListController {
     @GetMapping("/flightList")
     String listFlights(Model model) {
 
-        List<FlightPublicRowDto> flights = flightQueries.getFlightPublicRowDtoListPaginated(0, 10);
+        List<FlightEmployeeRowDto> flights = flightQueries.getFlightPublicRowDtoListPaginated(0, 10);
 
         model.addAttribute("flights", flights);
 
@@ -48,6 +53,8 @@ class FlightListController {
 
     @GetMapping("/editFlight")
     String saveFlight(@RequestParam(required = false) Long id, Model model) {
+
+        addRouteFlatDtoList(model);
 
         if (id == null) {
 
@@ -63,6 +70,13 @@ class FlightListController {
         return "flight-edit-view";
     }
 
+    private void addRouteFlatDtoList(Model model) {
+
+        var routeList = routeQueries.getRouteFlatDtoList();
+
+        model.addAttribute("routeList", routeList);
+    }
+
     @PostMapping("/addFlight")
     String saveFlight(@ModelAttribute @Valid FlightForm flightForm, BindingResult bindingResult) {
 
@@ -76,4 +90,15 @@ class FlightListController {
         return "redirect:/flightList";
     }
 
+    @DeleteMapping("/deleteFlight")
+    String deleteFlight(@RequestParam Long deleteId,  Model model) {
+
+        Assert.notNull(deleteId, "id cannot be null!");
+
+        flightService.removeFlightById(deleteId);
+
+        model.addAttribute("deleted", true);
+
+        return "redirect:/flightList";
+    }
 }

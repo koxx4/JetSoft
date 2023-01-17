@@ -3,7 +3,7 @@ package org.jetsoft.web.jssystemapp.flight.application;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class FlightPublicRowDto {
+public class FlightEmployeeRowDto {
 
     private final Long flightId;
     private final String flightNumber;
@@ -14,8 +14,9 @@ public class FlightPublicRowDto {
     private final String destinationCity;
     private final String sourceNationality;
     private final String destinationNationality;
+    private final boolean active;
 
-    public FlightPublicRowDto(
+    public FlightEmployeeRowDto(
             Long flightId,
             String flightNumber,
             int availablePassengersSeats,
@@ -24,7 +25,8 @@ public class FlightPublicRowDto {
             String sourceCity,
             String destinationCity,
             String sourceNationality,
-            String destinationNationality) {
+            String destinationNationality,
+            boolean active) {
 
         this.flightId = flightId;
         this.flightNumber = flightNumber;
@@ -35,6 +37,7 @@ public class FlightPublicRowDto {
         this.destinationCity = destinationCity;
         this.sourceNationality = sourceNationality;
         this.destinationNationality = destinationNationality;
+        this.active = active;
     }
 
     public String getFlightNumber() {
@@ -71,5 +74,9 @@ public class FlightPublicRowDto {
 
     public Long getFlightId() {
         return flightId;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }
