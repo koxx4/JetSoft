@@ -47,6 +47,8 @@ public class FlightService {
 
         var flight = flightRepository.get(id);
 
+        form.setVehicleId(flight.getVehicleId());
+        form.setRouteId(flight.getRouteId());
         form.setFlightNumber(flight.getFlightNumber());
         form.setPlannedDeparture(flight.getPlannedDeparture());
         form.setPlannedArrival(flight.getPlannedArrival());

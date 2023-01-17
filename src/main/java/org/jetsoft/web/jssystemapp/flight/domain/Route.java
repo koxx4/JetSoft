@@ -1,12 +1,12 @@
 package org.jetsoft.web.jssystemapp.flight.domain;
 
 import jakarta.persistence.*;
-import org.jetsoft.web.jssystemapp.core.AbstractEntity;
+import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
 
 @Entity
 @Table(schema = "data")
 @Access(AccessType.FIELD)
-public class Route extends AbstractEntity {
+public class Route extends AbstractEntityWithGeneratedId {
 
     private Long sourceCityId;
     private Long destinationCityId;

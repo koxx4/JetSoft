@@ -1,7 +1,7 @@
 package org.jetsoft.web.jssystemapp.flight.domain;
 
 import jakarta.persistence.*;
-import org.jetsoft.web.jssystemapp.core.AbstractEntity;
+import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +10,7 @@ import static java.util.Objects.isNull;
 @Entity
 @Table(schema = "data")
 @Access(AccessType.FIELD)
-public class Flight extends AbstractEntity {
+public class Flight extends AbstractEntityWithGeneratedId {
 
     private Long routeId;
     private Long vehicleId;

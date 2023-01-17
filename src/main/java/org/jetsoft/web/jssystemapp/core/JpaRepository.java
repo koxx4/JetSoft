@@ -4,7 +4,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
-public abstract class JpaRepository<T extends AbstractEntity> {
+import java.util.Optional;
+
+public abstract class JpaRepository<T extends JpaEntity> {
 
     private final EntityManager entityManager;
     private final Class<T> entityClass;
@@ -39,5 +41,16 @@ public abstract class JpaRepository<T extends AbstractEntity> {
     public T get(Long id) {
 
         return entityManager.find(entityClass, id);
+    }
+
+    @Transactional
+    public Optional<T> find(Long id) {
+
+        if (id == null) {
+
+            return Optional.empty();
+        }
+
+        return Optional.ofNullable(entityManager.find(entityClass, id));
     }
 }
