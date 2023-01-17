@@ -23,7 +23,7 @@ public class EmployeeForm {
     @Size(max = 20, message = "Login nie może zawierać więcej niż 20 znaków")
     private String login;
     private String password;
-    @NotEmpty
+    @NotEmpty(message = "Pracownik musi mieć przypisaną chociaż jedną rolę!")
     private List<Long> employeeRolesId;
 
     public Long getEmployeeId() {
