@@ -1,6 +1,6 @@
 package org.jetsoft.web.jssystemapp.vehicle.api;
 
-import org.jetsoft.web.jssystemapp.vehicle.application.VehiclePublicRowDto;
+import org.jetsoft.web.jssystemapp.vehicle.application.VehicleRowDto;
 import org.jetsoft.web.jssystemapp.vehicle.application.VehicleQueries;
 import org.jetsoft.web.jssystemapp.vehicle.application.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class VehicleListController {
     @GetMapping("/vehicleList")
     String listVehicles(Model model) {
 
-        List<VehiclePublicRowDto> vehicles = vehicleQueries.getVehiclePublicRowDtoListPaginated(0, 50);
+        List<VehicleRowDto> vehicles = vehicleQueries.getVehiclePublicRowDtoListPaginated(0, 50);
 
         model.addAttribute("vehicles", vehicles);
 

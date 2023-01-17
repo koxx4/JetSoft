@@ -2,7 +2,7 @@ package org.jetsoft.web.jssystemapp.vehicle.application;
 
 import java.time.LocalDate;
 
-public class VehiclePublicRowDto {
+public class VehicleRowDto {
 
     private Long vehicleId;
     private int vehicleTypeId;
@@ -11,12 +11,12 @@ public class VehiclePublicRowDto {
     private String friendlyName;
     private LocalDate rentDate;
 
-    public VehiclePublicRowDto(Long vehicleId,
-                               int vehicleTypeId,
-                               int vehicleModelId,
-                               LocalDate nextMaintenanceDate,
-                               String friendlyName,
-                               LocalDate rentDate) {
+    public VehicleRowDto(Long vehicleId,
+                         int vehicleTypeId,
+                         int vehicleModelId,
+                         LocalDate nextMaintenanceDate,
+                         String friendlyName,
+                         LocalDate rentDate) {
         this.vehicleId = vehicleId;
         this.vehicleTypeId = vehicleTypeId;
         this.vehicleModelId = vehicleModelId;
