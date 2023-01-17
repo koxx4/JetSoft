@@ -4,10 +4,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
 import org.jetsoft.web.jssystemapp.flight.domain.Route;
+import org.jetsoft.web.jssystemapp.location.application.CityAndNationalityQueries;
+import org.jetsoft.web.jssystemapp.location.application.NationalityAndCityDto;
 import org.jetsoft.web.jssystemapp.location.application.RouteFlatDto;
 import org.jetsoft.web.jssystemapp.location.application.RouteQueries;
-import org.jetsoft.web.jssystemapp.location.domain.City;
-import org.jetsoft.web.jssystemapp.location.domain.Nationality;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +19,13 @@ import java.util.Optional;
 @Service
 class JpaRouteQueries extends JpaQueries<Route> implements RouteQueries {
 
+    private final CityAndNationalityQueries cityAndNationalityQueries;
+
     @Autowired
-    protected JpaRouteQueries(EntityManager entityManager) {
+    JpaRouteQueries(EntityManager entityManager, CityAndNationalityQueries cityAndNationalityQueries) {
 
         super(entityManager, Route.class);
+        this.cityAndNationalityQueries = cityAndNationalityQueries;
     }
 
     @Override
@@ -48,18 +51,18 @@ class JpaRouteQueries extends JpaQueries<Route> implements RouteQueries {
 
     private RouteFlatDto toRouteFlatDto(Route route) {
 
-        City sourceCity = getById(City.class, route.getSourceCityId());
-        City destinationCity = getById(City.class, route.getDestinationCityId());
+        NationalityAndCityDto source = cityAndNationalityQueries
+                .getNationalityAndCityDtoByCityId(route.getSourceCityId());
 
-        Nationality sourceNationality = getById(Nationality.class, sourceCity.getNationalityId());
-        Nationality destinationNationality = getById(Nationality.class, destinationCity.getNationalityId());
+        NationalityAndCityDto destination = cityAndNationalityQueries
+                .getNationalityAndCityDtoByCityId(route.getDestinationCityId());
 
         return new RouteFlatDto(
                 route.getId(),
-                sourceNationality.getName(),
-                sourceCity.getName(),
-                destinationNationality.getName(),
-                destinationCity.getName()
+                source.nationalityName(),
+                source.cityName(),
+                destination.nationalityName(),
+                destination.cityName()
         );
     }
 }

@@ -11,6 +11,7 @@ public class FlightForm {
     private Long id;
     @NotNull
     private Long routeId;
+    @NotNull
     private Long vehicleId;
     private Long generatedFromScheduleId;
     private boolean active;

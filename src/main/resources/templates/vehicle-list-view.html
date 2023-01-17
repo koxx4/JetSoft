@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+  <h1>Lista pojazdów</h1>
+    <div>
+      <a href="/editVehicle">Dodaj nowy pojazd</a>
+    </div>
+  <table>
+    <tr>
+      <th>L.P.</th>
+      <th>Typ pojazdu</th>
+      <th>Model pojazdu</th>
+      <th>Przyjazna nazwa</th>
+      <th>Data wypożyczenia</th>
+      <th>Data następnego przeglądu</th>
+      <th>Akcje</th>
+    </tr>
+    <tr th:each="vehicleRowDto,iterStat : ${vehicles}">
+      <td th:text="${iterStat.count}"></td>
+      <td th:text="${vehicleRowDto.vehicleTypeId}"></td>
+      <td th:text="${vehicleRowDto.vehicleModelId}"></td>
+      <td th:text="${vehicleRowDto.friendlyName}"></td>
+      <td th:text="${vehicleRowDto.rentDate}"></td>
+      <td th:text="${vehicleRowDto.nextMaintenanceDate}"></td>
+      <td>
+        <a class="yellow-btn" th:href="@{/editVehicle(id=${vehicleRowDto.vehicleId})}">Modyfikuj pojazd</a>
+        <a class="red-btn">Usuń pojazd</a>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
