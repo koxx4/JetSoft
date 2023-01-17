@@ -79,7 +79,8 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
                 routeFlatDto.destinationCityName(),
                 routeFlatDto.sourceNationalityName(),
                 routeFlatDto.destinationNationalityName(),
-                flight.isActive()
+                flight.isActive(),
+                flight.getLastModificationDate()
         );
     }
 }

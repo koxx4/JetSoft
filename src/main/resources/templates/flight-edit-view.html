@@ -32,6 +32,7 @@
                         th:text="${fn} + ${vehicle.vehicleType} + ', ' + ${vehicle.vehicleModel}">
                 </option>
             </select>
+        </div>
 
         <div class="red-text-error" th:each="err : ${#fields.errors('routeId')}"
              th:text="${err}">
@@ -107,6 +108,7 @@
                  th:text="${err}"></div>
         </div>
 
+        <input type="hidden" th:field="*{id}">
         <input type="submit" value="Zapisz" class="green-btn">
     </form>
 </body>

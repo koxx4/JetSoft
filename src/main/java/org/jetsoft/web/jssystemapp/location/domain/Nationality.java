@@ -1,11 +1,11 @@
 package org.jetsoft.web.jssystemapp.location.domain;
 
 import jakarta.persistence.*;
-import org.jetsoft.web.jssystemapp.core.AbstractEntity;
+import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
 
 @Entity
 @Table(schema = "data")
-public class Nationality extends AbstractEntity {
+public class Nationality extends AbstractEntityWithGeneratedId {
 
     private String name;
 

@@ -15,6 +15,7 @@ public class FlightEmployeeRowDto {
     private final String sourceNationality;
     private final String destinationNationality;
     private final boolean active;
+    private final LocalDateTime lastModificationDate;
 
     public FlightEmployeeRowDto(
             Long flightId,
@@ -26,7 +27,8 @@ public class FlightEmployeeRowDto {
             String destinationCity,
             String sourceNationality,
             String destinationNationality,
-            boolean active) {
+            boolean active,
+            LocalDateTime lastModificationDate) {
 
         this.flightId = flightId;
         this.flightNumber = flightNumber;
@@ -38,6 +40,7 @@ public class FlightEmployeeRowDto {
         this.sourceNationality = sourceNationality;
         this.destinationNationality = destinationNationality;
         this.active = active;
+        this.lastModificationDate = lastModificationDate;
     }
 
     public String getFlightNumber() {
@@ -54,6 +57,10 @@ public class FlightEmployeeRowDto {
 
     public String getPlannedArrival() {
         return DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm").format(plannedArrival);
+    }
+
+    public String getLastModificationDate() {
+        return DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm").format(lastModificationDate);
     }
 
     public String getSourceCity() {
