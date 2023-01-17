@@ -51,8 +51,47 @@
                  th:text="${err}"></div>
         </div>
 
-        <input type="submit" value="Zapisz" class="green-btn">
+        <div th:classappend="${#fields.hasErrors('availablePassengersSeats')}? form-field-error">
+            <label for="f-available-passengers-seats" class="form-label">Dostępna ilość miejsc</label>
+            <br>
+            <input type="number"
+                   th:field="*{availablePassengersSeats}"
+                   id="f-available-passengers-seats"/>
+            <div class="red-text-error" th:each="err : ${#fields.errors('availablePassengersSeats')}"
+                 th:text="${err}"></div>
+        </div>
 
+        <div th:classappend="${#fields.hasErrors('minPilotCount')}? form-field-error">
+            <label for="f-min-pilot-count" class="form-label">Minimalna ilość pilotów</label>
+            <br>
+            <input type="number"
+                   th:field="*{minPilotCount}"
+                   id="f-min-pilot-count"/>
+            <div class="red-text-error" th:each="err : ${#fields.errors('minPilotCount')}"
+                 th:text="${err}"></div>
+        </div>
+
+        <div th:classappend="${#fields.hasErrors('confidential')}? form-field-error">
+            <label for="f-confidential" class="form-label">Czy lot jest poufny?</label>
+            <br>
+            <input type="checkbox"
+                   th:field="*{confidential}"
+                   id="f-confidential"/>
+            <div class="red-text-error" th:each="err : ${#fields.errors('confidential')}"
+                 th:text="${err}"></div>
+        </div>
+
+        <div th:classappend="${#fields.hasErrors('archival')}? form-field-error">
+            <label for="f-archival" class="form-label">Czy lot jest archiwalny?</label>
+            <br>
+            <input type="checkbox"
+                   th:field="*{archival}"
+                   id="f-archival"/>
+            <div class="red-text-error" th:each="err : ${#fields.errors('archival')}"
+                 th:text="${err}"></div>
+        </div>
+
+        <input type="submit" value="Zapisz" class="green-btn">
     </form>
 </body>
 </html>

@@ -10,9 +10,11 @@
 <div>
     <a href="/editFlight">Dodaj nowy lot</a>
 </div>
+<span th:if="${deleted}">Lot pomyślnie usunięty!</span>
 <table>
     <tr>
         <th>L.P.</th>
+        <th>Aktywny?</th>
         <th>Kod lotu</th>
         <th>Z</th>
         <th>Do</th>
@@ -23,6 +25,7 @@
     </tr>
     <tr th:each="flightRowDto,iterStat : ${flights}">
         <td th:text="${iterStat.count}"></td>
+        <td th:text="${flightRowDto.active}? 'TAK' : 'NIE'"></td>
         <td th:text="${flightRowDto.flightNumber}"></td>
         <td th:text="${flightRowDto.sourceCity} + ', ' + ${flightRowDto.sourceNationality}"></td>
         <td th:text="${flightRowDto.destinationCity} + ', ' + ${flightRowDto.destinationNationality}"></td>
@@ -31,7 +34,10 @@
         <td th:text="${flightRowDto.availablePassengersSeats}"></td>
         <td>
             <a class="yellow-btn" th:href="@{/editFlight(id=${flightRowDto.flightId})}">Modyfikuj lot</a>
-            <a class="red-btn">Usuń lot</a>
+            <form th:method="delete" th:action="@{/deleteFlight}">
+                <input type="hidden" class="red-btn" name="deleteId"  th:value="${flightRowDto.flightId}">
+                <input type="submit" class="red-btn" value="Usuń lot">
+            </form>
         </td>
     </tr>
 </table>

@@ -3,7 +3,7 @@ package org.jetsoft.web.jssystemapp.flight.infrastructure;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
-import org.jetsoft.web.jssystemapp.flight.application.FlightPublicRowDto;
+import org.jetsoft.web.jssystemapp.flight.application.FlightEmployeeRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightQueries;
 import org.jetsoft.web.jssystemapp.flight.domain.Flight;
 import org.jetsoft.web.jssystemapp.location.application.RouteFlatDto;
@@ -31,7 +31,7 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
 
     @Override
     @Transactional(readOnly = true)
-    public FlightPublicRowDto getFlightPublicRowDtoByFlightId(Long id) {
+    public FlightEmployeeRowDto getFlightPublicRowDtoByFlightId(Long id) {
 
         Assert.notNull(id, "id must not be null");
 
@@ -49,7 +49,7 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
 
     @Override
     @Transactional(readOnly = true)
-    public List<FlightPublicRowDto> getFlightPublicRowDtoListPaginated(int page, int pageSize) {
+    public List<FlightEmployeeRowDto> getFlightPublicRowDtoListPaginated(int page, int pageSize) {
 
         return getAllPaginated(page, pageSize).stream()
                 .map(flight -> {
@@ -67,9 +67,9 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
         return super.exists(id);
     }
 
-    private FlightPublicRowDto toFlightPublicRowDto(Flight flight, RouteFlatDto routeFlatDto) {
+    private FlightEmployeeRowDto toFlightPublicRowDto(Flight flight, RouteFlatDto routeFlatDto) {
 
-        return new FlightPublicRowDto(
+        return new FlightEmployeeRowDto(
                 flight.getId(),
                 flight.getFlightNumber(),
                 flight.getAvailablePassengersSeats(),
@@ -78,7 +78,8 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
                 routeFlatDto.getSourceCityName(),
                 routeFlatDto.getDestinationCityName(),
                 routeFlatDto.getSourceNationalityName(),
-                routeFlatDto.getDestinationNationalityName()
+                routeFlatDto.getDestinationNationalityName(),
+                flight.isActive()
         );
     }
 }
