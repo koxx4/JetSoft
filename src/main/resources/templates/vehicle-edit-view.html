@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a class="blue-btn" href="/vehicleList"><-- Powrót do listy pojazdów</a>
+    <form method="post" th:action="@{addVehicle}" th:object="${vehicleForm}">
+        <div>
+            <label for="v-vehicle" class="form-label">Typ pojazdu:</label>
+            <br>
+            <select id="v-vehicle" th:field="*{vehicleTypeId}">
+                <option th:each="vehicle : ${vehicleModelList}"
+                        th:value="${vehicle.vehicleId()}"
+                        th:text="${vehicle.vehicleType()}"></option>
+            </select>
+        </div>
+    </form>
+</body>
+</html>

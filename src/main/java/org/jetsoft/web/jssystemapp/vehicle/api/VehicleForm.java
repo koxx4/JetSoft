@@ -6,8 +6,8 @@ import java.time.LocalDate;
 public class VehicleForm{
 
     private Long id;
-    private int vehicleTypeId;
-    private int vehicleModelId;
+    private Long vehicleTypeId;
+    private Long vehicleModelId;
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private LocalDate nextMaintenanceDate;
     private String friendlyName;
@@ -22,19 +22,19 @@ public class VehicleForm{
         this.id = id;
     }
 
-    public int getVehicleTypeId() {
+    public Long getVehicleTypeId() {
         return vehicleTypeId;
     }
 
-    public void setVehicleTypeId(int vehicleTypeId) {
+    public void setVehicleTypeId(Long vehicleTypeId) {
         this.vehicleTypeId = vehicleTypeId;
     }
 
-    public int getVehicleModelId() {
+    public Long getVehicleModelId() {
         return vehicleModelId;
     }
 
-    public void setVehicleModelId(int vehicleModelId) {
+    public void setVehicleModelId(Long vehicleModelId) {
         this.vehicleModelId = vehicleModelId;
     }
 
