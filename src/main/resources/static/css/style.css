@@ -16,6 +16,8 @@ td {
 
 .form-field-error {
     background-color: rgba(200, 0, 0, 0.3);
+    margin: 0.2em;
+    font-weight: bold;
 }
 
 .blue-btn {

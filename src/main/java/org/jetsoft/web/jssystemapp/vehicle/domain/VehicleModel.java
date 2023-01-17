@@ -4,12 +4,12 @@ import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import org.jetsoft.web.jssystemapp.core.AbstractEntity;
+import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
 
 @Entity
 @Table(schema = "data")
 @Access(AccessType.FIELD)
-public class VehicleModel extends AbstractEntity {
+public class VehicleModel extends AbstractEntityWithGeneratedId {
 
     private int manufacturerId;
     private String manufactureCode;

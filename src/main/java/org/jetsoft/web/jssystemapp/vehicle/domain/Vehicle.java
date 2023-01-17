@@ -4,14 +4,14 @@ import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import org.jetsoft.web.jssystemapp.core.AbstractEntity;
+import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(schema = "data")
 @Access(AccessType.FIELD)
-public class Vehicle extends AbstractEntity {
+public class Vehicle extends AbstractEntityWithGeneratedId {
 
     private Long vehicleTypeId;
     private Long vehicleModelId;

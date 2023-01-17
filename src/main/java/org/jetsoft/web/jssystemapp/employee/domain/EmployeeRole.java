@@ -1,12 +1,12 @@
 package org.jetsoft.web.jssystemapp.employee.domain;
 
 import jakarta.persistence.*;
-import org.jetsoft.web.jssystemapp.core.AbstractEntity;
+import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
 
 @Entity
 @Table(schema = "ppd")
 @Access(AccessType.FIELD)
-public class EmployeeRole extends AbstractEntity {
+public class EmployeeRole extends AbstractEntityWithGeneratedId {
 
     private String role;
 

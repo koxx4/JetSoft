@@ -41,7 +41,7 @@ class FlightListController {
     }
 
     @InitBinder
-    public void initBinder(WebDataBinder binder) {
+    void initBinder(WebDataBinder binder) {
         binder.addValidators(flightFormValidator);
     }
 

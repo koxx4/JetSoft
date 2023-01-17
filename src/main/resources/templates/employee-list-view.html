@@ -9,11 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Lista lotów</h1>
+<h1>Lista pracowników</h1>
 <div>
-    <a href="/editFlight">Dodaj nowy lot</a>
+    <a href="/editEmployee">Dodaj nowego pracownika</a>
 </div>
-<span th:if="${deleted}">Lot pomyślnie usunięty!</span>
+<h3 th:text="'Obecna liczba pracowników to: ' + ${#lists.size(employeeList)}"></h3>
 <table>
     <tr>
         <th>L.P.</th>

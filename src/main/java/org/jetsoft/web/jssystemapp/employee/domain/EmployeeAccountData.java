@@ -1,14 +1,14 @@
 package org.jetsoft.web.jssystemapp.employee.domain;
 
 import jakarta.persistence.*;
-import org.jetsoft.web.jssystemapp.core.AbstractEntity;
+import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
 
 import java.util.List;
 
 @Entity
 @Access(AccessType.FIELD)
 @Table(schema = "ppd")
-public class EmployeeAccountData extends AbstractEntity {
+public class EmployeeAccountData extends AbstractEntityWithGeneratedId {
 
     private String login;
     private String password;
@@ -19,7 +19,7 @@ public class EmployeeAccountData extends AbstractEntity {
             joinColumns = @JoinColumn(name = "employee_account_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    @OneToMany
+    @OneToMany(cascade = CascadeType.MERGE)
     private List<EmployeeRole> employeeRole;
 
     public EmployeeAccountData(String login, String password) {

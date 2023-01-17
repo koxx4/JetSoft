@@ -1,24 +1,24 @@
 package org.jetsoft.web.jssystemapp.employee.domain;
 
-import jakarta.persistence.Access;
-import jakarta.persistence.AccessType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import org.jetsoft.web.jssystemapp.core.AbstractEntity;
+import jakarta.persistence.*;
+import org.jetsoft.web.jssystemapp.core.JpaEntity;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(schema = "ppd")
 @Access(AccessType.FIELD)
-public class Employee extends AbstractEntity {
+public class Employee implements JpaEntity {
 
+    @Id
+    private Long id;
     private String firstName;
     private String lastName;
     private LocalDate employmentDate;
 
-    public Employee(String firstName, String lastName, LocalDate employmentDate) {
+    public Employee(Long id, String firstName, String lastName, LocalDate employmentDate) {
 
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.employmentDate = employmentDate;
@@ -48,5 +48,15 @@ public class Employee extends AbstractEntity {
 
     public void setEmploymentDate(LocalDate employmentDate) {
         this.employmentDate = employmentDate;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 }

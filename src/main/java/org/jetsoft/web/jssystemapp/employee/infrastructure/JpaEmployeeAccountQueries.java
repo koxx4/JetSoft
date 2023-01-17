@@ -39,7 +39,6 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
 
         criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), id));
 
-
         return getEntityManager().createQuery(criteriaQuery).getSingleResult().getId();
     }
 
@@ -50,6 +49,16 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
                 .map(EmployeeAccountData::getEmployeeRole)
                 .orElseThrow(EntityNotFoundException::new).stream()
                 .map(EmployeeRole::getRole)
+                .toList();
+    }
+
+    @Override
+    public List<Long> getEmployeeRoleIdListByAccountId(Long id) {
+
+        return findById(id)
+                .map(EmployeeAccountData::getEmployeeRole)
+                .orElseThrow(EntityNotFoundException::new).stream()
+                .map(EmployeeRole::getId)
                 .toList();
     }
 }

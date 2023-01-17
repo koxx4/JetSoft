@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class JpaQueries<T extends AbstractEntity> {
+public abstract class JpaQueries<T extends JpaEntity> {
 
     private final EntityManager entityManager;
     private final Class<T> entityClass;
@@ -57,7 +57,7 @@ public abstract class JpaQueries<T extends AbstractEntity> {
         return Optional.ofNullable(entityManager.find(entityClass, id));
     }
 
-    protected <E extends AbstractEntity> Optional<E> findById(Class<E> clazz, Long id) {
+    protected <E extends AbstractEntityWithGeneratedId> Optional<E> findById(Class<E> clazz, Long id) {
 
         return Optional.ofNullable(entityManager.find(clazz, id));
     }
@@ -68,7 +68,7 @@ public abstract class JpaQueries<T extends AbstractEntity> {
         return entityManager.find(entityClass, id);
     }
 
-    protected <E extends AbstractEntity> E getById(Class<E> clazz, Long id) {
+    protected <E extends AbstractEntityWithGeneratedId> E getById(Class<E> clazz, Long id) {
 
         return entityManager.find(clazz, id);
     }
