@@ -9,30 +9,36 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
 
+import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityConfig.HEAD_MANAGER_ROLE;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @Profile("prod")
-class SecurityConfiguration {
+class HttpSecurityConfiguration {
 
-    private static final List<String> securedEndpoints = List.of(
-            "/secured-example-endpoint"
-    );
+    private final CommonSecurityConfig commonSecurityConfig;
+
+    HttpSecurityConfiguration(CommonSecurityConfig commonSecurityConfig) {
+
+        this.commonSecurityConfig = commonSecurityConfig;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(SecurityConfiguration::authorizeCommonEndpoints)
+        http.authorizeHttpRequests(this::authorizeCommonEndpoints)
                 .httpBasic(withDefaults());
+
+        http.formLogin();
 
         return http.build();
     }
 
-    private static void authorizeCommonEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth) {
+    private void authorizeCommonEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth) {
 
-        //Oprócz tych
         auth
-                .requestMatchers(securedEndpoints.toArray(String[]::new)).authenticated()
+                .requestMatchers(commonSecurityConfig.otherEndpointsRequiringAuthorization()).authenticated()
+                .requestMatchers(commonSecurityConfig.employeeEndpoints()).hasRole(HEAD_MANAGER_ROLE)
                 .anyRequest().permitAll();
     }
 }
