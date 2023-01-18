@@ -14,7 +14,21 @@
     <a href="/editEmployee">Dodaj nowego pracownika</a>
 </div>
 <h3 th:text="'Obecna liczba pracowników to: ' + ${#lists.size(employeeList)}"></h3>
-<table>
+<h4>Filtruj pracowników</h4>
+<form th:method="get" th:action="@{/employeeList}" th:object="${employeeFilterForm}">
+    <label> Imię:
+        <input type="text" th:field="*{firstName}"/>
+    </label>
+    <label>
+        Nazwisko:
+        <input type="text" th:field="*{lastName}"/>
+    </label>
+    <input type="submit" class="green-btn" value="Szukaj">
+</form>
+<h3 th:if="${#lists.isEmpty(employeeList)}">
+    Nie znaleziono żadnych pracowników!
+</h3>
+<table th:unless="${#lists.isEmpty(employeeList)}">
     <tr>
         <th>L.P.</th>
         <th>ID</th>
