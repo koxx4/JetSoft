@@ -1,5 +1,6 @@
 package org.jetsoft.web.jssystemapp.employee.application;
 
+import org.jetsoft.web.jssystemapp.employee.api.EmployeeFilterForm;
 import org.jetsoft.web.jssystemapp.employee.api.EmployeeForm;
 import org.jetsoft.web.jssystemapp.employee.domain.Employee;
 import org.jetsoft.web.jssystemapp.employee.domain.EmployeeAccountData;
@@ -18,20 +19,28 @@ public class EmployeeService {
     private final EmployeeAccountRepository employeeAccountRepository;
     private final EmployeeRoleRepository employeeRoleRepository;
     private final EmployeeAccountQueries employeeAccountQueries;
-    private final EmployeeRoleQueries employeeRoleQueries;
+    private final EmployeeQueries employeeQueries;
 
     @Autowired
     EmployeeService(EmployeeRepository employeeRepository,
                     EmployeeAccountRepository employeeAccountRepository,
                     EmployeeRoleRepository employeeRoleRepository,
                     EmployeeAccountQueries employeeAccountQueries,
-                    EmployeeRoleQueries employeeRoleQueries) {
+                    EmployeeQueries employeeQueries) {
 
         this.employeeRepository = employeeRepository;
         this.employeeAccountRepository = employeeAccountRepository;
         this.employeeRoleRepository = employeeRoleRepository;
         this.employeeAccountQueries = employeeAccountQueries;
-        this.employeeRoleQueries = employeeRoleQueries;
+        this.employeeQueries = employeeQueries;
+    }
+
+    public List<EmployeeBasicInfoDto> getEmployeeBasicInfoDtoListFiltered(EmployeeFilterForm filterForm) {
+
+        return employeeQueries.getEmployeeBasicInfoDtoList().stream()
+                .filter(employee -> filterEmployeeByFirstName(employee, filterForm.getFirstName()))
+                .filter(employee -> filterEmployeeByLastName(employee, filterForm.getLastName()))
+                .toList();
     }
 
     public void saveEmployeeFromForm(EmployeeForm form) {
@@ -109,5 +118,23 @@ public class EmployeeService {
         form.setEmployeeRolesId(roleIdList);
 
         return form;
+    }
+
+    private boolean filterEmployeeByFirstName(EmployeeBasicInfoDto employee, String firstName) {
+
+        if (isEmpty(firstName)) {
+            return true;
+        }
+
+        return employee.firstName().startsWith(firstName);
+    }
+
+    private boolean filterEmployeeByLastName(EmployeeBasicInfoDto employee, String lastName) {
+
+        if (isEmpty(lastName)) {
+            return true;
+        }
+
+        return employee.lastName().startsWith(lastName);
     }
 }
