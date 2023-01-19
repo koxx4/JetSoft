@@ -6,4 +6,5 @@ public interface RouteQueries {
 
     RouteFlatDto getRouteFlatDtoByRouteId(Long id);
     List<RouteFlatDto> getRouteFlatDtoList();
+    Long getRouteDistanceByRouteId(Long id);
 }

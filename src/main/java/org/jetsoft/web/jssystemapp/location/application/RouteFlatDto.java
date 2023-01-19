@@ -5,4 +5,6 @@ public record RouteFlatDto(
         String sourceNationalityName,
         String sourceCityName,
         String destinationNationalityName,
-        String destinationCityName) {}
+        String destinationCityName,
+        Long distance
+) {}
