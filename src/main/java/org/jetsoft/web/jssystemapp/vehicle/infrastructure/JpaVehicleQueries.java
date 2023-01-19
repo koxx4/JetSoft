@@ -119,16 +119,23 @@ public class JpaVehicleQueries extends JpaQueries<Vehicle> implements VehicleQue
 
         String vehicleTypeName = getTypeNameByTypeId(vehicle.getVehicleTypeId());
         String vehicleModelName = getModelNameByModelId(vehicle.getVehicleModelId());
+        int vehicleMaxPassengerCount = getMaxPassengerCount(vehicle.getVehicleModelId());
+        int vehicleMaxPilotCount = getMaxPilotCount(vehicle.getVehicleModelId());
+        int vehicleMaxDistance = getMaxDistance(vehicle.getVehicleModelId());
 
         return new VehicleInFlightFormDto(
                 vehicle.getId(),
                 vehicleTypeName,
                 vehicleModelName,
-                vehicle.getFriendlyName()
+                vehicle.getFriendlyName(),
+                vehicleMaxPassengerCount,
+                vehicleMaxPilotCount,
+                vehicleMaxDistance
         );
     }
 
     private VehicleModelInVehicleFormDto toVehicleModelInVehicleFormDto(Vehicle vehicle) {
+
         String vehicleTypeName = getTypeNameByTypeId(vehicle.getVehicleTypeId());
         String vehicleModelName = getModelNameByModelId(vehicle.getVehicleModelId());
         int vehicleMaxPassengerCount = getMaxPassengerCount(vehicle.getVehicleModelId());

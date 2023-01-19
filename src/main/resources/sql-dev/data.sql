@@ -123,10 +123,10 @@ insert into ppd.pilot (nationality_id, pilot_status_id, license_number, hours_fl
 insert into ppd.pilot (nationality_id, pilot_status_id, license_number, hours_flown) values (7, 1, '1GYFK63807R460901', 4109);
 
 -- employee_role
-insert into ppd.employee_role (id, role) values (1, 'HEAD_MANAGER');
-insert into ppd.employee_role (id, role) values (2, 'MANAGER');
-insert into ppd.employee_role (id, role) values (3, 'PILOT');
-insert into ppd.employee_role (id, role) values (4, 'ADMINISTRATOR');
+insert into ppd.employee_role (id, role) values (1, 'ROLE_HEAD_MANAGER');
+insert into ppd.employee_role (id, role) values (2, 'ROLE_MANAGER');
+insert into ppd.employee_role (id, role) values (3, 'ROLE_PILOT');
+insert into ppd.employee_role (id, role) values (4, 'ROLE_ADMINISTRATOR');
 
 insert into ppd.role_to_employee (role_id, employee_account_id, assigned_date) values (3, 1, '2022-12-14 17:54:25+01');
 insert into ppd.role_to_employee (role_id, employee_account_id, assigned_date) values (3, 2, '2022-12-14 17:54:25+01');

@@ -7,6 +7,9 @@ import org.jetsoft.web.jssystemapp.core.JpaQueries;
 import org.jetsoft.web.jssystemapp.employee.application.EmployeeAccountQueries;
 import org.jetsoft.web.jssystemapp.employee.domain.EmployeeAccountData;
 import org.jetsoft.web.jssystemapp.employee.domain.EmployeeRole;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,5 +63,24 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
                 .orElseThrow(EntityNotFoundException::new).stream()
                 .map(EmployeeRole::getId)
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public UserDetails getUserDetailsForAuthenticationByLogin(String login) {
+
+        var criteriaBuilder = getCriteriaBuilder();
+        var criteriaQuery = getCriteriaQuery(criteriaBuilder);
+        Root<EmployeeAccountData> root = criteriaQuery.from(EmployeeAccountData.class);
+
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"), login));
+
+        EmployeeAccountData accountData = getEntityManager().createQuery(criteriaQuery).getSingleResult();
+
+        List<SimpleGrantedAuthority> authorityList = accountData.getEmployeeRole().stream()
+                .map(employeeRole -> new SimpleGrantedAuthority(employeeRole.getRole()))
+                .toList();
+
+        return new User(accountData.getLogin(), accountData.getPassword(), authorityList);
     }
 }

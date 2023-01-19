@@ -18,7 +18,10 @@
             <select id="f-flight-route" th:field="*{routeId}">
                 <option th:each="route : ${routeList}"
                         th:value="${route.routeId}"
-                        th:text="${route.sourceCityName} + ', ' + ${route.sourceNationalityName} + ' --> ' + ${route.destinationCityName} + ', ' + ${route.destinationNationalityName}"></option>
+                        th:text="${route.sourceCityName} + ', '
+                         + ${route.sourceNationalityName} + ' --> '
+                         + ${route.destinationCityName} + ', '
+                         + ${route.destinationNationalityName} + ', dystans ' + ${route.distance} + ' km'"></option>
             </select>
         </div>
 
@@ -29,7 +32,9 @@
                 <option th:each="vehicle : ${vehicleList}"
                         th:value="${vehicle.vehicleId}"
                         th:with="fn=${not #strings.isEmpty(vehicle.friendlyName)}? '&quot;' + ${vehicle.friendlyName} + '&quot;, ' : '' "
-                        th:text="${fn} + ${vehicle.vehicleType} + ', ' + ${vehicle.vehicleModel}">
+                        th:text="${fn} + ${vehicle.vehicleType}
+                        + ', ' + ${vehicle.vehicleModel}
+                        + ', max. dyst.: ' + ${vehicle.maxDistance} + 'km | max. pas.: ' + ${vehicle.maxPassengers} + ' | max. pilotów: ' + ${vehicle.maxPilots}">
                 </option>
             </select>
         </div>
