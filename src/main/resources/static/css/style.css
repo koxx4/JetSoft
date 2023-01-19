@@ -1,18 +1,8 @@
-table,
-table td {
-    border: 2px solid #cccccc;
-}
-
 body {
     font-family: 'Domine', serif;
 }
 
-td {
-    height: 80px;
-    width: 160px;
-    text-align: center;
-    vertical-align: middle;
-}
+
 
 .form-field-error {
     background-color: rgba(200, 0, 0, 0.3);
@@ -88,20 +78,13 @@ td {
     font-style: italic;
 }
 
-input {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-}
 
-select {
-    width: 910%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-}
-
-input[type=text]:focus {
-    background-color: lightblue;
+/* Indigo Light scheme (Default) */
+/* Can be forced with data-theme="light" */
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+    --primary: #3949ab;
+    --primary-hover: #303f9f;
+    --primary-focus: rgba(57, 73, 171, 0.125);
+    --primary-inverse: #FFF;
 }

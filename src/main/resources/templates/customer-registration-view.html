@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form method="post" th:action="@{/customer/registration/create}" th:object="${registrationForm}">
+    <form method="post" th:action="@{/registration/customer/create}" th:object="${registrationForm}">
 
         <div th:classappend="${#fields.hasErrors('firstName')}? form-field-error">
             <label>

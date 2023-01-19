@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implements EmployeeAccountQueries {
@@ -67,7 +68,7 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
 
     @Override
     @Transactional
-    public UserDetails getUserDetailsForAuthenticationByLogin(String login) {
+    public Optional<UserDetails> getUserDetailsForAuthenticationByLogin(String login) {
 
         var criteriaBuilder = getCriteriaBuilder();
         var criteriaQuery = getCriteriaQuery(criteriaBuilder);
@@ -75,12 +76,19 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
 
         criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"), login));
 
-        EmployeeAccountData accountData = getEntityManager().createQuery(criteriaQuery).getSingleResult();
+        try {
 
-        List<SimpleGrantedAuthority> authorityList = accountData.getEmployeeRole().stream()
-                .map(employeeRole -> new SimpleGrantedAuthority(employeeRole.getRole()))
-                .toList();
+            EmployeeAccountData accountData = getEntityManager().createQuery(criteriaQuery).getSingleResult();
 
-        return new User(accountData.getLogin(), accountData.getPassword(), authorityList);
+            List<SimpleGrantedAuthority> authorityList = accountData.getEmployeeRole().stream()
+                    .map(employeeRole -> new SimpleGrantedAuthority(employeeRole.getRole()))
+                    .toList();
+
+            return Optional.of(new User(accountData.getLogin(), accountData.getPassword(), authorityList));
+
+        } catch (Exception exception) {
+
+            return Optional.empty();
+        }
     }
 }
