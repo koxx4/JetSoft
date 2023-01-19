@@ -2,7 +2,10 @@ package org.jetsoft.web.jssystemapp.flight.infrastructure;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.Root;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
+import org.jetsoft.web.jssystemapp.employee.domain.EmployeeAccountData;
+import org.jetsoft.web.jssystemapp.flight.application.FlightCustomerRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightEmployeeRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightQueries;
 import org.jetsoft.web.jssystemapp.flight.domain.Flight;
@@ -31,7 +34,7 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
 
     @Override
     @Transactional(readOnly = true)
-    public FlightEmployeeRowDto getFlightPublicRowDtoByFlightId(Long id) {
+    public FlightEmployeeRowDto getFlightEmployeeRowDtoByFlightId(Long id) {
 
         Assert.notNull(id, "id must not be null");
 
@@ -49,7 +52,7 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
 
     @Override
     @Transactional(readOnly = true)
-    public List<FlightEmployeeRowDto> getFlightPublicRowDtoListPaginated(int page, int pageSize) {
+    public List<FlightEmployeeRowDto> getFlightEmployeeRowDtoListPaginated(int page, int pageSize) {
 
         return getAllPaginated(page, pageSize).stream()
                 .map(flight -> {
@@ -65,6 +68,32 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
     public boolean exists(Long id) {
 
         return super.exists(id);
+    }
+
+    @Override
+    public List<FlightCustomerRowDto> getFlightsForCustomersPaginated(int page, int i) {
+
+        return getAllPaginated(page, i).stream()
+                .filter(Flight::isVisibleForCustomers)
+                .map(this::toFlightCustomerRowDto)
+                .toList();
+    }
+
+    private FlightCustomerRowDto toFlightCustomerRowDto(Flight flight) {
+
+        var routeFlatDto = routeQueries.getRouteFlatDtoByRouteId(flight.getRouteId());
+
+        return new FlightCustomerRowDto(
+                flight.getId(),
+                flight.getFlightNumber(),
+                Long.valueOf(flight.getAvailablePassengersSeats()),
+                flight.getPlannedDeparture(),
+                flight.getPlannedArrival(),
+                routeFlatDto.sourceCityName(),
+                routeFlatDto.destinationCityName(),
+                routeFlatDto.sourceNationalityName(),
+                routeFlatDto.destinationNationalityName()
+        );
     }
 
     private FlightEmployeeRowDto toFlightPublicRowDto(Flight flight, RouteFlatDto routeFlatDto) {

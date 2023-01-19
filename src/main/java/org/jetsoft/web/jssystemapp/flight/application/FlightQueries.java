@@ -4,7 +4,8 @@ import java.util.List;
 
 public interface FlightQueries {
 
-    FlightEmployeeRowDto getFlightPublicRowDtoByFlightId(Long id);
-    List<FlightEmployeeRowDto> getFlightPublicRowDtoListPaginated(int page, int pageSize);
+    FlightEmployeeRowDto getFlightEmployeeRowDtoByFlightId(Long id);
+    List<FlightEmployeeRowDto> getFlightEmployeeRowDtoListPaginated(int page, int pageSize);
     boolean exists(Long id);
+    List<FlightCustomerRowDto> getFlightsForCustomersPaginated(int page, int i);
 }

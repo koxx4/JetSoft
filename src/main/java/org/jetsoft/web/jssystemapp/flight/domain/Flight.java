@@ -98,6 +98,11 @@ public class Flight extends AbstractEntityWithGeneratedId {
         return confidential;
     }
 
+    public boolean isVisibleForCustomers() {
+
+        return !isConfidential() && isActive() && !isArchival();
+    }
+
     public boolean isArchival() {
         return archival;
     }

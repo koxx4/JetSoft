@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zarejestruj się</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form method="post" th:action="@{/customer/registration/create}" th:object="${registrationForm}">
+
+        <div th:classappend="${#fields.hasErrors('firstName')}? form-field-error">
+            <label>
+                Imię:
+                <input type="text" th:field="*{firstName}"/>
+                <div class="red-text-error" th:each="err : ${#fields.errors('firstName')}" th:text="${err}"></div>
+            </label>
+        </div>
+
+        <div th:classappend="${#fields.hasErrors('lastName')}? form-field-error">
+            <label>
+                Nazwisko:
+                <input type="text" th:field="*{lastName}"/>
+                <div class="red-text-error" th:each="err : ${#fields.errors('lastName')}" th:text="${err}"></div>
+            </label>
+        </div>
+
+        <div th:classappend="${#fields.hasErrors('email')}? form-field-error">
+            <label>
+                Email:
+                <input type="email" th:field="*{email}"/>
+                <div class="red-text-error" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
+            </label>
+        </div>
+
+        <div th:classappend="${#fields.hasErrors('password')}? form-field-error">
+            <label>
+                Hasło:
+                <input type="password" th:field="*{password}"/>
+                <div class="red-text-error" th:each="err : ${#fields.errors('password')}" th:text="${err}"></div>
+            </label>
+        </div>
+
+        <div th:classappend="${#fields.hasErrors('phone')}? form-field-error">
+            <label>
+                Numer telefonu:
+                <input type="text" th:field="*{phone}"/>
+                <div class="red-text-error" th:each="err : ${#fields.errors('phone')}" th:text="${err}"></div>
+            </label>
+        </div>
+        <br>
+        <input class="green-btn" type="submit" value="Zarejestruj się">
+    </form>
+</body>
+</html>
