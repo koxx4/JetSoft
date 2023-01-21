@@ -6,5 +6,6 @@ public interface EmployeeQueries {
 
     EmployeeBasicInfoDto getEmployeeBasicInfoDto(Long id);
     List<EmployeeBasicInfoDto> getEmployeeBasicInfoDtoList();
+    EmployeeFirstAndLastNameDto getEmployeeFirstAndLastNameDto(Long id);
     boolean employeeExists(Long id);
 }

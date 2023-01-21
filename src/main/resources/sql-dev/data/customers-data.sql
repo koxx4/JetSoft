@@ -1,0 +1,18 @@
+-- customers
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Iolande', 'Cicchitello', 'AcRnktrJ4', 'tcolqueran1@narod.ru', '896-957-1755', '2022-10-14T06:27:53Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Tedi', 'Colqueran', 'Bf7VK6bp', 'tcolqueran2@narod.ru', '772-537-2730', '2022-11-30T00:16:35Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Philis', 'Plampeyn', 'tKva6o7q', 'pplampeyn2@businessweek.com', '170-305-3261', '2022-10-17T16:21:15Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Tobe', 'Allin', 'TbmYq1', 'tallin3@pinterest.com', '792-844-4718', '2022-11-10T08:33:52Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Earl', 'Duignan', 'yap45d', 'eduignan4@discovery.com', '103-239-1001', '2022-11-17T23:17:23Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Lucila', 'Gillingwater', 'WVQNoeGGb41', 'lgillingwater5@dagondesign.com', '169-535-6074', '2022-11-10T03:20:36Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Tome', 'Frame', 'xaNyWu', 'tframe6@merriam-webster.com', '954-412-5906', '2022-09-15T14:19:17Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Jenna', 'Semrad', 'fTSNmyinS', 'jsemrad7@newsvine.com', '729-732-2920', '2022-11-22T12:44:28Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Brunhilda', 'Garnsworth', '7Xmwyj', 'bgarnsworth8@bing.com', '858-385-0085', '2022-10-17T03:03:57Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Rayna', 'Sherbourne', 'WW2y1WASP', 'rsherbourne9@huffingtonpost.com', '862-309-8120', '2022-09-22T10:56:59Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Devlen', 'Cliff', 'WcvSj3', 'dcliffa@dailymotion.com', '332-171-4915', '2022-09-15T06:40:59Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Trevor', 'Ort', 'wWi5w5M', 'tortb@oakley.com', '300-114-7239', '2022-11-22T08:02:52Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Millisent', 'Marfield', 'JFdhrJC6aC', 'mmarfieldc@amazon.co.uk', '256-472-0519', '2022-11-04T05:22:33Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Olympe', 'Killick', 'AAqENsX8Ptue', 'okillickd@adobe.com', '933-178-3342', '2022-11-27T22:40:10Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Hedvig', 'Frankcombe', 'lSAFcUbeF', 'hfrankcombee@hao123.com', '144-517-7160', '2022-09-19T11:55:20Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Moll', 'Briton', 'PcsDBiNdt7zd', 'mbritonf@slate.com', '948-217-6646', '2022-11-24T02:42:53Z');
+insert into ppd.customer (first_name, last_name, password, email, phone, registration_date) values ('Lorine', 'Willcott', 'hX8m0e', 'lwillcottg@hc360.com', '129-225-9832', '2022-09-19T16:55:21Z');

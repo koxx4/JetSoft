@@ -23,7 +23,7 @@ class FlightListController {
     @GetMapping("/flightList")
     String listFlights(Model model) {
 
-        List<FlightEmployeeRowDto> flights = flightQueries.getFlightPublicRowDtoListPaginated(0, 10);
+        List<FlightEmployeeRowDto> flights = flightQueries.getFlightEmployeeRowDtoListPaginated(0, 10);
 
         model.addAttribute("flights", flights);
 

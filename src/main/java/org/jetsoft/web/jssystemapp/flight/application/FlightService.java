@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 
 @Service
 public class FlightService {
@@ -72,7 +73,6 @@ public class FlightService {
         flight.setRouteId(flightForm.getRouteId());
         flight.setPlannedArrival(flightForm.getPlannedArrival());
         flight.setPlannedDeparture(flightForm.getPlannedDeparture());
-        flight.setGeneratedFromScheduleId(flightForm.getGeneratedFromScheduleId());
         flight.setVehicleId(flightForm.getVehicleId());
         flight.setMinPilotCount(flightForm.getMinPilotCount());
         flight.setLastModificationDate(LocalDateTime.now());
@@ -80,19 +80,22 @@ public class FlightService {
 
     private Flight toFlight(FlightForm flightForm) {
 
+        LocalDateTime now = LocalDateTime.now();
+
         return new Flight(
                 flightForm.getRouteId(),
                 flightForm.getVehicleId(),
-                flightForm.getGeneratedFromScheduleId(),
+                null,
                 flightForm.isActive(),
                 flightForm.getFlightNumber(),
                 flightForm.getAvailablePassengersSeats(),
                 flightForm.getMinPilotCount(),
                 flightForm.isConfidential(),
                 flightForm.isArchival(),
-                LocalDateTime.now(),
+                now,
                 flightForm.getPlannedDeparture(),
-                flightForm.getPlannedArrival()
+                flightForm.getPlannedArrival(),
+                Collections.emptyList()
         );
     }
 }

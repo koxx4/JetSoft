@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityConfig.HEAD_MANAGER_ROLE;
+import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityConfig.*;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -31,8 +31,8 @@ class HttpSecurityDevConfiguration {
         http.authorizeHttpRequests(this::authorizeCommonEndpoints)
                 .httpBasic(withDefaults());
 
-        http.logout();
-        http.formLogin();
+        http.logout().permitAll().logoutSuccessUrl("/");
+        http.formLogin().permitAll();
         http.cors().disable();
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
@@ -50,7 +50,8 @@ class HttpSecurityDevConfiguration {
 
         auth
                 .requestMatchers(commonSecurityConfig.otherEndpointsRequiringAuthorization()).authenticated()
-                .requestMatchers(commonSecurityConfig.employeeEndpoints()).hasRole(HEAD_MANAGER_ROLE)
+                .requestMatchers(commonSecurityConfig.employeeEndpoints()).hasAuthority(HEAD_MANAGER_ROLE)
+                .requestMatchers(commonSecurityConfig.customerEndpoints()).hasAuthority(CUSTOMER_ROLE)
                 .anyRequest().permitAll();
     }
 }

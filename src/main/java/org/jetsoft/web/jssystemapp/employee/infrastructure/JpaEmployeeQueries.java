@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
 import org.jetsoft.web.jssystemapp.employee.application.EmployeeAccountQueries;
 import org.jetsoft.web.jssystemapp.employee.application.EmployeeBasicInfoDto;
+import org.jetsoft.web.jssystemapp.employee.application.EmployeeFirstAndLastNameDto;
 import org.jetsoft.web.jssystemapp.employee.application.EmployeeQueries;
 import org.jetsoft.web.jssystemapp.employee.domain.Employee;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,14 @@ class JpaEmployeeQueries extends JpaQueries<Employee> implements EmployeeQueries
         return getAll().stream()
                 .map(this::toEmployeeBasicInfoDto)
                 .toList();
+    }
+
+    @Override
+    public EmployeeFirstAndLastNameDto getEmployeeFirstAndLastNameDto(Long id) {
+
+        Employee employee = getById(id);
+
+        return new EmployeeFirstAndLastNameDto(employee.getFirstName(), employee.getLastName());
     }
 
     @Override
