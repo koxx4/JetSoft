@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.Objects.isNull;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Entity
 @Table(schema = "data")
@@ -25,6 +28,9 @@ public class Flight extends AbstractEntityWithGeneratedId {
     private LocalDateTime plannedDeparture;
     private LocalDateTime plannedArrival;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "flightId")
+    private List<PilotToFlight> pilots;
+
     public Flight(
             Long routeId,
             Long vehicleId,
@@ -37,7 +43,8 @@ public class Flight extends AbstractEntityWithGeneratedId {
             boolean archival,
             LocalDateTime lastModificationDate,
             LocalDateTime plannedDeparture,
-            LocalDateTime plannedArrival) {
+            LocalDateTime plannedArrival,
+            List<PilotToFlight> pilots) {
 
         this.routeId = routeId;
         this.vehicleId = vehicleId;
@@ -51,19 +58,25 @@ public class Flight extends AbstractEntityWithGeneratedId {
         this.lastModificationDate = lastModificationDate;
         this.plannedDeparture = plannedDeparture;
         this.plannedArrival = plannedArrival;
+        this.pilots = pilots;
     }
 
     //Musi istnieć przez ORM-a
     private Flight() {}
 
-    void activate() {
+    public void activate() {
 
-        if (isNull(vehicleId) || isNull(routeId) || archival) {
+        if (!canBeActivated()) {
 
             throw new IllegalArgumentException();
         }
 
         active = true;
+    }
+
+    public boolean canBeActivated() {
+
+        return !isNull(vehicleId) && !isNull(routeId) && !archival;
     }
 
     public Long getRouteId() {
@@ -165,5 +178,23 @@ public class Flight extends AbstractEntityWithGeneratedId {
 
     public void setPlannedArrival(LocalDateTime plannedArrival) {
         this.plannedArrival = plannedArrival;
+    }
+
+    public List<PilotToFlight> getPilots() {
+        return pilots;
+    }
+
+    public void setPilots(List<PilotToFlight> pilots) {
+        this.pilots = pilots;
+    }
+
+    public void addPilot(PilotToFlight pilot) {
+
+        if (isNull(pilots)) {
+
+            pilots = new ArrayList<>();
+        }
+
+        pilots.add(pilot);
     }
 }

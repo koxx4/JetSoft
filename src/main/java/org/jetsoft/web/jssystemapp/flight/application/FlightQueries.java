@@ -8,4 +8,6 @@ public interface FlightQueries {
     List<FlightEmployeeRowDto> getFlightEmployeeRowDtoListPaginated(int page, int pageSize);
     boolean exists(Long id);
     List<FlightCustomerRowDto> getFlightsForCustomersPaginated(int page, int i);
+    FlightCustomerRowDto getFlightCustomerRowDto(Long flightId);
+    String getFlightNumberByFlightId(Long id);
 }

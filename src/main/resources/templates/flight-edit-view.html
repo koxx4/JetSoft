@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,7 +11,7 @@
 </head>
 <body>
     <a class="blue-btn" href="/flightList"><-- Powrót do listy lotów</a>
-    <form method="post" th:action="@{addFlight}" th:object="${flightForm}">
+    <form method="post" th:action="@{/addFlight}" th:object="${flightForm}">
 
         <div th:classappend="${#fields.hasErrors('routeId')}? form-field-error">
             <label for="f-flight-route" class="form-label">Trasa:</label>
@@ -38,6 +38,14 @@
                         + ', max. dyst.: ' + ${vehicle.maxDistance} + 'km | max. pas.: ' + ${vehicle.maxPassengers} + ' | max. pilotów: ' + ${vehicle.maxPilots}">
                 </option>
             </select>
+        </div>
+
+        <div class="container">
+            <div>Piloci obecnie przypisani do lotu:</div>
+            <div th:each="pilotData: ${dataOfCurrentlyAssignedPilots}">
+                <span th:text="|Pilot nr. ${pilotDataStat.count}|"></span>
+                <div th:text="|${pilotData.firstName} ${pilotData.lastName}. Pochodzi z ${pilotData.nationalityName}, ${pilotData.hoursOfExperience} wylatanych godzin|"></div>
+            </div>
         </div>
 
         <div class="red-text-error" th:each="err : ${#fields.errors('routeId')}"
@@ -115,7 +123,7 @@
         </div>
 
         <input type="hidden" th:field="*{id}">
-        <input type="submit" value="Zapisz" class="green-btn">
+        <input type="submit" value="Zapisz">
     </form>
 </body>
 </html>

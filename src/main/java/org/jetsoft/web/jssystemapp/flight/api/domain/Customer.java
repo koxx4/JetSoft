@@ -1,4 +1,4 @@
-package org.jetsoft.web.jssystemapp.customer.domain;
+package org.jetsoft.web.jssystemapp.flight.api.domain;
 
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;

@@ -9,6 +9,7 @@ public interface EmployeeAccountQueries {
 
     String getEmployeeLoginByAccountId(Long id);
     Long getEmployeeAccountIdByEmployeeId(Long id);
+    Long getEmployeeAccountIdByUsername(String username);
     List<String> getEmployeeRoleNamesByAccountId(Long id);
     List<Long> getEmployeeRoleIdListByAccountId(Long id);
     boolean exists(Long id);

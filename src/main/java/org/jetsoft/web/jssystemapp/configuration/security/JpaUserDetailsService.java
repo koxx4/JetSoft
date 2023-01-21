@@ -34,7 +34,7 @@ class JpaUserDetailsService implements UserDetailsService {
             return userDetailsForEmployee.get();
         }
 
-        return customerQueries.getCustomerAccountInfoByEmail(username)
+        return customerQueries.findCustomerAccountInfoByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username with " + username + " does not exist!"));
     }
 }

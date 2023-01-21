@@ -2,9 +2,7 @@ package org.jetsoft.web.jssystemapp.flight.infrastructure;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.criteria.Root;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
-import org.jetsoft.web.jssystemapp.employee.domain.EmployeeAccountData;
 import org.jetsoft.web.jssystemapp.flight.application.FlightCustomerRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightEmployeeRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightQueries;
@@ -79,6 +77,22 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
                 .toList();
     }
 
+    @Override
+    public FlightCustomerRowDto getFlightCustomerRowDto(Long flightId) {
+
+        return findById(flightId)
+                .map(this::toFlightCustomerRowDto)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public String getFlightNumberByFlightId(Long id) {
+
+        return findById(id)
+                .map(Flight::getFlightNumber)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
     private FlightCustomerRowDto toFlightCustomerRowDto(Flight flight) {
 
         var routeFlatDto = routeQueries.getRouteFlatDtoByRouteId(flight.getRouteId());
@@ -86,7 +100,7 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
         return new FlightCustomerRowDto(
                 flight.getId(),
                 flight.getFlightNumber(),
-                Long.valueOf(flight.getAvailablePassengersSeats()),
+                (long) flight.getAvailablePassengersSeats(),
                 flight.getPlannedDeparture(),
                 flight.getPlannedArrival(),
                 routeFlatDto.sourceCityName(),

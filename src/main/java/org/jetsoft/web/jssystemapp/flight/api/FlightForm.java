@@ -10,7 +10,6 @@ public class FlightForm {
     private Long id;
     private Long routeId;
     private Long vehicleId;
-    private Long generatedFromScheduleId;
     private boolean active;
     @NotBlank(message = "Kod lotu nie może być pusty")
     private String flightNumber;
@@ -45,14 +44,6 @@ public class FlightForm {
 
     public void setVehicleId(Long vehicleId) {
         this.vehicleId = vehicleId;
-    }
-
-    public Long getGeneratedFromScheduleId() {
-        return generatedFromScheduleId;
-    }
-
-    public void setGeneratedFromScheduleId(Long generatedFromScheduleId) {
-        this.generatedFromScheduleId = generatedFromScheduleId;
     }
 
     public boolean isActive() {

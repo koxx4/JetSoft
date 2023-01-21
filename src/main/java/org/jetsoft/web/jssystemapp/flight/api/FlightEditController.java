@@ -1,11 +1,14 @@
 package org.jetsoft.web.jssystemapp.flight.api;
 
 import jakarta.validation.Valid;
+import org.jetsoft.web.jssystemapp.employee.application.PilotDto;
+import org.jetsoft.web.jssystemapp.employee.application.PilotQueries;
 import org.jetsoft.web.jssystemapp.flight.application.FlightService;
 import org.jetsoft.web.jssystemapp.location.application.RouteFlatDto;
 import org.jetsoft.web.jssystemapp.location.application.RouteQueries;
 import org.jetsoft.web.jssystemapp.vehicle.application.VehicleInFlightFormDto;
 import org.jetsoft.web.jssystemapp.vehicle.application.VehicleQueries;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -20,17 +23,21 @@ class FlightEditController {
 
     private final RouteQueries routeQueries;
     private final VehicleQueries vehicleQueries;
+    private final PilotQueries pilotQueries;
     private final FlightService flightService;
     private final FlightFormValidator flightFormValidator;
 
+    @Autowired
     FlightEditController(
             RouteQueries routeQueries,
             VehicleQueries vehicleQueries,
+            PilotQueries pilotQueries,
             FlightService flightService,
             FlightFormValidator flightFormValidator) {
 
         this.routeQueries = routeQueries;
         this.vehicleQueries = vehicleQueries;
+        this.pilotQueries = pilotQueries;
         this.flightService = flightService;
         this.flightFormValidator = flightFormValidator;
     }
@@ -48,7 +55,7 @@ class FlightEditController {
     }
 
     @ModelAttribute("vehicleList")
-    private List<VehicleInFlightFormDto> addVehicleInFlightFormDtoList() {
+    private List<VehicleInFlightFormDto> addVehicleInFlightFormDtoListToModel() {
 
         return vehicleQueries.getVehicleInFlightFormDtoList();
     }
@@ -63,9 +70,11 @@ class FlightEditController {
             return "flight-edit-view";
         }
 
-        var filledForm = flightService.getFilledFormFromFlight(id);
+        FlightForm filledForm = flightService.getFilledFormFromFlight(id);
+        List<PilotDto> dataOfCurrentlyAssignedPilots = pilotQueries.getAllPilotsAssignedToFlight(id);
 
         model.addAttribute("flightForm", filledForm);
+        model.addAttribute("dataOfCurrentlyAssignedPilots", dataOfCurrentlyAssignedPilots);
 
         return "flight-edit-view";
     }

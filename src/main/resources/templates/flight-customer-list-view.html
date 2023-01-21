@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/style.css}" rel="stylesheet">
@@ -29,7 +29,7 @@
         <td th:text="${flightRowDto.plannedArrival}"></td>
         <td th:text="${flightRowDto.availablePassengersSeats}"></td>
         <td>
-            <form method="post" th:action="@{/customer/newReservation}">
+            <form method="post" th:action="@{/customer/makeReservation}">
                 <input type="hidden" name="flightId"  th:value="${flightRowDto.flightId}">
                 <input type="submit" class="green-btn" value="Zarezerwuj lot">
             </form>

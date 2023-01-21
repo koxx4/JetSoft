@@ -47,6 +47,19 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
     }
 
     @Override
+    @Transactional
+    public Long getEmployeeAccountIdByUsername(String username) {
+
+        var criteriaBuilder = getCriteriaBuilder();
+        var criteriaQuery = getCriteriaQuery(criteriaBuilder);
+        Root<EmployeeAccountData> root = criteriaQuery.from(EmployeeAccountData.class);
+
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"), username));
+
+        return getEntityManager().createQuery(criteriaQuery).getSingleResult().getId();
+    }
+
+    @Override
     public List<String> getEmployeeRoleNamesByAccountId(Long id) {
 
         return findById(id)

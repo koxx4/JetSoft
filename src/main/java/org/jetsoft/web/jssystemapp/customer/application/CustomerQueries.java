@@ -6,5 +6,7 @@ import java.util.Optional;
 
 public interface CustomerQueries {
 
-    Optional<UserDetails> getCustomerAccountInfoByEmail(String email);
+    Optional<UserDetails> findCustomerAccountInfoByEmail(String email);
+    Long getCustomerIdByCustomerEmail(String email);
+    CustomerNameAndEmailDto getCustomerNameAndEmailDto(Long customerId);
 }
