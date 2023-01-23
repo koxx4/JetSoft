@@ -7,4 +7,6 @@ public interface ReservationsQueries {
     List<ReservationDto> getAllReservationsDtoForCustomer(Long customerId);
 
     List<ReservationListRowDto> getAllReservationListRowsForCustomer(Long customerId);
+
+    int getReservationCountForCustomer(Long customerId);
 }

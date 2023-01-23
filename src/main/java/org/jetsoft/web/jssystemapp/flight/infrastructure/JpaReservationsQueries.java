@@ -40,6 +40,11 @@ class JpaReservationsQueries extends JpaQueries<Reservation> implements Reservat
                 .toList();
     }
 
+    @Override
+    public int getReservationCountForCustomer(Long customerId) {
+        return getAllCustomerReservations(customerId).size();
+    }
+
     private ReservationDto toReservationDto(Reservation reservation) {
 
         String flightNumber = flightQueries.getFlightNumberByFlightId(reservation.getFlightId());
