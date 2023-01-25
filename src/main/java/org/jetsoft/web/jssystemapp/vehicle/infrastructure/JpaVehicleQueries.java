@@ -2,10 +2,7 @@ package org.jetsoft.web.jssystemapp.vehicle.infrastructure;
 
 import jakarta.persistence.EntityManager;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
-import org.jetsoft.web.jssystemapp.vehicle.application.VehicleInFlightFormDto;
-import org.jetsoft.web.jssystemapp.vehicle.application.VehicleModelInVehicleFormDto;
-import org.jetsoft.web.jssystemapp.vehicle.application.VehicleRowDto;
-import org.jetsoft.web.jssystemapp.vehicle.application.VehicleQueries;
+import org.jetsoft.web.jssystemapp.vehicle.application.*;
 import org.jetsoft.web.jssystemapp.vehicle.domain.Vehicle;
 import org.jetsoft.web.jssystemapp.vehicle.domain.VehicleModel;
 import org.jetsoft.web.jssystemapp.vehicle.domain.VehicleType;
@@ -38,13 +35,6 @@ public class JpaVehicleQueries extends JpaQueries<Vehicle> implements VehicleQue
 
         return getAll().stream()
                 .map(this::toVehicleInFlightFormDto)
-                .toList();
-    }
-
-    @Override
-    public List<VehicleModelInVehicleFormDto> getVehicleModelInVehicleFormDtoList() {
-        return getAll().stream()
-                .map(this::toVehicleModelInVehicleFormDto)
                 .toList();
     }
 
@@ -119,38 +109,12 @@ public class JpaVehicleQueries extends JpaQueries<Vehicle> implements VehicleQue
 
         String vehicleTypeName = getTypeNameByTypeId(vehicle.getVehicleTypeId());
         String vehicleModelName = getModelNameByModelId(vehicle.getVehicleModelId());
-        int vehicleMaxPassengerCount = getMaxPassengerCount(vehicle.getVehicleModelId());
-        int vehicleMaxPilotCount = getMaxPilotCount(vehicle.getVehicleModelId());
-        int vehicleMaxDistance = getMaxDistance(vehicle.getVehicleModelId());
 
         return new VehicleInFlightFormDto(
                 vehicle.getId(),
                 vehicleTypeName,
                 vehicleModelName,
-                vehicle.getFriendlyName(),
-                vehicleMaxPassengerCount,
-                vehicleMaxPilotCount,
-                vehicleMaxDistance
-        );
-    }
-
-    private VehicleModelInVehicleFormDto toVehicleModelInVehicleFormDto(Vehicle vehicle) {
-
-        String vehicleTypeName = getTypeNameByTypeId(vehicle.getVehicleTypeId());
-        String vehicleModelName = getModelNameByModelId(vehicle.getVehicleModelId());
-        int vehicleMaxPassengerCount = getMaxPassengerCount(vehicle.getVehicleModelId());
-        int vehicleMaxDistance = getMaxDistance(vehicle.getVehicleModelId());
-        int vehicleMaxPilotCount = getMaxPilotCount(vehicle.getVehicleModelId());
-        int vehicleLiftCapacity = getLiftCapacity(vehicle.getVehicleModelId());
-
-        return new VehicleModelInVehicleFormDto(
-                vehicle.getId(),
-                vehicleTypeName,
-                vehicleModelName,
-                vehicleMaxPassengerCount,
-                vehicleMaxDistance,
-                vehicleMaxPilotCount,
-                vehicleLiftCapacity
+                vehicle.getFriendlyName()
         );
     }
 }

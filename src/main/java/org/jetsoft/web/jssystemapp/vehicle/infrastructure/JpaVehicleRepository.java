@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JpaVehicleRepository extends JpaRepository<Vehicle> implements VehicleRepository {
+class JpaVehicleRepository extends JpaRepository<Vehicle> implements VehicleRepository {
 
     @Autowired
-    public JpaVehicleRepository(EntityManager entityManager) {
+    JpaVehicleRepository(EntityManager entityManager) {
 
         super(entityManager, Vehicle.class);
     }
