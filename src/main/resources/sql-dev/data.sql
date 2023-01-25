@@ -50,10 +50,10 @@ insert into data.vehicle_manufacturer (id, company_name) values (4, 'Dach Inc');
 insert into data.vehicle_manufacturer (id, company_name) values (5, 'Hudson LLC');
 
 --vehicle model
-insert into data.vehicle_model (id, manufacturer_id, manufacture_code, max_passenger_count, max_distance, max_pilot_count, lift_capacity, model_name) values (1, 5, '55154-9607', 95, 3076, 2, 8965, 'Ram 3500');
-insert into data.vehicle_model (id, manufacturer_id, manufacture_code, max_passenger_count, max_distance, max_pilot_count, lift_capacity, model_name) values (2, 5, '0944-3944', 238, 1202, 2, 6520, 'XG350');
-insert into data.vehicle_model (id, manufacturer_id, manufacture_code, max_passenger_count, max_distance, max_pilot_count, lift_capacity, model_name) values (3, 4, '13734-033', 240, 1041, 3, 8781, 'Impala');
-insert into data.vehicle_model (id, manufacturer_id, manufacture_code, max_passenger_count, max_distance, max_pilot_count, lift_capacity, model_name) values (4, 1, '0054-0119', 136, 3063, 2, 3810, 'Avenger');
+insert into data.vehicle_model (manufacturer_id, manufacture_code, max_passenger_count, max_distance, max_pilot_count, lift_capacity, model_name) values (5, '55154-9607', 95, 3076, 2, 8965, 'Ram 3500');
+insert into data.vehicle_model (manufacturer_id, manufacture_code, max_passenger_count, max_distance, max_pilot_count, lift_capacity, model_name) values (5, '0944-3944', 238, 1202, 2, 6520, 'XG350');
+insert into data.vehicle_model (manufacturer_id, manufacture_code, max_passenger_count, max_distance, max_pilot_count, lift_capacity, model_name) values (4, '13734-033', 240, 1041, 3, 8781, 'Impala');
+insert into data.vehicle_model (manufacturer_id, manufacture_code, max_passenger_count, max_distance, max_pilot_count, lift_capacity, model_name) values (1, '0054-0119', 136, 3063, 2, 3810, 'Avenger');
 
 
 -- route
