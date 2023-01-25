@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import static org.apache.logging.log4j.util.Strings.isEmpty;
 
-import java.util.List;
-
 @Service
 public class VehicleService {
 
@@ -22,12 +20,13 @@ public class VehicleService {
     private final VehicleTypeRepository vehicleTypeRepository;
 
     @Autowired
-    public VehicleService(VehicleRepository vehicleRepository,
+    VehicleService(VehicleRepository vehicleRepository,
                           VehicleQueries vehicleQueries,
                           VehicleModelQueries vehicleModelQueries,
                           VehicleTypeQueries vehicleTypeQueries,
                           VehicleModelRepository vehicleModelRepository,
                           VehicleTypeRepository vehicleTypeRepository) {
+
         this.vehicleRepository = vehicleRepository;
         this.vehicleQueries = vehicleQueries;
         this.vehicleModelQueries = vehicleModelQueries;
@@ -71,8 +70,6 @@ public class VehicleService {
 
             updateVehicle(vehicle, vehicleForm);
 
-            vehicleRepository.save(vehicle);
-
             return;
         }
 
@@ -105,6 +102,7 @@ public class VehicleService {
             vehicleType.setTypeName(vehicleForm.getTypeName());
         }
 
+        vehicleRepository.save(vehicle);
         vehicleTypeRepository.save(vehicleType);
         vehicleModelRepository.save(vehicleModel);
     }
@@ -112,7 +110,6 @@ public class VehicleService {
     private Vehicle toVehicle(VehicleForm vehicleForm) {
 
         return new Vehicle(
-                vehicleForm.getId(),
                 vehicleForm.getVehicleTypeId(),
                 vehicleForm.getVehicleModelId(),
                 vehicleForm.getNextMaintenanceDate(),

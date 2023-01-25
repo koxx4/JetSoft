@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Zarządzanie maszynami</title>
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,8 +27,8 @@
             <br>
             <select id="v-vehicle-model" th:field="*{vehicleModelId}">
                 <option th:each="vehicleModel : ${vehicleModelList}"
-                        th:value="${vehicleModel.modelId()}"
-                        th:text="${vehicleModel.modelName()}">
+                        th:value="${vehicleModel.modelId}"
+                        th:text="${vehicleModel.modelName}">
                 </option>
             </select>
         </div>

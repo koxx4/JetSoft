@@ -68,7 +68,7 @@ public class VehicleEditController {
 
         if (bindingResult.hasErrors()) {
 
-            return "flight-edit-view";
+            return "vehicle-edit-view";
         }
 
         vehicleService.saveVehicleFromForm(vehicleForm);
