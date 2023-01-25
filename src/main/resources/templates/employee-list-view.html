@@ -10,8 +10,9 @@
 </head>
 <body>
 <h1>Lista pracowników</h1>
+<a class="blue-btn" href="/"><-- Powrót do menu</a>
 <div>
-    <a href="/editEmployee">Dodaj nowego pracownika</a>
+    <a class="green-btn" href="/editEmployee">Dodaj nowego pracownika</a>
 </div>
 <h3 th:text="'Obecna liczba pracowników to: ' + ${#lists.size(employeeList)}"></h3>
 <h4>Filtruj pracowników</h4>

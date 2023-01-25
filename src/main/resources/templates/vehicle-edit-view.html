@@ -12,14 +12,85 @@
     <a class="blue-btn" href="/vehicleList"><-- Powrót do listy pojazdów</a>
     <form method="post" th:action="@{addVehicle}" th:object="${vehicleForm}">
         <div>
-            <label for="v-vehicle" class="form-label">Typ pojazdu:</label>
+            <label for="v-vehicle-typeName" class="form-label">Typ pojazdu:</label>
             <br>
-            <select id="v-vehicle" th:field="*{vehicleTypeId}">
-                <option th:each="vehicle : ${vehicleModelList}"
-                        th:value="${vehicle.vehicleId()}"
-                        th:text="${vehicle.vehicleType()}"></option>
+            <select id="v-vehicle-typeName" th:field="*{vehicleTypeId}">
+                <option th:each="vehicleType : ${vehicleTypeList}"
+                        th:value="${vehicleType.typeId}"
+                        th:text="${vehicleType.typeName}">
+                </option>
             </select>
         </div>
+
+        <div>
+            <label for="v-vehicle-model" class="form-label">Model Pojazdu:</label>
+            <br>
+            <select id="v-vehicle-model" th:field="*{vehicleModelId}">
+                <option th:each="vehicleModel : ${vehicleModelList}"
+                        th:value="${vehicleModel.modelId()}"
+                        th:text="${vehicleModel.modelName()}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="v-vehicle-friendlyName" class="form-label">Przyjazna nazwa:</label>
+            <br>
+            <input type="text"
+                    th:field="*{friendlyName}"
+                    id="v-vehicle-friendlyName"/>
+        </div>
+
+        <div>
+            <label for="v-vehicle-maxPassengers" class="form-label">Maksymalna ilość pasażerów:</label>
+            <br>
+            <input type="number"
+                    th:field="*{maxPassengersCount}"
+                    id="v-vehicle-maxPassengers"/>
+        </div>
+
+        <div>
+            <label for="v-vehicle-maxPilots" class="form-label">Maksymalna ilość pilotów:</label>
+            <br>
+            <input type="number"
+                    th:field="*{maxPilotCount}"
+                    id="v-vehicle-maxPilots"/>
+        </div>
+
+        <div>
+            <label for="v-vehicle-maxLift" class="form-label">Maksymalny udźwig [kg]:</label>
+            <br>
+            <input type="number"
+                   th:field="*{maxLift}"
+                   id="v-vehicle-maxLift"/>
+        </div>
+
+        <div>
+            <label for="v-vehicle-maxDistance" class="form-label">Maksymalny zasięg [km]:</label>
+            <br>
+            <input type="number"
+                   th:field="*{maxDistance}"
+                   id="v-vehicle-maxDistance"/>
+        </div>
+
+        <div>
+            <label for="v-vehicle-rentDate" class="about-language">Data wypożyczenia:</label>
+            <br>
+            <input type="date"
+                   th:field="*{rentDate}"
+                   id="v-vehicle-rentDate"/>
+        </div>
+
+        <div>
+            <label for="v-vehicle-maintenanceDate" class="about-language">Data następnego przeglądu:</label>
+            <br>
+            <input type="date"
+                   th:field="*{nextMaintenanceDate}"
+                   id="v-vehicle-maintenanceDate"/>
+        </div>
+
+        <input type="hidden" th:field="*{id}">
+        <input type="submit" value="Zapisz" class="green-btn" />
     </form>
 </body>
 </html>

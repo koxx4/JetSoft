@@ -1,10 +1,8 @@
 package org.jetsoft.web.jssystemapp.vehicle.domain;
 
-import jakarta.persistence.Access;
-import jakarta.persistence.AccessType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
+import org.jetsoft.web.jssystemapp.core.JpaEntity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,19 +10,23 @@ import java.time.LocalDateTime;
 @Entity
 @Table(schema = "data")
 @Access(AccessType.FIELD)
-public class Vehicle extends AbstractEntityWithGeneratedId {
+public class Vehicle implements JpaEntity {
 
+    @Id
+    private Long id;
     private Long vehicleTypeId;
     private Long vehicleModelId;
     private LocalDate nextMaintenanceDate;
     private String friendlyName;
     private LocalDate rentDate;
 
-    public Vehicle(Long vehicleTypeId,
+    public Vehicle(Long id,
+                   Long vehicleTypeId,
                    Long vehicleModelId,
                    LocalDate nextMaintenanceDate,
                    String friendlyName,
                    LocalDate rentDate) {
+        this.id = id;
         this.vehicleTypeId = vehicleTypeId;
         this.vehicleModelId = vehicleModelId;
         this.nextMaintenanceDate = nextMaintenanceDate;
@@ -74,4 +76,13 @@ public class Vehicle extends AbstractEntityWithGeneratedId {
         this.rentDate = rentDate;
     }
 
+    @Override
+    public Long getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(Long value) {
+
+    }
 }
