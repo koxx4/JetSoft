@@ -3,11 +3,11 @@ package org.jetsoft.web.jssystemapp.location.infrastructure;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
-import org.jetsoft.web.jssystemapp.flight.domain.Route;
 import org.jetsoft.web.jssystemapp.location.application.CityAndNationalityQueries;
 import org.jetsoft.web.jssystemapp.location.application.NationalityAndCityDto;
 import org.jetsoft.web.jssystemapp.location.application.RouteFlatDto;
 import org.jetsoft.web.jssystemapp.location.application.RouteQueries;
+import org.jetsoft.web.jssystemapp.location.domain.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,20 +49,26 @@ class JpaRouteQueries extends JpaQueries<Route> implements RouteQueries {
                 .toList();
     }
 
+    @Override
+    public Long getRouteDistanceByRouteId(Long id) {
+        return getById(id).getDistance();
+    }
+
     private RouteFlatDto toRouteFlatDto(Route route) {
 
         NationalityAndCityDto source = cityAndNationalityQueries
-                .getNationalityAndCityDtoByCityId(route.getSourceCityId());
+                .getNationalityAndCityDtoByCityId(route.getSourceCity().getId());
 
         NationalityAndCityDto destination = cityAndNationalityQueries
-                .getNationalityAndCityDtoByCityId(route.getDestinationCityId());
+                .getNationalityAndCityDtoByCityId(route.getDestinationCity().getId());
 
         return new RouteFlatDto(
                 route.getId(),
                 source.nationalityName(),
                 source.cityName(),
                 destination.nationalityName(),
-                destination.cityName()
+                destination.cityName(),
+                route.getDistance()
         );
     }
 }

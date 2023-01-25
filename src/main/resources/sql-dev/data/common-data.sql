@@ -37,9 +37,10 @@ insert into data.vehicle_type (id, type_name) values (2, 'Śmigłowiec');
 
 -- pilot_status
 
-insert into ppd.pilot_status (id, status) values (1, 'Dostępny');
-insert into ppd.pilot_status (id, status) values (2, 'W trasie');
-insert into ppd.pilot_status (id, status) values (3, 'Niedostępny');
+insert into ppd.pilot_status (id, status) values (1, 'AVAILABLE');
+insert into ppd.pilot_status (id, status) values (2, 'IN_FLIGHT');
+insert into ppd.pilot_status (id, status) values (3, 'ON_LEAVE');
+insert into ppd.pilot_status (id, status) values (4, 'ALREADY_ASSIGNED');
 
 -- vehicle_manufacturer
 
@@ -75,22 +76,6 @@ insert into data.vehicle (id, vehicle_type_id, vehicle_model_id, next_maintenanc
 insert into data.vehicle (id, vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (3, 1, 4, '2023-04-29', 'morbi vel', '2022-09-13');
 insert into data.vehicle (id, vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (4, 1, 1, '2023-06-11', 'luctus rutrum', '2021-09-05');
 
-INSERT INTO data.flight
-(
- route_id,
- vehicle_id,
- generated_from_schedule_id,
- active,
- flight_number,
- available_passengers_seats,
- min_pilot_count,
- confidential,
- last_modification_date,
- archival,
- planned_departure,
- planned_arrival
- )
-VALUES(2, 1, null, false, 'POLWARWŁORZY', 100, 2, false, '2022-10-14 08:27:53+02', false, '2023-10-14 12:27:53+02', '2023-10-14 15:27:53+02');
 
 -- employee_account_data
 
@@ -119,14 +104,40 @@ insert into ppd.employee (first_name, last_name, employment_date) values ('Elihu
 insert into ppd.employee (first_name, last_name, employment_date) values ( 'Thorny', 'Bedbury', '2021-07-04'); -- prezes
 
 
-insert into ppd.pilot (nationality_id, pilot_status_id, license_number, hours_flown) values (5, 1, 'WAULH54B01N812477', 4875);
-insert into ppd.pilot (nationality_id, pilot_status_id, license_number, hours_flown) values (7, 1, '1GYFK63807R460901', 4109);
+insert into ppd.pilot (id, nationality_id, pilot_status_id, license_number, hours_flown) values (1, 5, 4, 'WAULH54B01N812477', 4875);
+insert into ppd.pilot (id, nationality_id, pilot_status_id, license_number, hours_flown) values (2, 7, 3, '1GYFK63807R460901', 4109);
+insert into ppd.pilot (id, nationality_id, pilot_status_id, license_number, hours_flown) values (3, 7, 1, '1GYFK6380AAXX46091', 420);
+
+
+INSERT INTO data.flight
+(
+    route_id,
+    vehicle_id,
+    generated_from_schedule_id,
+    active,
+    flight_number,
+    available_passengers_seats,
+    min_pilot_count,
+    confidential,
+    last_modification_date,
+    archival,
+    planned_departure,
+    planned_arrival
+)
+VALUES(2, 1, null, true, 'POLWARWŁORZY', 100, 2, false, '2022-10-15 08:27:53+02', false, '2023-10-15 12:27:53+02', '2023-10-15 18:27:53+02');
+
+--flight_pilot
+
+INSERT INTO data.flight_pilot
+(pilot_id, flight_id, assigned_by_employee_id, assigned_date)
+VALUES(1, 1, 4, '2022-10-14 08:27:53+02');
+
 
 -- employee_role
-insert into ppd.employee_role (id, role) values (1, 'HEAD_MANAGER');
-insert into ppd.employee_role (id, role) values (2, 'MANAGER');
-insert into ppd.employee_role (id, role) values (3, 'PILOT');
-insert into ppd.employee_role (id, role) values (4, 'ADMINISTRATOR');
+insert into ppd.employee_role (id, role) values (1, 'ROLE_HEAD_MANAGER');
+insert into ppd.employee_role (id, role) values (2, 'ROLE_MANAGER');
+insert into ppd.employee_role (id, role) values (3, 'ROLE_PILOT');
+insert into ppd.employee_role (id, role) values (4, 'ROLE_ADMINISTRATOR');
 
 insert into ppd.role_to_employee (role_id, employee_account_id, assigned_date) values (3, 1, '2022-12-14 17:54:25+01');
 insert into ppd.role_to_employee (role_id, employee_account_id, assigned_date) values (3, 2, '2022-12-14 17:54:25+01');

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/pico.min.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
+</head>
+<body>
+<table>
+    <tr>
+        <th>L.P.</th>
+        <th>Kod lotu</th>
+        <th>Z</th>
+        <th>Do</th>
+        <th>Planowany odlot</th>
+        <th>Planowany przylot</th>
+        <th>Liczba dostępnych miejsc</th>
+        <th>Akcje</th>
+    </tr>
+    <tr th:each="flightRowDto,iterStat : ${flights}">
+        <td th:text="${iterStat.count}"></td>
+        <td th:text="${flightRowDto.flightNumber}"></td>
+        <td th:text="${flightRowDto.sourceCity} + ', ' + ${flightRowDto.sourceNationality}"></td>
+        <td th:text="${flightRowDto.destinationCity} + ', ' + ${flightRowDto.destinationNationality}"></td>
+        <td th:text="${flightRowDto.plannedDeparture}"></td>
+        <td th:text="${flightRowDto.plannedArrival}"></td>
+        <td th:text="${flightRowDto.availablePassengersSeats}"></td>
+        <td>
+            <form method="post" th:action="@{/customer/makeReservation}">
+                <input type="hidden" name="flightId"  th:value="${flightRowDto.flightId}">
+                <input type="submit" class="green-btn" value="Zarezerwuj lot">
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

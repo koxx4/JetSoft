@@ -8,28 +8,31 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.List;
-
+import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityConfig.*;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @Profile("dev")
-class SecurityDevConfiguration {
-
-    private static final List<String> securedEndpoints = List.of(
-            "/secured-example-endpoint"
-    );
+class HttpSecurityDevConfiguration {
 
     private static final String H2_CONSOLE_URL = "h2-console/**";
+    private final CommonSecurityConfig commonSecurityConfig;
+
+    HttpSecurityDevConfiguration(CommonSecurityConfig commonSecurityConfig) {
+
+        this.commonSecurityConfig = commonSecurityConfig;
+    }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         System.out.println("READING DEV SECURITY CONFIG!");
 
-        http.authorizeHttpRequests(SecurityDevConfiguration::authorizeCommonEndpoints)
+        http.authorizeHttpRequests(this::authorizeCommonEndpoints)
                 .httpBasic(withDefaults());
 
+        http.logout().permitAll().logoutSuccessUrl("/");
+        http.formLogin().permitAll();
         http.cors().disable();
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
@@ -38,16 +41,17 @@ class SecurityDevConfiguration {
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
+    WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web
                 .ignoring().requestMatchers(H2_CONSOLE_URL);
     }
 
-    private static void authorizeCommonEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth) {
+    private void authorizeCommonEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth) {
 
-        //Oprócz tych
         auth
-                .requestMatchers(securedEndpoints.toArray(String[]::new)).authenticated()
+                .requestMatchers(commonSecurityConfig.otherEndpointsRequiringAuthorization()).authenticated()
+                .requestMatchers(commonSecurityConfig.employeeEndpoints()).hasAuthority(HEAD_MANAGER_ROLE)
+                .requestMatchers(commonSecurityConfig.customerEndpoints()).hasAuthority(CUSTOMER_ROLE)
                 .anyRequest().permitAll();
     }
 }

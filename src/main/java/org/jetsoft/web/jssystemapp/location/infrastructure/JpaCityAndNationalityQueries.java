@@ -31,4 +31,9 @@ class JpaCityAndNationalityQueries extends JpaQueries<City> implements CityAndNa
 
         return new NationalityAndCityDto(nationality.getName(), city.getName());
     }
+
+    @Override
+    public String getNationalityNameByNationalityId(Long id) {
+        return getById(Nationality.class, id).getName();
+    }
 }

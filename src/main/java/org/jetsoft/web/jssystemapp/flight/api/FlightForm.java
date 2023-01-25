@@ -1,7 +1,6 @@
 package org.jetsoft.web.jssystemapp.flight.api;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -9,11 +8,8 @@ import java.time.LocalDateTime;
 public class FlightForm {
 
     private Long id;
-    @NotNull
     private Long routeId;
-    @NotNull
     private Long vehicleId;
-    private Long generatedFromScheduleId;
     private boolean active;
     @NotBlank(message = "Kod lotu nie może być pusty")
     private String flightNumber;
@@ -48,14 +44,6 @@ public class FlightForm {
 
     public void setVehicleId(Long vehicleId) {
         this.vehicleId = vehicleId;
-    }
-
-    public Long getGeneratedFromScheduleId() {
-        return generatedFromScheduleId;
-    }
-
-    public void setGeneratedFromScheduleId(Long generatedFromScheduleId) {
-        this.generatedFromScheduleId = generatedFromScheduleId;
     }
 
     public boolean isActive() {

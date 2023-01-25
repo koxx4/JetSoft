@@ -7,10 +7,14 @@ import org.jetsoft.web.jssystemapp.core.JpaQueries;
 import org.jetsoft.web.jssystemapp.employee.application.EmployeeAccountQueries;
 import org.jetsoft.web.jssystemapp.employee.domain.EmployeeAccountData;
 import org.jetsoft.web.jssystemapp.employee.domain.EmployeeRole;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implements EmployeeAccountQueries {
@@ -43,6 +47,19 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
     }
 
     @Override
+    @Transactional
+    public Long getEmployeeAccountIdByUsername(String username) {
+
+        var criteriaBuilder = getCriteriaBuilder();
+        var criteriaQuery = getCriteriaQuery(criteriaBuilder);
+        Root<EmployeeAccountData> root = criteriaQuery.from(EmployeeAccountData.class);
+
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"), username));
+
+        return getEntityManager().createQuery(criteriaQuery).getSingleResult().getId();
+    }
+
+    @Override
     public List<String> getEmployeeRoleNamesByAccountId(Long id) {
 
         return findById(id)
@@ -60,5 +77,31 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
                 .orElseThrow(EntityNotFoundException::new).stream()
                 .map(EmployeeRole::getId)
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public Optional<UserDetails> getUserDetailsForAuthenticationByLogin(String login) {
+
+        var criteriaBuilder = getCriteriaBuilder();
+        var criteriaQuery = getCriteriaQuery(criteriaBuilder);
+        Root<EmployeeAccountData> root = criteriaQuery.from(EmployeeAccountData.class);
+
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"), login));
+
+        try {
+
+            EmployeeAccountData accountData = getEntityManager().createQuery(criteriaQuery).getSingleResult();
+
+            List<SimpleGrantedAuthority> authorityList = accountData.getEmployeeRole().stream()
+                    .map(employeeRole -> new SimpleGrantedAuthority(employeeRole.getRole()))
+                    .toList();
+
+            return Optional.of(new User(accountData.getLogin(), accountData.getPassword(), authorityList));
+
+        } catch (Exception exception) {
+
+            return Optional.empty();
+        }
     }
 }
