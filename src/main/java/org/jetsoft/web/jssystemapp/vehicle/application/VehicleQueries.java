@@ -6,7 +6,7 @@ public interface VehicleQueries {
     // metody do odczytu dto
     List<VehicleRowDto> getVehicleRowDtoListPaginated(int page, int pageSize);
     List<VehicleInFlightFormDto> getVehicleInFlightFormDtoList();
-    List<VehicleModelInVehicleFormDto> getVehicleModelInVehicleFormDtoList();
+    //List<VehicleModelInVehicleFormDto> getVehicleModelInVehicleFormDtoList();
     String getModelNameByModelId(Long id);
     String getTypeNameByTypeId(Long id);
     int getMaxPassengerCount(Long id);

@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 import org.jetsoft.web.jssystemapp.core.AbstractEntityWithGeneratedId;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(schema = "data")
@@ -25,6 +24,7 @@ public class Vehicle extends AbstractEntityWithGeneratedId {
                    LocalDate nextMaintenanceDate,
                    String friendlyName,
                    LocalDate rentDate) {
+
         this.vehicleTypeId = vehicleTypeId;
         this.vehicleModelId = vehicleModelId;
         this.nextMaintenanceDate = nextMaintenanceDate;
@@ -73,5 +73,4 @@ public class Vehicle extends AbstractEntityWithGeneratedId {
     public void setRentDate(LocalDate rentDate) {
         this.rentDate = rentDate;
     }
-
 }
