@@ -1,9 +1,9 @@
 package org.jetsoft.web.jssystemapp.vehicle.api;
 
 import jakarta.validation.Valid;
-import org.springframework.ui.Model;
 import org.jetsoft.web.jssystemapp.vehicle.application.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +46,7 @@ public class VehicleEditController {
         return vehicleModelQueries.getVehicleModelDtoList();
     }
 
-    @GetMapping("/editVehicle")
+    @GetMapping("/employee/editVehicle")
     String saveVehicle(@RequestParam(required = false) Long id, Model model) {
 
         if (id == null) {
@@ -63,7 +63,7 @@ public class VehicleEditController {
         return "vehicle-edit-view";
     }
 
-    @PostMapping("/addVehicle")
+    @PostMapping("/employee/addVehicle")
     String saveFlight(@ModelAttribute @Valid VehicleForm vehicleForm, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -73,6 +73,6 @@ public class VehicleEditController {
 
         vehicleService.saveVehicleFromForm(vehicleForm);
 
-        return "redirect:/vehicleList";
+        return "redirect:/employee/vehicleList";
     }
 }

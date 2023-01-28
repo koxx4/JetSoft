@@ -29,11 +29,14 @@
         <td th:text="${flightRowDto.plannedArrival}"></td>
         <td th:text="${flightRowDto.leftPassengersSeats}"></td>
         <td>
-            <p th:if="${reservationsTruthTable.get(flightRowDto.flightId)}" class="red-text-error">Nie możesz zarezerwować biletu na ten lot, ponieważ już to zrobiłeś!</p>
-            <form th:unless="${reservationsTruthTable.get(flightRowDto.flightId)}" method="post" th:action="@{/customer/makeReservation}">
-                <input type="hidden" name="flightId"  th:value="${flightRowDto.flightId}">
-                <input type="submit" class="green-btn" value="Zarezerwuj lot">
-            </form>
+            <a th:if="${!isUserLogged}" role="button" class="outline" href="/customer/loginToFlightList">Zaloguj się, aby zarezerwować bilet</a>
+            <div th:unless="${#maps.isEmpty(reservationsTruthTable)}">
+                <p th:if="${reservationsTruthTable.get(flightRowDto.flightId)}" class="red-text-error">Nie możesz zarezerwować biletu na ten lot, ponieważ już to zrobiłeś!</p>
+                <form th:unless="${reservationsTruthTable.get(flightRowDto.flightId)}" method="post" th:action="@{/customer/makeReservation}">
+                    <input type="hidden" name="flightId"  th:value="${flightRowDto.flightId}">
+                    <input type="submit" class="green-btn" value="Zarezerwuj lot">
+                </form>
+            </div>
         </td>
     </tr>
 </table>

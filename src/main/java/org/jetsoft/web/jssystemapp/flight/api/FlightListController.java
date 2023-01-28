@@ -20,7 +20,7 @@ class FlightListController {
         this.flightQueries = flightQueries;
     }
 
-    @GetMapping("/flightList")
+    @GetMapping("/employee/flightList")
     String listFlights(Model model) {
 
         List<FlightEmployeeRowDto> flights = flightQueries.getFlightEmployeeRowDtoListPaginated(0, 10);

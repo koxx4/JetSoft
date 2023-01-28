@@ -1,50 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link th:href="@{/css/style.css}" rel="stylesheet">
-  <link rel="stylesheet" th:href="@{/css/pico.min.css}">
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common-employee-layout}">
 <body>
-  <h1>Lista pojazdów</h1>
-  <a class="blue-btn" href="/"><-- Powrót do menu</a>
+<main class="container">
+  <section layout:fragment="content">
     <div>
-      <a class="green-btn" href="/editVehicle">Dodaj nowy pojazd</a>
+      <h1>Lista pojazdów</h1>
+      <div>
+        <a role="button" href="/employee/editVehicle">Dodaj nowy pojazd</a>
+      </div>
+      <figure>
+        <table>
+          <tr>
+            <th>L.P.</th>
+            <th>Typ pojazdu</th>
+            <th>Model pojazdu</th>
+            <th>Przyjazna nazwa</th>
+            <th>Maksymalna ilość pasażerów</th>
+            <th>Maksymalna ilość pilotów</th>
+            <th>Maksymalny udźwig [kg]</th>
+            <th>Maksymalny zasięg [km]</th>
+            <th>Data wypożyczenia</th>
+            <th>Data następnego przeglądu</th>
+            <th>Akcje</th>
+          </tr>
+          <tr th:each="vehicleRowDto,iterStat : ${vehicles}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${vehicleRowDto.vehicleType}"></td>
+            <td th:text="${vehicleRowDto.vehicleModel}"></td>
+            <td th:text="${vehicleRowDto.friendlyName}"></td>
+            <td th:text="${vehicleRowDto.maxPassengerCount}"></td>
+            <td th:text="${vehicleRowDto.maxPilotCount}"></td>
+            <td th:text="${vehicleRowDto.liftCapacity}"></td>
+            <td th:text="${vehicleRowDto.maxDistance}"></td>
+            <td th:text="${vehicleRowDto.rentDate}"></td>
+            <td th:text="${vehicleRowDto.nextMaintenanceDate}"></td>
+            <td>
+              <a class="yellow-btn" th:href="@{/employee/editVehicle(id=${vehicleRowDto.vehicleId})}">Zobacz szczegóły i modyfikuj</a>
+              <form th:method="delete" th:action="@{/employee/deleteVehicle}">
+                <input type="hidden" class="red-btn" name="deleteId"  th:value="${vehicleRowDto.vehicleId}">
+                <input type="submit" class="red-btn" value="Usuń pojazd">
+              </form>
+            </td>
+          </tr>
+        </table>
+      </figure>
     </div>
-  <table>
-    <tr>
-      <th>L.P.</th>
-      <th>Typ pojazdu</th>
-      <th>Model pojazdu</th>
-      <th>Przyjazna nazwa</th>
-      <th>Maksymalna ilość pasażerów</th>
-      <th>Maksymalna ilość pilotów</th>
-      <th>Maksymalny udźwig [kg]</th>
-      <th>Maksymalny zasięg [km]</th>
-      <th>Data wypożyczenia</th>
-      <th>Data następnego przeglądu</th>
-      <th>Akcje</th>
-    </tr>
-    <tr th:each="vehicleRowDto,iterStat : ${vehicles}">
-      <td th:text="${iterStat.count}"></td>
-      <td th:text="${vehicleRowDto.vehicleType}"></td>
-      <td th:text="${vehicleRowDto.vehicleModel}"></td>
-      <td th:text="${vehicleRowDto.friendlyName}"></td>
-      <td th:text="${vehicleRowDto.maxPassengerCount}"></td>
-      <td th:text="${vehicleRowDto.maxPilotCount}"></td>
-      <td th:text="${vehicleRowDto.liftCapacity}"></td>
-      <td th:text="${vehicleRowDto.maxDistance}"></td>
-      <td th:text="${vehicleRowDto.rentDate}"></td>
-      <td th:text="${vehicleRowDto.nextMaintenanceDate}"></td>
-      <td>
-        <a class="yellow-btn" th:href="@{/editVehicle(id=${vehicleRowDto.vehicleId})}">Zobacz szczegóły i modyfikuj</a>
-        <form th:method="delete" th:action="@{/deleteVehicle}">
-          <input type="hidden" class="red-btn" name="deleteId"  th:value="${vehicleRowDto.vehicleId}">
-          <input type="submit" class="red-btn" value="Usuń pojazd">
-        </form>
-      </td>
-    </tr>
-  </table>
+  </section>
+</main>
 </body>
 </html>

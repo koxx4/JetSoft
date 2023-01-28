@@ -3,10 +3,7 @@ package org.jetsoft.web.jssystemapp.employee.infrastructure;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
-import org.jetsoft.web.jssystemapp.employee.application.EmployeeAccountQueries;
-import org.jetsoft.web.jssystemapp.employee.application.EmployeeBasicInfoDto;
-import org.jetsoft.web.jssystemapp.employee.application.EmployeeFirstAndLastNameDto;
-import org.jetsoft.web.jssystemapp.employee.application.EmployeeQueries;
+import org.jetsoft.web.jssystemapp.employee.application.*;
 import org.jetsoft.web.jssystemapp.employee.domain.Employee;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +45,30 @@ class JpaEmployeeQueries extends JpaQueries<Employee> implements EmployeeQueries
     }
 
     @Override
+    public EmployeeProfileDto getEmployeeProfileDto(Long employeeId) {
+
+        return findById(employeeId)
+                .map(this::toEmployeeProfileDto)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
     public boolean employeeExists(Long id) {
         return exists(id);
+    }
+
+    private EmployeeProfileDto toEmployeeProfileDto(Employee employee) {
+
+        List<String> roles = employeeAccountQueries.getEmployeeRoleNamesByAccountId(employee.getId());
+        String login = employeeAccountQueries.getEmployeeLoginByAccountId(employee.getId());
+
+        return new EmployeeProfileDto(
+                employee.getFirstName(),
+                employee.getLastName(),
+                login,
+                employee.getEmploymentDate(),
+                roles
+        );
     }
 
     private EmployeeBasicInfoDto toEmployeeBasicInfoDto(Employee employee) {

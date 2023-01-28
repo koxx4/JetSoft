@@ -3,13 +3,9 @@ package org.jetsoft.web.jssystemapp.customer.api;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerDetailsDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
@@ -30,7 +26,7 @@ class CustomerListController {
         return new CustomerFilterForm();
     }
 
-    @GetMapping("/customerList")
+    @GetMapping("/employee/customerList")
     String listAllCustomersForEmployees(@ModelAttribute CustomerFilterForm customersFilterForm, Model model) {
 
         List<CustomerDetailsDto> customers = customerService.getCustomerDetailsListFiltered(customersFilterForm);

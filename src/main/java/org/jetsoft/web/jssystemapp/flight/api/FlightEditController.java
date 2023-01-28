@@ -60,7 +60,7 @@ class FlightEditController {
         return vehicleQueries.getVehicleInFlightFormDtoList();
     }
 
-    @GetMapping("/editFlight")
+    @GetMapping("/employee/editFlight")
     String saveFlight(@RequestParam(required = false) Long id, Model model) {
 
         if (id == null) {
@@ -79,7 +79,7 @@ class FlightEditController {
         return "flight-edit-view";
     }
 
-    @PostMapping("/addFlight")
+    @PostMapping("/employee/addFlight")
     String saveFlight(@ModelAttribute @Valid FlightForm flightForm, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -89,10 +89,10 @@ class FlightEditController {
 
         flightService.saveFlightFromForm(flightForm);
 
-        return "redirect:/flightList";
+        return "redirect:/employee/flightList";
     }
 
-    @DeleteMapping("/deleteFlight")
+    @DeleteMapping("/employee/deleteFlight")
     String deleteFlight(@RequestParam Long deleteId,  Model model) {
 
         Assert.notNull(deleteId, "id cannot be null!");
@@ -101,6 +101,6 @@ class FlightEditController {
 
         model.addAttribute("deleted", true);
 
-        return "redirect:/flightList";
+        return "redirect:/employee/flightList";
     }
 }

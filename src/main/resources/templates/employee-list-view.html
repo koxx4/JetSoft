@@ -1,60 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/pico.min.css}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common-employee-layout}">
 <body>
-<h1>Lista pracowników</h1>
-<a class="blue-btn" href="/"><-- Powrót do menu</a>
-<div>
-    <a class="green-btn" href="/editEmployee">Dodaj nowego pracownika</a>
-</div>
-<h3 th:text="'Obecna liczba pracowników to: ' + ${#lists.size(employeeList)}"></h3>
-<h4>Filtruj pracowników</h4>
-<form th:method="get" th:action="@{/employeeList}" th:object="${employeeFilterForm}">
-    <label> Imię:
-        <input type="text" th:field="*{firstName}"/>
-    </label>
-    <label>
-        Nazwisko:
-        <input type="text" th:field="*{lastName}"/>
-    </label>
-    <input type="submit" class="green-btn" value="Szukaj">
-</form>
-<h3 th:if="${#lists.isEmpty(employeeList)}">
-    Nie znaleziono żadnych pracowników!
-</h3>
-<table th:unless="${#lists.isEmpty(employeeList)}">
-    <tr>
-        <th>L.P.</th>
-        <th>ID</th>
-        <th>ID Konta</th>
-        <th>Imię</th>
-        <th>Nazwisko</th>
-        <th>Login</th>
-        <th>Akcje</th>
-    </tr>
-    <tr th:each="emp,iterStat : ${employeeList}">
-        <td th:text="${iterStat.count}"></td>
-        <td th:text="${emp.employeeId}"></td>
-        <td th:text="${emp.accountId}"></td>
-        <td th:text="${emp.firstName}"></td>
-        <td th:text="${emp.lastName}"></td>
-        <td th:text="${emp.login}"></td>
-        <td>
-            <a class="yellow-btn" th:href="@{/editEmployee(id=${emp.employeeId})}">Zobacz szczegóły i modyfikuj</a>
-            <form th:method="delete" th:action="@{/deleteEmployee}">
-                <input type="hidden" class="red-btn" name="deleteId"  th:value="${emp.employeeId}">
-                <input type="submit" class="red-btn" value="Usuń pracownika i jego konto">
+<main class="container">
+    <section layout:fragment="content">
+        <div>
+            <h1>Lista pracowników</h1>
+            <div>
+                <a class="green-btn" href="/editEmployee">Dodaj nowego pracownika</a>
+            </div>
+            <h3 th:text="'Obecna liczba pracowników to: ' + ${#lists.size(employeeList)}"></h3>
+            <h4>Filtruj pracowników</h4>
+            <form th:method="get" th:action="@{/employee/employeeList}" th:object="${employeeFilterForm}">
+                <label> Imię:
+                    <input type="text" th:field="*{firstName}"/>
+                </label>
+                <label>
+                    Nazwisko:
+                    <input type="text" th:field="*{lastName}"/>
+                </label>
+                <input type="submit" class="green-btn" value="Szukaj">
             </form>
-        </td>
-    </tr>
-</table>
+            <h3 th:if="${#lists.isEmpty(employeeList)}">
+                Nie znaleziono żadnych pracowników!
+            </h3>
+            <figure>
+                <table th:unless="${#lists.isEmpty(employeeList)}">
+                    <tr>
+                        <th>L.P.</th>
+                        <th>ID</th>
+                        <th>ID Konta</th>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Login</th>
+                        <th>Akcje</th>
+                    </tr>
+                    <tr th:each="emp,iterStat : ${employeeList}">
+                        <td th:text="${iterStat.count}"></td>
+                        <td th:text="${emp.employeeId}"></td>
+                        <td th:text="${emp.accountId}"></td>
+                        <td th:text="${emp.firstName}"></td>
+                        <td th:text="${emp.lastName}"></td>
+                        <td th:text="${emp.login}"></td>
+                        <td>
+                            <a class="yellow-btn" th:href="@{/employee/editEmployee(id=${emp.employeeId})}">Zobacz szczegóły i modyfikuj</a>
+                            <form th:method="delete" th:action="@{/employee/deleteEmployee}">
+                                <input type="hidden" class="red-btn" name="deleteId"  th:value="${emp.employeeId}">
+                                <input type="submit" class="red-btn" value="Usuń pracownika i jego konto">
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </figure>
+        </div>
+    </section>
+</main>
 </body>
 </html>

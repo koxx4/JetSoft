@@ -7,8 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityConfig.CUSTOMER_ROLE;
-import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityConfig.HEAD_MANAGER_ROLE;
+import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityConfig.*;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -38,8 +37,7 @@ class HttpSecurityConfiguration {
 
         auth
                 .requestMatchers(commonSecurityConfig.otherEndpointsRequiringAuthorization()).authenticated()
-
-                .requestMatchers(commonSecurityConfig.employeeEndpoints()).hasAuthority(HEAD_MANAGER_ROLE)
+                .requestMatchers(commonSecurityConfig.employeeEndpoints()).hasAnyAuthority(HEAD_MANAGER_ROLE, MANAGER_ROLE, PILOT_ROLE)
                 .requestMatchers(commonSecurityConfig.customerEndpoints()).hasAuthority(CUSTOMER_ROLE)
                 .anyRequest().permitAll();
     }

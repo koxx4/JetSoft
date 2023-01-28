@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common-employee-layout}">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<main>
+    <section layout:fragment="content">
+        <div>
+            <article>
+                <header th:text="|Witaj ${profile.firstName} ${profile.lastName()}|"></header>
+                Twoje dane:
+                <div th:text="|Imię i nazwisko: ${profile.firstName} ${profile.lastName()}|"></div>
+                <div th:text="|Login: ${profile.login}|"></div>
+                <div th:text="|Data zatrudnienia: ${profile.employmentDate}|"></div>
+                <div>Twoje role:</div>
+                <ul th:each="role : ${profile.roleNames}">
+                    <li th:text="|Rola: ${role}|"></li>
+                </ul>
+            </article>
+        </div>
+    </section>
+</main>
+</body>
+</html>

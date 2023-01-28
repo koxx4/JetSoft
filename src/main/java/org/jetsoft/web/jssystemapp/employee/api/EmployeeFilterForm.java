@@ -1,7 +1,5 @@
 package org.jetsoft.web.jssystemapp.employee.api;
 
-import jakarta.validation.constraints.NotBlank;
-
 public class EmployeeFilterForm {
 
     private String firstName;

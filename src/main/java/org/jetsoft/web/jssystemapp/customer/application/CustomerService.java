@@ -3,7 +3,7 @@ package org.jetsoft.web.jssystemapp.customer.application;
 import org.jetsoft.web.jssystemapp.customer.api.CustomerFilterForm;
 import org.jetsoft.web.jssystemapp.customer.api.CustomerProfileForm;
 import org.jetsoft.web.jssystemapp.customer.api.CustomerRegistrationForm;
-import org.jetsoft.web.jssystemapp.flight.api.domain.Customer;
+import org.jetsoft.web.jssystemapp.customer.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -14,6 +14,7 @@ public class CommonSecurityConfig {
             "/secured-example-endpoint"
     };
     private static final String[] employeeEndpoints = {
+            "/employee/**",
             "/employeeList",
             "/editEmployee",
             "/addEmployee"

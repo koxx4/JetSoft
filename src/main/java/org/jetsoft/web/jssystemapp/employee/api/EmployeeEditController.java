@@ -42,7 +42,7 @@ class EmployeeEditController {
        return employeeRoleQueries.getEmployeeRoleDtoList();
     }
 
-    @GetMapping("/editEmployee")
+    @GetMapping("/employee/editEmployee")
     String getEmployeeForm(@RequestParam(required = false) Long id, Model model) {
 
         if (id == null) {
@@ -57,7 +57,7 @@ class EmployeeEditController {
         return "employee-edit-view";
     }
 
-    @PostMapping("/saveEmployee")
+    @PostMapping("/employee/saveEmployee")
     String getEmployeeForm(@ModelAttribute @Valid EmployeeForm form, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -67,6 +67,6 @@ class EmployeeEditController {
 
         employeeService.saveEmployeeFromForm(form);
 
-        return "redirect:/employeeList";
+        return "redirect:/employee/employeeList";
     }
 }

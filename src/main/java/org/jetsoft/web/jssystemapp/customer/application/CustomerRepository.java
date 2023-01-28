@@ -3,7 +3,7 @@ package org.jetsoft.web.jssystemapp.customer.application;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.Root;
 import org.jetsoft.web.jssystemapp.core.JpaRepository;
-import org.jetsoft.web.jssystemapp.flight.api.domain.Customer;
+import org.jetsoft.web.jssystemapp.customer.domain.Customer;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -8,7 +8,7 @@ import org.jetsoft.web.jssystemapp.customer.application.CustomerDetailsDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerNameAndEmailDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerProfileDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerQueries;
-import org.jetsoft.web.jssystemapp.flight.api.domain.Customer;
+import org.jetsoft.web.jssystemapp.customer.domain.Customer;
 import org.jetsoft.web.jssystemapp.flight.application.ReservationDto;
 import org.jetsoft.web.jssystemapp.flight.application.ReservationsQueries;
 import org.springframework.beans.factory.annotation.Autowired;
