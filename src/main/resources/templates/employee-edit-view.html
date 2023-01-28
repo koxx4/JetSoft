@@ -63,17 +63,19 @@
                 </div>
 
                 <div th:classappend="${#fields.hasErrors('employeeRolesId')}? form-field-error">
-                    <label for="f-employeeRolesId" class="form-label">Role:</label>
-                    <br>
-                    <input
-                            type="checkbox"
-                            id="f-employeeRolesId"
-                            name="roles"
-                            th:each="role : ${availableRoles}"
-                            th:text="${role.name}"
-                            th:value="${role.roleId}"
-                            th:field="*{employeeRolesId}"
-                    />
+                    Role:
+                    <ul th:each="role : ${availableRoles}">
+                        <li>
+                            <input
+                                    type="checkbox"
+                                    id="f-employeeRolesId"
+                                    name="roles"
+                                    th:text="${role.name}"
+                                    th:value="${role.roleId}"
+                                    th:field="*{employeeRolesId}"
+                            />
+                        </li>
+                    </ul>
                 </div>
 
                 <input type="hidden" th:field="*{employeeId}">
