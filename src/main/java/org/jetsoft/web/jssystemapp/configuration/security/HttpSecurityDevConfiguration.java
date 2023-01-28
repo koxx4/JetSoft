@@ -50,7 +50,7 @@ class HttpSecurityDevConfiguration {
 
         auth
                 .requestMatchers(commonSecurityConfig.otherEndpointsRequiringAuthorization()).authenticated()
-                .requestMatchers(commonSecurityConfig.employeeEndpoints()).hasAuthority(HEAD_MANAGER_ROLE)
+                .requestMatchers(commonSecurityConfig.employeeEndpoints()).hasAnyAuthority(HEAD_MANAGER_ROLE, MANAGER_ROLE, PILOT_ROLE)
                 .requestMatchers(commonSecurityConfig.customerEndpoints()).hasAuthority(CUSTOMER_ROLE)
                 .anyRequest().permitAll();
     }

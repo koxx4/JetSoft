@@ -1,6 +1,7 @@
 package org.jetsoft.web.jssystemapp.employee.api;
 
-import org.jetsoft.web.jssystemapp.employee.application.*;
+import org.jetsoft.web.jssystemapp.employee.application.EmployeeBasicInfoDto;
+import org.jetsoft.web.jssystemapp.employee.application.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ class EmployeeListController {
         return new EmployeeFilterForm();
     }
 
-    @GetMapping("/employeeList")
+    @GetMapping("/employee/employeeList")
     String getEmployeeList(@ModelAttribute EmployeeFilterForm filterForm, Model model) {
 
         List<EmployeeBasicInfoDto> employeeBasicInfoDtoList = employeeService

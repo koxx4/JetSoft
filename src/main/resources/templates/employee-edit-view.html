@@ -1,90 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Zarządzaj pracownikiem</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/pico.min.css}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common-employee-layout}">
 <body>
-    <a class="blue-btn" href="/employeeList"><-- Powrót do listy pracowników</a>
-    <form method="post" th:action="@{saveEmployee}" th:object="${employeeForm}">
+<main class="container">
+    <section layout:fragment="content">
+        <div>
+            <form method="post" th:action="@{saveEmployee}" th:object="${employeeForm}">
+                <div th:classappend="${#fields.hasErrors('firstName')}? form-field-error">
+                    <label for="f-first-name" class="form-label">Imię</label>
+                    <br>
+                    <input type="text"
+                           th:field="*{firstName}"
+                           id="f-first-name"/>
+                    <div class="red-text-error" th:each="err : ${#fields.errors('firstName')}"
+                         th:text="${err}">
+                    </div>
+                </div>
 
-        <div th:classappend="${#fields.hasErrors('firstName')}? form-field-error">
-            <label for="f-first-name" class="form-label">Imię</label>
-            <br>
-            <input type="text"
-                   th:field="*{firstName}"
-                   id="f-first-name"/>
-            <div class="red-text-error" th:each="err : ${#fields.errors('firstName')}"
-                 th:text="${err}">
-            </div>
+                <div th:classappend="${#fields.hasErrors('lastName')}? form-field-error">
+                    <label for="f-last-name" class="form-label">Nazwisko</label>
+                    <br>
+                    <input type="text"
+                           th:field="*{lastName}"
+                           id="f-last-name"/>
+                    <div class="red-text-error" th:each="err : ${#fields.errors('lastName')}"
+                         th:text="${err}">
+                    </div>
+                </div>
+
+                <div th:classappend="${#fields.hasErrors('employmentDate')}? form-field-error">
+                    <label for="f-employmentDate" class="form-label">Data zatrudnienia</label>
+                    <br>
+                    <input type="date"
+                           th:field="*{employmentDate}"
+                           id="f-employmentDate"/>
+                    <div class="red-text-error" th:each="err : ${#fields.errors('employmentDate')}"
+                         th:text="${err}">
+                    </div>
+                </div>
+
+                <div th:classappend="${#fields.hasErrors('login')}? form-field-error">
+                    <label for="f-login" class="form-label">Login</label>
+                    <br>
+                    <input type="text"
+                           th:field="*{login}"
+                           id="f-login"/>
+                    <div class="red-text-error" th:each="err : ${#fields.errors('login')}"
+                         th:text="${err}">
+                    </div>
+                </div>
+
+                <div th:classappend="${#fields.hasErrors('password')}? form-field-error">
+                    <label for="f-password" class="form-label" th:text="*{employeeId}? 'Nowe hasło' : 'Hasło dla nowego pracownika'"></label>
+                    <br>
+                    <p th:text="*{employeeId}? '(pusta wartość nie nadpisze obecnego hasła)'" style="font-weight: bold; color: dimgray"></p>
+                    <input type="password"
+                           th:field="*{password}"
+                           id="f-password"/>
+                    <div class="red-text-error" th:each="err : ${#fields.errors('password')}"
+                         th:text="${err}">
+                    </div>
+                </div>
+
+                <div th:classappend="${#fields.hasErrors('employeeRolesId')}? form-field-error">
+                    Role:
+                    <ul th:each="role : ${availableRoles}">
+                        <li>
+                            <input
+                                    type="checkbox"
+                                    id="f-employeeRolesId"
+                                    name="roles"
+                                    th:text="${role.name}"
+                                    th:value="${role.roleId}"
+                                    th:field="*{employeeRolesId}"
+                            />
+                        </li>
+                    </ul>
+                </div>
+
+                <input type="hidden" th:field="*{employeeId}">
+                <input type="submit" value="Zapisz" class="green-btn" />
+            </form>
         </div>
-
-        <div th:classappend="${#fields.hasErrors('lastName')}? form-field-error">
-            <label for="f-last-name" class="form-label">Nazwisko</label>
-            <br>
-            <input type="text"
-                   th:field="*{lastName}"
-                   id="f-last-name"/>
-            <div class="red-text-error" th:each="err : ${#fields.errors('lastName')}"
-                 th:text="${err}">
-            </div>
-        </div>
-
-        <div th:classappend="${#fields.hasErrors('employmentDate')}? form-field-error">
-            <label for="f-employmentDate" class="form-label">Data zatrudnienia</label>
-            <br>
-            <input type="date"
-                   th:field="*{employmentDate}"
-                   id="f-employmentDate"/>
-            <div class="red-text-error" th:each="err : ${#fields.errors('employmentDate')}"
-                 th:text="${err}">
-            </div>
-        </div>
-
-        <div th:classappend="${#fields.hasErrors('login')}? form-field-error">
-            <label for="f-login" class="form-label">Login</label>
-            <br>
-            <input type="text"
-                   th:field="*{login}"
-                   id="f-login"/>
-            <div class="red-text-error" th:each="err : ${#fields.errors('login')}"
-                 th:text="${err}">
-            </div>
-        </div>
-
-        <div th:classappend="${#fields.hasErrors('password')}? form-field-error">
-            <label for="f-password" class="form-label" th:text="*{employeeId}? 'Nowe hasło' : 'Hasło dla nowego pracownika'"></label>
-            <br>
-            <p th:text="*{employeeId}? '(pusta wartość nie nadpisze obecnego hasła)'" style="font-weight: bold; color: dimgray"></p>
-            <input type="password"
-                   th:field="*{password}"
-                   id="f-password"/>
-            <div class="red-text-error" th:each="err : ${#fields.errors('password')}"
-                 th:text="${err}">
-            </div>
-        </div>
-
-        <div th:classappend="${#fields.hasErrors('employeeRolesId')}? form-field-error">
-            <label for="f-employeeRolesId" class="form-label">Role:</label>
-            <br>
-            <input
-                    type="checkbox"
-                    id="f-employeeRolesId"
-                    name="roles"
-                    th:each="role : ${availableRoles}"
-                    th:text="${role.name}"
-                    th:value="${role.roleId}"
-                    th:field="*{employeeRolesId}"
-            />
-        </div>
-
-        <input type="hidden" th:field="*{employeeId}">
-        <input type="submit" value="Zapisz" class="green-btn" />
-    </form>
+    </section>
+</main>
 </body>
 </html>

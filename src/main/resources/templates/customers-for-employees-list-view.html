@@ -1,59 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/pico.min.css}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
-</head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common-employee-layout}">
 <body>
-<h1>Lista zarejestrowanych użytkowników</h1>
-<h3 th:text="|Znaleziona liczba zarejestrowanych użytkowników to ${#lists.size(customers)}|"></h3>
-<div class="container">
-    <h4>Filtruj użytkowników</h4>
-    <form th:method="get" th:action="@{/customerList}" th:object="${customersFilterForm}">
-        <label>Imię:
-            <input type="text" th:field="*{firstName}"/>
-        </label>
-        <label>Nazwisko:
-            <input type="text" th:field="*{lastName}"/>
-        </label>
-        <label>
-            Email:
-            <input type="text" th:field="*{email}"/>
-        </label>
-        <label>
-            Numer telefonu:
-            <input type="text" th:field="*{phone}"/>
-        </label>
-        <input type="submit" class="secondary" value="Szukaj">
-    </form>
-</div>
-<h3 th:if="${#lists.isEmpty(customers)}">
-    Nie znaleziono żadnych użytkowników!
-</h3>
-<table role="grid" th:unless="${#lists.isEmpty(customers)}">
-    <tr>
-        <th>L.P.</th>
-        <th>Imię</th>
-        <th>Nazwisko</th>
-        <th>Telefon</th>
-        <th>Email</th>
-        <th>Data rejestracji</th>
-        <th>Liczba obecnie aktywnych rezerwacji</th>
-    </tr>
-    <tr th:each="c,iterStat : ${customers}">
-        <td th:text="${iterStat.count}"></td>
-        <td th:text="${c.firstName}"></td>
-        <td th:text="${c.lastName}"></td>
-        <td th:text="${c.phone}"></td>
-        <td th:text="${c.email}"></td>
-        <td th:text="${c.registrationDate}"></td>
-        <td th:text="${c.numberOfReservations}"></td>
-    </tr>
-</table>
+<main class="container">
+    <section layout:fragment="content">
+        <h1>Lista zarejestrowanych użytkowników</h1>
+        <h3 th:text="|Znaleziona liczba zarejestrowanych użytkowników to ${#lists.size(customers)}|"></h3>
+        <div class="container">
+            <h4>Filtruj użytkowników</h4>
+            <form th:method="get" th:action="@{/customerList}" th:object="${customersFilterForm}">
+                <label>Imię:
+                    <input type="text" th:field="*{firstName}"/>
+                </label>
+                <label>Nazwisko:
+                    <input type="text" th:field="*{lastName}"/>
+                </label>
+                <label>
+                    Email:
+                    <input type="text" th:field="*{email}"/>
+                </label>
+                <label>
+                    Numer telefonu:
+                    <input type="text" th:field="*{phone}"/>
+                </label>
+                <input type="submit" class="secondary" value="Szukaj">
+            </form>
+        </div>
+        <h3 th:if="${#lists.isEmpty(customers)}">
+            Nie znaleziono żadnych użytkowników!
+        </h3>
+        <figure>
+            <table role="grid" th:unless="${#lists.isEmpty(customers)}">
+                <tr>
+                    <th>L.P.</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Data rejestracji</th>
+                    <th>Liczba obecnie aktywnych rezerwacji</th>
+                </tr>
+                <tr th:each="c,iterStat : ${customers}">
+                    <td th:text="${iterStat.count}"></td>
+                    <td th:text="${c.firstName}"></td>
+                    <td th:text="${c.lastName}"></td>
+                    <td th:text="${c.phone}"></td>
+                    <td th:text="${c.email}"></td>
+                    <td th:text="${c.registrationDate}"></td>
+                    <td th:text="${c.numberOfReservations}"></td>
+                </tr>
+            </table>
+        </figure>
+    </section>
+</main>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>JetSoft - portal pracownika</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/pico.min.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <nav class="dimmed-nav">
+                <ul>
+                    <li><strong>JetSoft - <b>portal pracownika</b></strong></li>
+                </ul>
+                <ul>
+                    <li><a href="/employee/flightList" role="button">Przeglądaj lub dodaj loty</a></li>
+                    <li><a href="/employee/flightList" role="button">Przeglądaj lub dodaj loty</a></li>
+                    <li><a href="/employee/vehicleList" role="button">Przeglądaj lub dodaj pojazdy</a></li>
+                    <li><a href="/employee/employeeList" role="button">Zarządzaj pracownikami</a></li>
+                    <li><a href="/employee/customerList" role="button">Przeglądaj listę zarejestrowanych użytkowników</a></li>
+                    <li><a href="/employee/profileView" role="button" class="secondary">Twój profil</a></li>
+                    <li><a href="/logout" role="button" class="secondary outline">Wyloguj</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section layout:fragment="content">
+            <div></div>
+        </section>
+        <footer>
+            JetSoft copyright 2023. PW-KK-MT.
+        </footer>
+    </main>
+</body>
+</html>

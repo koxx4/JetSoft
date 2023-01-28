@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" style="height: 100%">
 <head>
     <meta charset="UTF-8">
-    <title>JetSoft - portal pracownika</title>
+    <title>JetSoft</title>
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/pico.min.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="mainPagePhoto">
 <main class="container">
-    <div class="grid">
-        <div><a href="/flightList" role="button">Przeglądaj lub dodaj lot</a></div>
-        <div><a href="/vehicleList" role="button" class="secondary">Przeglądaj lub dodaj pojazdy</a></div>
-        <div><a href="/employeeList" role="button" class="secondary outline">Zarządzaj pracownikami</a></div>
-        <div><a href="/customerList" role="button" class="outline">Przeglądaj listę zarejestrowanych użytkowników</a></div>
-        <div><a href="/customer/flightList?page=0" role="button">Loty dla klientów</a></div>
-        <div><a href="/registration/customer" role="button">Rejestracja dla klientów</a></div>
-    </div>
+    <nav>
+        <ul>
+            <li><strong style="color: white">JetSoft</strong></li>
+        </ul>
+        <ul>
+            <li><a href="/customerPublic/flightList?page=0" role="button">Przeglądaj dostępne loty</a></li>
+            <li><a href="/customer/profileView" role="button" class="secondary">Zaloguj się</a></li>
+            <li><a href="/registration/customer" role="button" class="secondary">Zarejestruj się</a></li>
+            <li><a href="/employee/profileView" role="button" class="outline">Portal pracownika</a></li>
+        </ul>
+    </nav>
 </main>
 </body>
 </html>

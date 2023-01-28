@@ -1,13 +1,16 @@
 package org.jetsoft.web.jssystemapp.vehicle.api;
 
-import jakarta.validation.Valid;
-import org.jetsoft.web.jssystemapp.vehicle.application.*;
+import org.jetsoft.web.jssystemapp.vehicle.application.VehicleQueries;
+import org.jetsoft.web.jssystemapp.vehicle.application.VehicleRowDto;
+import org.jetsoft.web.jssystemapp.vehicle.application.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -32,7 +35,7 @@ public class VehicleListController {
         binder.addValidators(vehicleFormValidator);
     }
 
-    @GetMapping("/vehicleList")
+    @GetMapping("/employee/vehicleList")
     String listVehicles(Model model) {
 
         List<VehicleRowDto> vehicles = vehicleQueries.getVehicleRowDtoListPaginated(0, 50);
@@ -42,11 +45,11 @@ public class VehicleListController {
         return "vehicle-list-view";
     }
 
-    @DeleteMapping("/deleteVehicle")
+    @DeleteMapping("/employee/deleteVehicle")
     String listVehicles(@RequestParam Long deleteId) {
 
         vehicleService.removeVehicleById(deleteId);
 
-        return "redirect:/vehicleList";
+        return "redirect:/employee/vehicleList";
     }
 }

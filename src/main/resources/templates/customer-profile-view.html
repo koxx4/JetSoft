@@ -1,64 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common-logged-customer-layout}">
 <head>
-    <meta charset="UTF-8">
     <title>Informacje o twoim profilu</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/pico.min.css}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
     <script th:src="@{/js/customerProfileView.js}" defer></script>
 </head>
 <body>
-<main class="container">
-    <article>
-        <header>
-            Dane w twoim profilu
-        </header>
+<main>
+    <section layout:fragment="content">
+        <div>
+            <article>
+                <header>
+                    Dane w twoim profilu
+                </header>
 
-        <form id="profile-form" method="post" th:action="@{/customer/saveProfile}" th:object="${profileForm}">
-            <label>
-                Imię
-                <input disabled th:field="*{firstName}" type="text" placeholder="Imię">
-                <div class="red-text-error" th:each="err : ${#fields.errors('firstName')}"
-                     th:text="|Błąd w formularzu: ${err}|">
-                </div>
-            </label>
-            <label>
-                Nazwisko
-                <input disabled th:field="*{lastName}" type="text" placeholder="Nazwisko">
-                <div class="red-text-error" th:each="err : ${#fields.errors('lastName')}"
-                     th:text="|Błąd w formularzu: ${err}|">
-                </div>
-            </label>
-            <label>
-                Numer telefonu
-                <input disabled th:field="*{phone}" type="text" placeholder="Numer telefonu">
-                <div class="red-text-error" th:each="err : ${#fields.errors('phone')}"
-                     th:text="|Błąd w formularzu: ${err}|">
-                </div>
-            </label>
-            <label>
-                Adres email:
-                <input disabled th:field="*{email}" type="email" placeholder="Email">
-                <div class="red-text-error" th:each="err : ${#fields.errors('email')}"
-                     th:text="|Błąd w formularzu: ${err}|">
-                </div>
-            </label>
-            <div>
-                <p th:text="|Data założenia konta: ${profile.registrationDate}|"></p>
-            </div>
-            <div>
-                <p th:text="|Obecna liczba aktywnych rezerwacji: ${profile.numberOfReservations}|"></p>
-            </div>
-            <input disabled type="submit" value="Zapisz swoje zmiany">
-        </form>
-        <footer>
-            <button id="edit-profile-btn">Edytuj swoje dane</button>
-            <button id="stop-edit-profile-btn">Przestań edytować swoje dane</button>
-        </footer>
-    </article>
+                <form id="profile-form" method="post" th:action="@{/customer/saveProfile}" th:object="${profileForm}">
+                    <label>
+                        Imię
+                        <input disabled th:field="*{firstName}" type="text" placeholder="Imię">
+                        <div class="red-text-error" th:each="err : ${#fields.errors('firstName')}"
+                             th:text="|Błąd w formularzu: ${err}|">
+                        </div>
+                    </label>
+                    <label>
+                        Nazwisko
+                        <input disabled th:field="*{lastName}" type="text" placeholder="Nazwisko">
+                        <div class="red-text-error" th:each="err : ${#fields.errors('lastName')}"
+                             th:text="|Błąd w formularzu: ${err}|">
+                        </div>
+                    </label>
+                    <label>
+                        Numer telefonu
+                        <input disabled th:field="*{phone}" type="text" placeholder="Numer telefonu">
+                        <div class="red-text-error" th:each="err : ${#fields.errors('phone')}"
+                             th:text="|Błąd w formularzu: ${err}|">
+                        </div>
+                    </label>
+                    <label>
+                        Adres email:
+                        <input disabled th:field="*{email}" type="email" placeholder="Email">
+                        <div class="red-text-error" th:each="err : ${#fields.errors('email')}"
+                             th:text="|Błąd w formularzu: ${err}|">
+                        </div>
+                    </label>
+                    <div>
+                        <p th:text="|Data założenia konta: ${profile.registrationDate}|"></p>
+                    </div>
+                    <div>
+                        <p th:text="|Obecna liczba aktywnych rezerwacji: ${profile.numberOfReservations}|"></p>
+                    </div>
+                    <input disabled type="submit" value="Zapisz swoje zmiany">
+                </form>
+                <footer>
+                    <button id="edit-profile-btn">Edytuj swoje dane</button>
+                    <button id="stop-edit-profile-btn">Przestań edytować swoje dane</button>
+                </footer>
+            </article>
+        </div>
+    </section>
 </main>
 </body>
 </html>
