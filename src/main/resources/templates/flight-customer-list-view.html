@@ -27,9 +27,10 @@
         <td th:text="${flightRowDto.destinationCity} + ', ' + ${flightRowDto.destinationNationality}"></td>
         <td th:text="${flightRowDto.plannedDeparture}"></td>
         <td th:text="${flightRowDto.plannedArrival}"></td>
-        <td th:text="${flightRowDto.availablePassengersSeats}"></td>
+        <td th:text="${flightRowDto.leftPassengersSeats}"></td>
         <td>
-            <form method="post" th:action="@{/customer/makeReservation}">
+            <p th:if="${reservationsTruthTable.get(flightRowDto.flightId)}" class="red-text-error">Nie możesz zarezerwować biletu na ten lot, ponieważ już to zrobiłeś!</p>
+            <form th:unless="${reservationsTruthTable.get(flightRowDto.flightId)}" method="post" th:action="@{/customer/makeReservation}">
                 <input type="hidden" name="flightId"  th:value="${flightRowDto.flightId}">
                 <input type="submit" class="green-btn" value="Zarezerwuj lot">
             </form>

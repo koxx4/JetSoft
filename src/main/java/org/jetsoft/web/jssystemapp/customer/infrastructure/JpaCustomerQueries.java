@@ -8,6 +8,7 @@ import org.jetsoft.web.jssystemapp.customer.application.CustomerDetailsDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerNameAndEmailDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerQueries;
 import org.jetsoft.web.jssystemapp.flight.api.domain.Customer;
+import org.jetsoft.web.jssystemapp.flight.application.ReservationDto;
 import org.jetsoft.web.jssystemapp.flight.application.ReservationsQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -70,6 +71,15 @@ class JpaCustomerQueries extends JpaQueries<Customer> implements CustomerQueries
         return findById(customerId)
                 .map(this::toCustomerNameAndEmailDto)
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public boolean hasReservationOnThisFlight(Long customerId, String flightNumber) {
+
+        return !reservationsQueries.getAllReservationsDtoForCustomer(customerId).stream()
+                .map(ReservationDto::flightNumber)
+                .filter(s -> s.equals(flightNumber))
+                .toList().isEmpty();
     }
 
     private CustomerNameAndEmailDto toCustomerNameAndEmailDto(Customer customer) {

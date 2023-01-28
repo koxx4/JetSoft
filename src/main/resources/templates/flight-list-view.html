@@ -26,7 +26,8 @@
             <th>Do</th>
             <th>Planowany odlot</th>
             <th>Planowany przylot</th>
-            <th>Liczba dostępnych miejsc</th>
+            <th>Liczba ustalonych miejsc</th>
+            <th>Liczba pozostałych miejsc</th>
             <th>Data ostatniej modyfikacji</th>
             <th>Akcje</th>
         </tr>
@@ -39,6 +40,7 @@
             <td th:text="${flightRowDto.plannedDeparture}"></td>
             <td th:text="${flightRowDto.plannedArrival}"></td>
             <td th:text="${flightRowDto.availablePassengersSeats}"></td>
+            <td th:text="${flightRowDto.leftPassengersSeats}"></td>
             <td th:text="${flightRowDto.lastModificationDate}"></td>
             <td>
                 <a class="yellow-btn" th:href="@{/editFlight(id=${flightRowDto.flightId})}">Zobacz szczegóły i modyfikuj</a>

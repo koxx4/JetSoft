@@ -9,4 +9,6 @@ public interface ReservationsQueries {
     List<ReservationListRowDto> getAllReservationListRowsForCustomer(Long customerId);
 
     int getReservationCountForCustomer(Long customerId);
+
+    int getReservationCountForFlight(Long flightId);
 }

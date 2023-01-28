@@ -8,6 +8,7 @@ public class FlightEmployeeRowDto {
     private final Long flightId;
     private final String flightNumber;
     private final int availablePassengersSeats;
+    private final int leftPassengersSeats;
     private final LocalDateTime plannedDeparture;
     private final LocalDateTime plannedArrival;
     private final String sourceCity;
@@ -21,6 +22,7 @@ public class FlightEmployeeRowDto {
             Long flightId,
             String flightNumber,
             int availablePassengersSeats,
+            int leftPassengersSeats,
             LocalDateTime plannedDeparture,
             LocalDateTime plannedArrival,
             String sourceCity,
@@ -33,6 +35,7 @@ public class FlightEmployeeRowDto {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.availablePassengersSeats = availablePassengersSeats;
+        this.leftPassengersSeats = leftPassengersSeats;
         this.plannedDeparture = plannedDeparture;
         this.plannedArrival = plannedArrival;
         this.sourceCity = sourceCity;
@@ -85,5 +88,9 @@ public class FlightEmployeeRowDto {
 
     public boolean isActive() {
         return active;
+    }
+
+    public int getLeftPassengersSeats() {
+        return leftPassengersSeats;
     }
 }

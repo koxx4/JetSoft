@@ -45,6 +45,11 @@ class JpaReservationsQueries extends JpaQueries<Reservation> implements Reservat
         return getAllCustomerReservations(customerId).size();
     }
 
+    @Override
+    public int getReservationCountForFlight(Long flightId) {
+        return getAllFlightsReservations(flightId).size();
+    }
+
     private ReservationDto toReservationDto(Reservation reservation) {
 
         String flightNumber = flightQueries.getFlightNumberByFlightId(reservation.getFlightId());
@@ -83,6 +88,20 @@ class JpaReservationsQueries extends JpaQueries<Reservation> implements Reservat
         criteriaQuery
                 .select(root)
                 .where(criteriaBuilder.equal(root.get("customerId"), customerId));
+
+        return getEntityManager().createQuery(criteriaQuery)
+                .getResultList();
+    }
+
+    private List<Reservation> getAllFlightsReservations(Long flightId) {
+
+        var criteriaBuilder = getCriteriaBuilder();
+        var criteriaQuery = getCriteriaQuery(criteriaBuilder);
+        Root<Reservation> root = criteriaQuery.from(Reservation.class);
+
+        criteriaQuery
+                .select(root)
+                .where(criteriaBuilder.equal(root.get("flightId"), flightId));
 
         return getEntityManager().createQuery(criteriaQuery)
                 .getResultList();

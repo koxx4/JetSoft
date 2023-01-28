@@ -11,4 +11,5 @@ public interface CustomerQueries {
     List<CustomerDetailsDto> getCustomerDetailsList();
     Long getCustomerIdByCustomerEmail(String email);
     CustomerNameAndEmailDto getCustomerNameAndEmailDto(Long customerId);
+    boolean hasReservationOnThisFlight(Long customerId, String flightNumber);
 }
