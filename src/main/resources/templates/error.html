@@ -12,8 +12,10 @@
 <body>
 <main class="container">
     <article>
-        <header><h1>Coś poszło nie tak!</h1></header>
-        <h1>Nie znaleziono strony o takim adresie!</h1>
+        <header>Coś poszło nie tak!</header>
+        <div th:each="er : ${exceptions}">
+            <p th:text="|${er.key} : ${er.value}|"></p>
+        </div>
         <footer><a href="/">Powrót do strony głównej</a></footer>
     </article>
 </main>
