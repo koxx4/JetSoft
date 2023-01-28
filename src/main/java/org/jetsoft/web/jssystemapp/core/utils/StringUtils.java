@@ -6,6 +6,8 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class StringUtils {
 
+    public static String EMPTY_STRING = "";
+
     private StringUtils() {}
 
     public static String nullToEmpty(String target) {

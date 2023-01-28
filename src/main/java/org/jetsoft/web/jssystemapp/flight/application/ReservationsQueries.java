@@ -11,4 +11,8 @@ public interface ReservationsQueries {
     int getReservationCountForCustomer(Long customerId);
 
     int getReservationCountForFlight(Long flightId);
+
+    boolean isReservationAssignedToCustomer(Long reservationId, Long customerId);
+
+    String getReservationNumberById(Long reservationId);
 }
