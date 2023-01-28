@@ -1,37 +1,42 @@
 package org.jetsoft.web.jssystemapp.customer.api;
 
-import org.jetsoft.web.jssystemapp.customer.application.CustomerQueries;
-import org.jetsoft.web.jssystemapp.flight.application.ReservationListRowDto;
-import org.jetsoft.web.jssystemapp.flight.application.ReservationsQueries;
+import org.jetsoft.web.jssystemapp.customer.application.CustomerDetailsDto;
+import org.jetsoft.web.jssystemapp.customer.application.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
 class CustomerListController {
 
-    private final ReservationsQueries reservationsQueries;
-    private final CustomerQueries customerQueries;
+    private final CustomerService customerService;
 
     @Autowired
-    CustomerListController(ReservationsQueries reservationsQueries, CustomerQueries customerQueries) {
-        this.reservationsQueries = reservationsQueries;
-        this.customerQueries = customerQueries;
+    CustomerListController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
-    @GetMapping("/customer/reservations")
-    String listAllCustomerReservations(Model model, Principal principal) {
+    @ModelAttribute("customersFilterForm")
+    private CustomerFilterForm addCustomerFilterFormToModel() {
 
-        String customerEmail = principal.getName();
-        Long customerId = customerQueries.getCustomerIdByCustomerEmail(customerEmail);
-        List<ReservationListRowDto> reservationList = reservationsQueries.getAllReservationListRowsForCustomer(customerId);
+        return new CustomerFilterForm();
+    }
 
-        model.addAttribute("reservations", reservationList);
+    @GetMapping("/customerList")
+    String listAllCustomersForEmployees(@ModelAttribute CustomerFilterForm customersFilterForm, Model model) {
 
-        return "customer-reservation-list-view";
+        List<CustomerDetailsDto> customers = customerService.getCustomerDetailsListFiltered(customersFilterForm);
+
+        model.addAttribute("customers", customers);
+
+        return "customers-for-employees-list-view";
     }
 }

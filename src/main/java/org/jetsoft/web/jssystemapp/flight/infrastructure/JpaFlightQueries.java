@@ -2,11 +2,13 @@ package org.jetsoft.web.jssystemapp.flight.infrastructure;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.Root;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
 import org.jetsoft.web.jssystemapp.flight.application.FlightCustomerRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightEmployeeRowDto;
 import org.jetsoft.web.jssystemapp.flight.application.FlightQueries;
 import org.jetsoft.web.jssystemapp.flight.domain.Flight;
+import org.jetsoft.web.jssystemapp.flight.domain.Reservation;
 import org.jetsoft.web.jssystemapp.location.application.RouteFlatDto;
 import org.jetsoft.web.jssystemapp.location.application.RouteQueries;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,11 +98,12 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
     private FlightCustomerRowDto toFlightCustomerRowDto(Flight flight) {
 
         var routeFlatDto = routeQueries.getRouteFlatDtoByRouteId(flight.getRouteId());
+        var reservationCount = getReservationCountForFlight(flight.getId());
 
         return new FlightCustomerRowDto(
                 flight.getId(),
                 flight.getFlightNumber(),
-                (long) flight.getAvailablePassengersSeats(),
+                (long) flight.getAvailablePassengersSeats() - reservationCount,
                 flight.getPlannedDeparture(),
                 flight.getPlannedArrival(),
                 routeFlatDto.sourceCityName(),
@@ -112,10 +115,13 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
 
     private FlightEmployeeRowDto toFlightPublicRowDto(Flight flight, RouteFlatDto routeFlatDto) {
 
+        var reservationCount = getReservationCountForFlight(flight.getId());
+
         return new FlightEmployeeRowDto(
                 flight.getId(),
                 flight.getFlightNumber(),
                 flight.getAvailablePassengersSeats(),
+                flight.getAvailablePassengersSeats()- reservationCount,
                 flight.getPlannedDeparture(),
                 flight.getPlannedArrival(),
                 routeFlatDto.sourceCityName(),
@@ -125,5 +131,19 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
                 flight.isActive(),
                 flight.getLastModificationDate()
         );
+    }
+
+    private int getReservationCountForFlight(Long flightId) {
+
+        var criteriaBuilder = getCriteriaBuilder();
+        var criteriaQuery = criteriaBuilder.createQuery(Reservation.class);
+        Root<Reservation> root = criteriaQuery.from(Reservation.class);
+
+        criteriaQuery
+                .select(root)
+                .where(criteriaBuilder.equal(root.get("flightId"), flightId));
+
+        return getEntityManager().createQuery(criteriaQuery)
+                .getResultList().size();
     }
 }

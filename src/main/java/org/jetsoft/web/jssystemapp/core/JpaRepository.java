@@ -2,6 +2,8 @@ package org.jetsoft.web.jssystemapp.core;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -52,5 +54,20 @@ public abstract class JpaRepository<T extends JpaEntity> {
         }
 
         return Optional.ofNullable(entityManager.find(entityClass, id));
+    }
+
+    protected EntityManager getEntityManager() {
+
+        return entityManager;
+    }
+
+    protected CriteriaBuilder getCriteriaBuilder() {
+
+        return entityManager.getCriteriaBuilder();
+    }
+
+    protected CriteriaQuery<T> getCriteriaQuery(CriteriaBuilder criteriaBuilder) {
+
+        return criteriaBuilder.createQuery(entityClass);
     }
 }

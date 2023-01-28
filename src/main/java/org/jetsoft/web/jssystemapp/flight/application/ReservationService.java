@@ -12,12 +12,14 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final CustomerQueries customerQueries;
+    private final ReservationsQueries reservationsQueries;
     private final ReservationNumberProvider reservationNumberProvider;
 
     @Autowired
-    ReservationService(ReservationRepository reservationRepository, CustomerQueries customerQueries, ReservationNumberProvider reservationNumberProvider) {
+    ReservationService(ReservationRepository reservationRepository, CustomerQueries customerQueries, ReservationsQueries reservationsQueries, ReservationNumberProvider reservationNumberProvider) {
         this.reservationRepository = reservationRepository;
         this.customerQueries = customerQueries;
+        this.reservationsQueries = reservationsQueries;
         this.reservationNumberProvider = reservationNumberProvider;
     }
 
@@ -36,5 +38,18 @@ public class ReservationService {
         reservationRepository.save(newReservation);
 
         return reservationNumber;
+    }
+
+    public void removeCustomerReservation(Long reservationId, String customerEmail) {
+
+        Long customerId = customerQueries.getCustomerIdByCustomerEmail(customerEmail);
+
+        if (!reservationsQueries.isReservationAssignedToCustomer(reservationId, customerId)) {
+
+            throw new IllegalArgumentException(
+                    "Rezerwacja o id=" + reservationId + " nie jest przypisana do użytkownika " + customerEmail);
+        }
+
+        reservationRepository.remove(reservationId);
     }
 }

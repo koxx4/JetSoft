@@ -4,9 +4,13 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.Root;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
+import org.jetsoft.web.jssystemapp.customer.application.CustomerDetailsDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerNameAndEmailDto;
+import org.jetsoft.web.jssystemapp.customer.application.CustomerProfileDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerQueries;
 import org.jetsoft.web.jssystemapp.flight.api.domain.Customer;
+import org.jetsoft.web.jssystemapp.flight.application.ReservationDto;
+import org.jetsoft.web.jssystemapp.flight.application.ReservationsQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -22,9 +26,12 @@ import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityC
 @Service
 class JpaCustomerQueries extends JpaQueries<Customer> implements CustomerQueries {
 
+    private final ReservationsQueries reservationsQueries;
+
     @Autowired
-    JpaCustomerQueries(EntityManager entityManager) {
+    JpaCustomerQueries(EntityManager entityManager, ReservationsQueries reservationsQueries) {
         super(entityManager, Customer.class);
+        this.reservationsQueries = reservationsQueries;
     }
 
     @Override
@@ -40,6 +47,37 @@ class JpaCustomerQueries extends JpaQueries<Customer> implements CustomerQueries
         List<SimpleGrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority(CUSTOMER_ROLE));
 
         return Optional.of(new User(customer.getEmail(), customer.getPassword(), authorityList));
+    }
+
+    @Override
+    public List<CustomerDetailsDto> getCustomerDetailsList() {
+
+        return getAll().stream()
+                .map(this::toCustomerDetailsDto)
+                .toList();
+    }
+
+    @Override
+    public CustomerDetailsDto getCustomerDetailsByEmail(String email) {
+
+        return findCustomerByEmail(email)
+                .map(this::toCustomerDetailsDto)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public CustomerProfileDto getCustomerProfileDtoByEmail(String email) {
+
+        return findCustomerByEmail(email)
+                .map(this::toCustomerProfileDto)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    private CustomerProfileDto toCustomerProfileDto(Customer customer) {
+
+        int reservationsCountForCustomer = reservationsQueries.getActiveReservationCountForCustomer(customer.getId());
+
+        return new CustomerProfileDto(customer.getRegistrationDate(), reservationsCountForCustomer);
     }
 
     @Override
@@ -59,9 +97,32 @@ class JpaCustomerQueries extends JpaQueries<Customer> implements CustomerQueries
                 .orElseThrow(EntityNotFoundException::new);
     }
 
+    @Override
+    public boolean hasReservationOnThisFlight(Long customerId, String flightNumber) {
+
+        return !reservationsQueries.getAllReservationsDtoForCustomer(customerId).stream()
+                .map(ReservationDto::flightNumber)
+                .filter(s -> s.equals(flightNumber))
+                .toList().isEmpty();
+    }
+
     private CustomerNameAndEmailDto toCustomerNameAndEmailDto(Customer customer) {
 
         return new CustomerNameAndEmailDto(customer.getFirstName(), customer.getLastName(), customer.getEmail());
+    }
+
+    private CustomerDetailsDto toCustomerDetailsDto(Customer customer) {
+
+        int reservationsCountForCustomer = reservationsQueries.getActiveReservationCountForCustomer(customer.getId());
+
+        return new CustomerDetailsDto(
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getPhone(),
+                customer.getEmail(),
+                customer.getRegistrationDate(),
+                reservationsCountForCustomer
+        );
     }
 
     private Optional<Customer> findCustomerByEmail(String email) {

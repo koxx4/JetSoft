@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>Błąd</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/pico.min.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
+</head>
+<body>
+<main class="container">
+    <article>
+        <header><h1>Coś poszło nie tak!</h1></header>
+        Nasi inżynierowie już nad tym pracują...
+        <div th:each="er : ${exceptions}">
+            <p th:text="|${er.key} : ${er.value}|"></p>
+        </div>
+        <footer><a href="/">Powrót do strony głównej</a></footer>
+    </article>
+</main>
+</body>
+</html>

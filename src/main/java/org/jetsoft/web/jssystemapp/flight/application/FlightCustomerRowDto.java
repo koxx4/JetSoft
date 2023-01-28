@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public record FlightCustomerRowDto(
     Long flightId,
     String flightNumber,
-    Long availablePassengersSeats,
+    Long leftPassengersSeats,
     @DateTimeFormat(pattern = "EEE, d MMM yyyy HH:mm")
     LocalDateTime plannedDeparture,
     @DateTimeFormat(pattern = "EEE, d MMM yyyy HH:mm")

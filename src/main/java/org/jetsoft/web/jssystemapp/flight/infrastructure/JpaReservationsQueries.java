@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static org.jetsoft.web.jssystemapp.core.utils.StringUtils.EMPTY_STRING;
+
 @Service
 class JpaReservationsQueries extends JpaQueries<Reservation> implements ReservationsQueries {
 
@@ -38,6 +40,32 @@ class JpaReservationsQueries extends JpaQueries<Reservation> implements Reservat
         return getAllCustomerReservations(customerId).stream()
                 .map(this::toReservationListRowDto)
                 .toList();
+    }
+
+    @Override
+    public int getActiveReservationCountForCustomer(Long customerId) {
+        return getAllCustomerReservations(customerId).size();
+    }
+
+    @Override
+    public int getReservationCountForFlight(Long flightId) {
+        return getAllFlightsReservations(flightId).size();
+    }
+
+    @Override
+    public boolean isReservationAssignedToCustomer(Long reservationId, Long customerId) {
+
+        return findById(reservationId)
+                .map(reservation -> reservation.getCustomerId().equals(customerId))
+                .orElse(false);
+    }
+
+    @Override
+    public String getReservationNumberById(Long reservationId) {
+
+        return findById(reservationId)
+                .map(Reservation::getReservationNumber)
+                .orElse(EMPTY_STRING);
     }
 
     private ReservationDto toReservationDto(Reservation reservation) {
@@ -78,6 +106,20 @@ class JpaReservationsQueries extends JpaQueries<Reservation> implements Reservat
         criteriaQuery
                 .select(root)
                 .where(criteriaBuilder.equal(root.get("customerId"), customerId));
+
+        return getEntityManager().createQuery(criteriaQuery)
+                .getResultList();
+    }
+
+    private List<Reservation> getAllFlightsReservations(Long flightId) {
+
+        var criteriaBuilder = getCriteriaBuilder();
+        var criteriaQuery = getCriteriaQuery(criteriaBuilder);
+        Root<Reservation> root = criteriaQuery.from(Reservation.class);
+
+        criteriaQuery
+                .select(root)
+                .where(criteriaBuilder.equal(root.get("flightId"), flightId));
 
         return getEntityManager().createQuery(criteriaQuery)
                 .getResultList();

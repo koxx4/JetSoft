@@ -39,8 +39,8 @@
                 <td th:text="${reservation.arrivalDate}"></td>
                 <td th:text="${reservation.reservationDate}"></td>
                 <td>
-                    <form th:method="delete" th:action="@{/custmoer/removeReservation}">
-                        <input type="hidden" class="red-btn" name="id"  th:value="${reservation.reservationId}">
+                    <form th:method="delete" th:action="@{/customer/removeReservation}">
+                        <input type="hidden" class="red-btn" name="reservationId"  th:value="${reservation.reservationId}">
                         <input type="submit" class="red-btn" value="Usuń rezerwację">
                     </form>
                 </td>
