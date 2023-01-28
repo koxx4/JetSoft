@@ -43,7 +43,7 @@ class JpaReservationsQueries extends JpaQueries<Reservation> implements Reservat
     }
 
     @Override
-    public int getReservationCountForCustomer(Long customerId) {
+    public int getActiveReservationCountForCustomer(Long customerId) {
         return getAllCustomerReservations(customerId).size();
     }
 

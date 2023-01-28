@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.Root;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerDetailsDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerNameAndEmailDto;
+import org.jetsoft.web.jssystemapp.customer.application.CustomerProfileDto;
 import org.jetsoft.web.jssystemapp.customer.application.CustomerQueries;
 import org.jetsoft.web.jssystemapp.flight.api.domain.Customer;
 import org.jetsoft.web.jssystemapp.flight.application.ReservationDto;
@@ -57,6 +58,29 @@ class JpaCustomerQueries extends JpaQueries<Customer> implements CustomerQueries
     }
 
     @Override
+    public CustomerDetailsDto getCustomerDetailsByEmail(String email) {
+
+        return findCustomerByEmail(email)
+                .map(this::toCustomerDetailsDto)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public CustomerProfileDto getCustomerProfileDtoByEmail(String email) {
+
+        return findCustomerByEmail(email)
+                .map(this::toCustomerProfileDto)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    private CustomerProfileDto toCustomerProfileDto(Customer customer) {
+
+        int reservationsCountForCustomer = reservationsQueries.getActiveReservationCountForCustomer(customer.getId());
+
+        return new CustomerProfileDto(customer.getRegistrationDate(), reservationsCountForCustomer);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Long getCustomerIdByCustomerEmail(String email) {
 
@@ -89,7 +113,7 @@ class JpaCustomerQueries extends JpaQueries<Customer> implements CustomerQueries
 
     private CustomerDetailsDto toCustomerDetailsDto(Customer customer) {
 
-        int reservationsCountForCustomer = reservationsQueries.getReservationCountForCustomer(customer.getId());
+        int reservationsCountForCustomer = reservationsQueries.getActiveReservationCountForCustomer(customer.getId());
 
         return new CustomerDetailsDto(
                 customer.getFirstName(),

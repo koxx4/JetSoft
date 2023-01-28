@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1 th:unless="${errorSavingProfileData}">Pomyślnie zapisano zmiany!</h1>
+<h1 th:if="${errorSavingProfileData}">Przepraszamy, wystąpił błąd przy zapisie zmian, spróbuj ponownie później!</h1>
+<a href="/customer/profileView" role="button">Powrót do profilu</a>
+</body>
+</html>

@@ -1,7 +1,7 @@
 package org.jetsoft.web.jssystemapp.customer.application;
 
-import org.jetsoft.web.jssystemapp.core.utils.StringUtils;
 import org.jetsoft.web.jssystemapp.customer.api.CustomerFilterForm;
+import org.jetsoft.web.jssystemapp.customer.api.CustomerProfileForm;
 import org.jetsoft.web.jssystemapp.customer.api.CustomerRegistrationForm;
 import org.jetsoft.web.jssystemapp.flight.api.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +35,31 @@ public class CustomerService {
                 customerRegistrationForm.getPhone(),
                 LocalDateTime.now()
         ));
+    }
+
+    public void updateUserProfileFromProfileForm(CustomerProfileForm customerProfileForm, String customerEmail) {
+
+        Customer customer = customerRepository.getByEmail(customerEmail);
+
+        customer.setEmail(customerProfileForm.getEmail());
+        customer.setFirstName(customerProfileForm.getFirstName());
+        customer.setLastName(customerProfileForm.getLastName());
+        customer.setPhone(customerProfileForm.getPhone());
+
+        customerRepository.save(customer);
+    }
+
+    public CustomerProfileForm getFilledCustomerProfileFormByEmail(String email) {
+
+        Customer customer = customerRepository.getByEmail(email);
+
+        CustomerProfileForm customerProfileForm = new CustomerProfileForm();
+        customerProfileForm.setEmail(customer.getEmail());
+        customerProfileForm.setFirstName(customer.getFirstName());
+        customerProfileForm.setLastName(customer.getLastName());
+        customerProfileForm.setPhone(customer.getPhone());
+
+        return customerProfileForm;
     }
 
     public List<CustomerDetailsDto> getCustomerDetailsListFiltered(CustomerFilterForm filter) {
