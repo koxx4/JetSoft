@@ -5,49 +5,47 @@
 <main class="container">
     <section layout:fragment="content">
         <div>
-            <h1>Lista pracowników</h1>
-            <div>
-                <a class="green-btn" href="/editEmployee">Dodaj nowego pracownika</a>
-            </div>
-            <h3 th:text="'Obecna liczba pracowników to: ' + ${#lists.size(employeeList)}"></h3>
-            <h4>Filtruj pracowników</h4>
-            <form th:method="get" th:action="@{/employee/employeeList}" th:object="${employeeFilterForm}">
-                <label> Imię:
-                    <input type="text" th:field="*{firstName}"/>
-                </label>
-                <label>
-                    Nazwisko:
-                    <input type="text" th:field="*{lastName}"/>
-                </label>
-                <input type="submit" class="green-btn" value="Szukaj">
-            </form>
-            <h3 th:if="${#lists.isEmpty(employeeList)}">
-                Nie znaleziono żadnych pracowników!
+            <h1>Lista pilotów</h1>
+            <h3 th:text="'Obecna liczba pilotów to: ' + ${#lists.size(pilots)}"></h3>
+            <h3 th:if="${#lists.isEmpty(pilots)}">
+                Nie znaleziono żadnych pilotów!
             </h3>
             <figure>
-                <table th:unless="${#lists.isEmpty(employeeList)}">
+                <table th:unless="${#lists.isEmpty(pilots)}">
                     <tr>
-                        <th>L.P.</th>
+                        <th>#</th>
                         <th>ID</th>
-                        <th>ID Konta</th>
                         <th>Imię</th>
                         <th>Nazwisko</th>
-                        <th>Login</th>
+                        <th>Pochodzenie</th>
+                        <th>Numer licencji</th>
+                        <th>Przypisany to lotów:</th>
+                        <th>Liczba wylatanych godzin</th>
+                        <th>Status</th>
                         <th>Akcje</th>
                     </tr>
-                    <tr th:each="emp,iterStat : ${employeeList}">
-                        <td th:text="${iterStat.count}"></td>
-                        <td th:text="${emp.employeeId}"></td>
-                        <td th:text="${emp.accountId}"></td>
-                        <td th:text="${emp.firstName}"></td>
-                        <td th:text="${emp.lastName}"></td>
-                        <td th:text="${emp.login}"></td>
+                    <tr th:each="p,i : ${pilots}">
+                        <td th:text="${i.count}"></td>
+                        <td th:text="${p.pilotId}"></td>
+                        <td th:text="${p.firstName}"></td>
+                        <td th:text="${p.lastName}"></td>
+                        <td th:text="${p.nationalityName}"></td>
+                        <td th:text="${p.licenseNumber}"></td>
                         <td>
-                            <a class="yellow-btn" th:href="@{/employee/editEmployee(id=${emp.employeeId})}">Zobacz szczegóły i modyfikuj</a>
-                            <form th:method="delete" th:action="@{/employee/deleteEmployee}">
-                                <input type="hidden" class="red-btn" name="deleteId"  th:value="${emp.employeeId}">
-                                <input type="submit" class="red-btn" value="Usuń pracownika i jego konto">
-                            </form>
+                            <p th:if="${#lists.isEmpty(p.assignedFlightsNumbers)}">Brak przypisań do lotów</p>
+                           <details th:unless="${#lists.isEmpty(p.assignedFlightsNumbers)}">
+                               <summary>Lista przypisań do lotów</summary>
+                               <ol>
+                                   <th:block th:each="f : ${p.assignedFlightsNumbers}">
+                                       <li th:text="|Lot o numerze ${f}|"></li>
+                                   </th:block>
+                               </ol>
+                           </details>
+                        </td>
+                        <td th:text="${p.hoursOfExperience}"></td>
+                        <td th:text="${p.statusName}"></td>
+                        <td>
+                            <a role="button" th:href="@{/employee/editPilot(id=${p.pilotId})}">Modyfikuj dane pilota</a>
                         </td>
                     </tr>
                 </table>

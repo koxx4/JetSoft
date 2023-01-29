@@ -7,7 +7,10 @@
         <div>
             <h1>Lista pracowników</h1>
             <div>
-                <a class="green-btn" href="/editEmployee">Dodaj nowego pracownika</a>
+                <a href="/employee/pilotList" role="button">Przejdź do listy pilotów</a>
+            </div>
+            <div>
+                <a href="/editEmployee" role="button">Dodaj nowego pracownika</a>
             </div>
             <h3 th:text="'Obecna liczba pracowników to: ' + ${#lists.size(employeeList)}"></h3>
             <h4>Filtruj pracowników</h4>
