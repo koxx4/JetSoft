@@ -26,6 +26,8 @@ import static org.springframework.security.web.context.HttpSessionSecurityContex
 @Controller
 class CustomerRegistrationController {
 
+    private static final String V_CUSTOMER_REGISTRATION = "customer/customer-registration-view";
+    private static final String V_CUSTOMER_REGISTRATION_SUCCESS = "customer/customer-registration-success-view";
     private final CustomerService customerService;
     private final AuthenticationManager authenticationManager;
 
@@ -42,7 +44,7 @@ class CustomerRegistrationController {
 
         model.addAttribute("registrationForm", new CustomerRegistrationForm());
 
-        return "customer-registration-view";
+        return V_CUSTOMER_REGISTRATION;
     }
 
     @PostMapping ("/registration/customer/create")
@@ -51,7 +53,8 @@ class CustomerRegistrationController {
                                 HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
-            return "customer-registration-view";
+
+            return V_CUSTOMER_REGISTRATION;
         }
 
         customerService.registerNewCustomerFromForm(customerRegistrationForm);
@@ -63,7 +66,7 @@ class CustomerRegistrationController {
 
         logInNewCustomer(request, token);
 
-        return "customer-registration-success-view";
+        return V_CUSTOMER_REGISTRATION_SUCCESS;
     }
 
     private void logInNewCustomer(HttpServletRequest request, UsernamePasswordAuthenticationToken token) {

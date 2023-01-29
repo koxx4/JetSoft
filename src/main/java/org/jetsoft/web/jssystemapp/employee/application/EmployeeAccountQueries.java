@@ -11,6 +11,7 @@ public interface EmployeeAccountQueries {
     Long getEmployeeAccountIdByEmployeeId(Long id);
     Long getEmployeeAccountIdByUsername(String username);
     List<String> getEmployeeRoleNamesByAccountId(Long id);
+    List<String> getEmployeeRoleNamesByAccountLogin(String login);
     List<Long> getEmployeeRoleIdListByAccountId(Long id);
     boolean exists(Long id);
     Optional<UserDetails> getUserDetailsForAuthenticationByLogin(String login);

@@ -13,6 +13,7 @@ import java.security.Principal;
 @Controller
 class CustomerProfileEditController {
 
+    private static final String V_CUSTOMER_CUSTOMER_PROFILE_EDIT_RESULT = "customer/customer-profile-edit-result-view";
     private final CustomerService customerService;
 
     @Autowired
@@ -35,6 +36,6 @@ class CustomerProfileEditController {
 
         model.addAttribute("errorSavingProfileData", errorSavingProfileData);
 
-        return "customer-profile-edit-result-view";
+        return V_CUSTOMER_CUSTOMER_PROFILE_EDIT_RESULT;
     }
 }

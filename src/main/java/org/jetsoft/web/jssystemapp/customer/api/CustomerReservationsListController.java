@@ -14,6 +14,7 @@ import java.util.List;
 @Controller
 class CustomerReservationsListController {
 
+    private static final String V_CUSTOMER_RESERVATION_LIST = "customer/customer-reservation-list-view";
     private final ReservationsQueries reservationsQueries;
     private final CustomerQueries customerQueries;
 
@@ -32,6 +33,6 @@ class CustomerReservationsListController {
 
         model.addAttribute("reservations", reservationList);
 
-        return "customer-reservation-list-view";
+        return V_CUSTOMER_RESERVATION_LIST;
     }
 }

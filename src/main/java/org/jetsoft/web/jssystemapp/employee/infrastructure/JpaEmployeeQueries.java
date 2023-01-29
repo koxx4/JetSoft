@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityConfig.PILOT_ROLE;
+
 @Service
 class JpaEmployeeQueries extends JpaQueries<Employee> implements EmployeeQueries {
 
@@ -50,6 +52,14 @@ class JpaEmployeeQueries extends JpaQueries<Employee> implements EmployeeQueries
         return findById(employeeId)
                 .map(this::toEmployeeProfileDto)
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public boolean isEmployeePilot(String login) {
+
+        List<String> roleNames = employeeAccountQueries.getEmployeeRoleNamesByAccountLogin(login);
+
+        return roleNames.contains(PILOT_ROLE);
     }
 
     @Override

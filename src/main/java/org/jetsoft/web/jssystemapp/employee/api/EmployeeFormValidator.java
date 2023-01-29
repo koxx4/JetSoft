@@ -27,6 +27,13 @@ class EmployeeFormValidator implements Validator {
         return clazz == EmployeeForm.class;
     }
 
+    /**
+     * If the employee ID is not found in the database, then validate the form for a new employee, otherwise validate the
+     * form for an existing employee
+     *
+     * @param target The object to be validated.
+     * @param errors This is the object that will be used to report any validation errors.
+     */
     @Override
     public void validate(Object target, Errors errors) {
 
@@ -44,6 +51,12 @@ class EmployeeFormValidator implements Validator {
         validateEmploymentDate(errors, form);
     }
 
+    /**
+     * If the password field is not empty, validate the password length
+     *
+     * @param errors This is the object that will hold the errors.
+     * @param form The form object that is being validated.
+     */
     private void validateFormForExistingEmployee(Errors errors, EmployeeForm form) {
 
         String password = form.getPassword();
@@ -53,6 +66,12 @@ class EmployeeFormValidator implements Validator {
         }
     }
 
+    /**
+     * If the password is blank, reject the password field with the error code `employee.newAccount.password.empty`.
+     *
+     * @param errors This is the object that will hold the errors.
+     * @param form The form object that is being validated.
+     */
     private void validateFormForNewEmployee(Errors errors, EmployeeForm form) {
 
         String password = form.getPassword();
@@ -65,6 +84,13 @@ class EmployeeFormValidator implements Validator {
         validatePasswordLength(password, errors);
     }
 
+    /**
+     * If the employment date is not null, and the employment date is after today, then reject the value of the employment
+     * date field with the error code "employee.employmentDate.inFuture"
+     *
+     * @param errors The Errors object that will be used to report any validation errors.
+     * @param form The form object that is being validated.
+     */
     private static void validateEmploymentDate(Errors errors, EmployeeForm form) {
 
         if (form.getEmploymentDate() != null) {
@@ -76,11 +102,25 @@ class EmployeeFormValidator implements Validator {
         }
     }
 
+    /**
+     * If the date is after today, return true
+     *
+     * @param date The date to check
+     * @return A boolean value.
+     */
     private static boolean isDateAfterToday(LocalDate date) {
 
         return date.isAfter(LocalDate.now());
     }
 
+    /**
+     * If the password is less than 6 characters, reject the password field with the error code
+     * "employee.newAccount.password.tooShort". If the password is greater than 40 characters, reject the password field
+     * with the error code "employee.newAccount.password.tooLong"
+     *
+     * @param password The name of the field that is being validated.
+     * @param errors The Errors object that will be used to report any validation errors that occur.
+     */
     private void validatePasswordLength(String password, Errors errors) {
 
         if (StringUtils.length(password) < 6) {

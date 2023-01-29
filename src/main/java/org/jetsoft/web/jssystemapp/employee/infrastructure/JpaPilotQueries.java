@@ -1,23 +1,22 @@
 package org.jetsoft.web.jssystemapp.employee.infrastructure;
 
 import jakarta.persistence.EntityManager;
-import java.util.Collections;
-
 import jakarta.persistence.criteria.Root;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
 import org.jetsoft.web.jssystemapp.employee.application.EmployeeFirstAndLastNameDto;
 import org.jetsoft.web.jssystemapp.employee.application.EmployeeQueries;
 import org.jetsoft.web.jssystemapp.employee.application.PilotDto;
 import org.jetsoft.web.jssystemapp.employee.application.PilotQueries;
-import org.jetsoft.web.jssystemapp.employee.domain.EmployeeAccountData;
 import org.jetsoft.web.jssystemapp.employee.domain.Pilot;
 import org.jetsoft.web.jssystemapp.employee.domain.PilotStatus;
+import org.jetsoft.web.jssystemapp.flight.application.FlightQueries;
 import org.jetsoft.web.jssystemapp.flight.domain.PilotToFlight;
 import org.jetsoft.web.jssystemapp.location.application.CityAndNationalityQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,12 +24,19 @@ class JpaPilotQueries extends JpaQueries<Pilot> implements PilotQueries {
 
     private final EmployeeQueries employeeQueries;
     private final CityAndNationalityQueries cityAndNationalityQueries;
+    private final FlightQueries flightQueries;
 
     @Autowired
-    JpaPilotQueries(EntityManager entityManager, EmployeeQueries employeeQueries, CityAndNationalityQueries cityAndNationalityQueries) {
+    JpaPilotQueries(
+            EntityManager entityManager,
+            EmployeeQueries employeeQueries,
+            CityAndNationalityQueries cityAndNationalityQueries,
+            FlightQueries flightQueries) {
+
         super(entityManager, Pilot.class);
         this.employeeQueries = employeeQueries;
         this.cityAndNationalityQueries = cityAndNationalityQueries;
+        this.flightQueries = flightQueries;
     }
 
     @Override
@@ -63,6 +69,17 @@ class JpaPilotQueries extends JpaQueries<Pilot> implements PilotQueries {
         return getEntityManager().createQuery(criteriaQuery)
                 .getResultList().stream()
                 .map(this::toPilotDto)
+                .toList();
+    }
+
+    @Override
+    public List<String> getAllFlightNumbersAssignedToPilot(Long pilotId) {
+
+        return findById(pilotId)
+                .map(Pilot::getFlights)
+                .orElse(Collections.emptyList()).stream()
+                .map(PilotToFlight::getFlightId)
+                .map(flightQueries::getFlightNumberByFlightId)
                 .toList();
     }
 
