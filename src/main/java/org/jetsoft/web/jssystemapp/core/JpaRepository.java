@@ -26,6 +26,12 @@ public abstract class JpaRepository<T extends JpaEntity> {
     }
 
     @Transactional
+    public void flush() {
+
+        entityManager.flush();
+    }
+
+    @Transactional
     public void remove(Long id) {
 
          T entity = get(id);

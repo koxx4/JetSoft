@@ -5,82 +5,83 @@
 <main class="container">
     <section layout:fragment="content">
         <div>
-            <form method="post" th:action="@{saveEmployee}" th:object="${employeeForm}">
-                <div th:classappend="${#fields.hasErrors('firstName')}? form-field-error">
-                    <label for="f-first-name" class="form-label">Imię</label>
-                    <br>
-                    <input type="text"
-                           th:field="*{firstName}"
-                           id="f-first-name"/>
-                    <div class="red-text-error" th:each="err : ${#fields.errors('firstName')}"
-                         th:text="${err}">
-                    </div>
+            <a role="button" href="/employee/pilotList">Powrót do listy pilotów</a>
+            <form method="post" th:action="@{/employee/savePilot}" th:object="${pilotForm}">
+                <label>Numer licencji
+                    <input type="text" th:field="*{licenseNumber}"/>
+                </label>
+                <div class="red-text-error" th:each="e : ${#fields.errors('licenseNumber')}" th:text="${e}"></div>
+
+                <label>Narodowość
+                    <select th:field="*{nationalityId}">
+                        <option th:each="n : ${nationalities}" th:value="${n.nationalityId}" th:text="${n.nationalityName}"></option>
+                    </select>
+                </label>
+                <div class="red-text-error" th:each="e : ${#fields.errors('nationalityId')}" th:text="${e}"></div>
+
+                <label>Status
+                    <select th:field="*{statusId}">
+                        <option th:each="s : ${statuses}" th:value="${s.statusId}" th:text="${s.statusName}"></option>
+                    </select>
+                </label>
+                <div class="red-text-error" th:each="e : ${#fields.errors('statusId')}" th:text="${e}"></div>
+
+                <label>Liczba wylatanych godzin
+                    <input type="number" th:field="*{hoursOfExperience}"/>
+                </label>
+                <div class="red-text-error" th:each="e : ${#fields.errors('hoursOfExperience')}" th:text="${e}"></div>
+
+                <div>
+                    Obecnie przypisany do:
+                    <p th:if="${#lists.isEmpty(pilotForm.assignedFlights)}">żadnych lotów</p>
+                    <details th:unless="${#lists.isEmpty(pilotForm.assignedFlights)}">
+                        <summary></summary>
+                        <ol>
+                            <th:block th:each="f : *{assignedFlights}">
+                                <li
+                                        th:text="|Lot ${f.flightNumber}, ${f.sourceCity} do ${f.destinationCity}. Odlot ${f.plannedDeparture}, przylot ${f.plannedArrival}|">
+                                </li>
+                            </th:block>
+                        </ol>
+                    </details>
                 </div>
 
-                <div th:classappend="${#fields.hasErrors('lastName')}? form-field-error">
-                    <label for="f-last-name" class="form-label">Nazwisko</label>
-                    <br>
-                    <input type="text"
-                           th:field="*{lastName}"
-                           id="f-last-name"/>
-                    <div class="red-text-error" th:each="err : ${#fields.errors('lastName')}"
-                         th:text="${err}">
-                    </div>
-                </div>
-
-                <div th:classappend="${#fields.hasErrors('employmentDate')}? form-field-error">
-                    <label for="f-employmentDate" class="form-label">Data zatrudnienia</label>
-                    <br>
-                    <input type="date"
-                           th:field="*{employmentDate}"
-                           id="f-employmentDate"/>
-                    <div class="red-text-error" th:each="err : ${#fields.errors('employmentDate')}"
-                         th:text="${err}">
-                    </div>
-                </div>
-
-                <div th:classappend="${#fields.hasErrors('login')}? form-field-error">
-                    <label for="f-login" class="form-label">Login</label>
-                    <br>
-                    <input type="text"
-                           th:field="*{login}"
-                           id="f-login"/>
-                    <div class="red-text-error" th:each="err : ${#fields.errors('login')}"
-                         th:text="${err}">
-                    </div>
-                </div>
-
-                <div th:classappend="${#fields.hasErrors('password')}? form-field-error">
-                    <label for="f-password" class="form-label" th:text="*{employeeId}? 'Nowe hasło' : 'Hasło dla nowego pracownika'"></label>
-                    <br>
-                    <p th:text="*{employeeId}? '(pusta wartość nie nadpisze obecnego hasła)'" style="font-weight: bold; color: dimgray"></p>
-                    <input type="password"
-                           th:field="*{password}"
-                           id="f-password"/>
-                    <div class="red-text-error" th:each="err : ${#fields.errors('password')}"
-                         th:text="${err}">
-                    </div>
-                </div>
-
-                <div th:classappend="${#fields.hasErrors('employeeRolesId')}? form-field-error">
-                    Role:
-                    <ul th:each="role : ${availableRoles}">
-                        <li>
-                            <input
-                                    type="checkbox"
-                                    id="f-employeeRolesId"
-                                    name="roles"
-                                    th:text="${role.name}"
-                                    th:value="${role.roleId}"
-                                    th:field="*{employeeRolesId}"
-                            />
-                        </li>
-                    </ul>
-                </div>
-
-                <input type="hidden" th:field="*{employeeId}">
-                <input type="submit" value="Zapisz" class="green-btn" />
+                <input type="hidden" th:field="*{pilotId}">
+                <input type="submit" value="Zapisz"/>
             </form>
+            <br>
+            Wybierz lot, do którego chcesz przypisać pilota:
+            <div style="margin: 0.5em" th:if="${#lists.isEmpty(flightsToAssign)}">
+                <strong>Brak lotów, do których można przypisać tego pilota</strong>
+            </div>
+            <form th:unless="${#lists.isEmpty(flightsToAssign)}" method="post" th:action="@{/employee/assignToFlight}">
+                <label>Lot do wyboru
+                    <select name="flightId">
+                        <option
+                                th:each="f : ${flightsToAssign}"
+                                th:value="${f.flightId}"
+                                th:text="|Lot ${f.flightNumber}, ${f.sourceCity} do ${f.destinationCity}. Odlot ${f.plannedDeparture}, przylot ${f.plannedArrival}|"></option>
+                    </select>
+                </label>
+                <input type="hidden" name="pilotId" th:value="${pilotForm.pilotId}">
+                <input type="submit" value="Przypisz do lotu">
+            </form>
+
+            <div th:unless="${#lists.isEmpty(pilotForm.assignedFlights)}">
+                Wybierz numer lotu, od którego pilot będzie usunięty:
+                <form th:method="delete" th:action="@{/employee/removeFromFlight}">
+                    <label>Lot do wyboru
+                        <select name="flightId">
+                            <option
+                                    th:each="f : ${pilotForm.assignedFlights}"
+                                    th:value="${f.flightId}"
+                                    th:text="|Lot ${f.flightNumber}, ${f.sourceCity} do ${f.destinationCity}. Odlot ${f.plannedDeparture}, przylot ${f.plannedArrival}|"></option>
+                        </select>
+                    </label>
+                    <input type="hidden" name="pilotId" th:value="${pilotForm.pilotId}">
+                    <input type="submit" class="secondary" value="Usuń z lotu">
+                </form>
+            </div>
         </div>
     </section>
 </main>

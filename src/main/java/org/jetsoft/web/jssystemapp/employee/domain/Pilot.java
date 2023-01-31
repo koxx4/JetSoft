@@ -1,5 +1,6 @@
 package org.jetsoft.web.jssystemapp.employee.domain;
 
+import jakarta.persistence.Access;
 import jakarta.persistence.*;
 import org.jetsoft.web.jssystemapp.core.JpaEntity;
 import org.jetsoft.web.jssystemapp.flight.domain.PilotToFlight;
@@ -17,7 +18,7 @@ public class Pilot implements JpaEntity {
     private Long pilotStatusId;
     private String licenseNumber;
     private Long hoursFlown;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pilotId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pilotId", orphanRemoval = true)
     private List<PilotToFlight> flights;
 
     private Pilot() {}
