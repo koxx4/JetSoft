@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Zarejestruj się</title>
     <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/pico.min.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
 </head>
 <body>
+<main class="container">
     <form method="post" th:action="@{/registration/customer/create}" th:object="${registrationForm}">
-
         <div th:classappend="${#fields.hasErrors('firstName')}? form-field-error">
             <label>
                 Imię:
@@ -53,5 +54,6 @@
         <br>
         <input class="green-btn" type="submit" value="Zarejestruj się">
     </form>
+</main>
 </body>
 </html>

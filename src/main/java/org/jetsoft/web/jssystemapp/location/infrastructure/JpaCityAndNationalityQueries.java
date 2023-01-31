@@ -7,6 +7,7 @@ import jakarta.persistence.criteria.Root;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
 import org.jetsoft.web.jssystemapp.location.application.CityAndNationalityQueries;
 import org.jetsoft.web.jssystemapp.location.application.NationalityAndCityDto;
+import org.jetsoft.web.jssystemapp.location.application.NationalityAndCityWithIdDto;
 import org.jetsoft.web.jssystemapp.location.application.NationalityDto;
 import org.jetsoft.web.jssystemapp.location.domain.City;
 import org.jetsoft.web.jssystemapp.location.domain.Nationality;
@@ -54,5 +55,20 @@ class JpaCityAndNationalityQueries extends JpaQueries<City> implements CityAndNa
         return getEntityManager().createQuery(criteriaQuery).getResultList().stream()
                 .map(nationality -> new NationalityDto(nationality.getId(), nationality.getName()))
                 .toList();
+    }
+
+    @Override
+    public List<NationalityAndCityWithIdDto> getNationalityAndCityWithIdDtoList() {
+
+        return getAll().stream()
+                .map(this::toNationalityAndCityWithIdDto)
+                .toList();
+    }
+
+    private NationalityAndCityWithIdDto toNationalityAndCityWithIdDto(City city) {
+
+        String nationalityName = getNationalityNameByNationalityId(city.getNationalityId());
+
+        return new NationalityAndCityWithIdDto(city.getId(), nationalityName, city.getName());
     }
 }

@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common-employee-layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Lista tras</title>
 </head>
 <body>
-
+<main class="container">
+    <section layout:fragment="content">
+        <div>
+            <h1>Lista tras</h1>
+            <div>
+                <a href="/employee/editRoute">Dodaj nową trasę</a>
+            </div>
+            <figure>
+                <table role="grid">
+                    <tr>
+                        <th>#</th>
+                        <th>Źródło</th>
+                        <th>Cel</th>
+                        <th>Dystans</th>
+                        <th>Ilość przypisanych lotów</th>
+                        <th>Akcje</th>
+                    </tr>
+                    <tr th:each="r,i : ${routes}">
+                        <td th:text="${i.count}"></td>
+                        <td th:text="|${r.sourceNationalityName}, ${r.sourceCityName}|"></td>
+                        <td th:text="|${r.destinationNationalityName}, ${r.destinationCityName}|"></td>
+                        <td th:text="|${r.distance} kilometrów|"></td>
+                        <td th:text="${r.flightsAssignedCount}"></td>
+                        <td>
+                            <a class="yellow-btn" th:href="@{/employee/editRoute(id=${r.routeId})}">Modyfikuj</a>
+                            <form th:method="delete" th:action="@{/employee/deleteRoute}">
+                                <input type="hidden" class="red-btn" name="routeId" th:value="${r.routeId}">
+                                <input th:if="${r.flightsAssignedCount} le 0" type="submit" class="red-btn" value="Usuń trasę">
+                                <input th:if="${r.flightsAssignedCount} gt 0" disabled type="submit" class="red-btn" value="Usuń trasę">
+                                <small th:if="${r.flightsAssignedCount} gt 0" style="color: darkred">
+                                    Nie można usunąć trasy, ponieważ są do niej przypisane loty!
+                                </small>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </figure>
+        </div>
+    </section>
+</main>
 </body>
 </html>

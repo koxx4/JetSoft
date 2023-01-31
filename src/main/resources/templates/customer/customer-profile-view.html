@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common-logged-customer-layout}">
+      layout:decorate="~{customer/common-logged-customer-layout}">
 <head>
     <title>Informacje o twoim profilu</title>
     <script th:src="@{/js/customerProfileView.js}" defer></script>
@@ -13,7 +13,6 @@
                 <header>
                     Dane w twoim profilu
                 </header>
-
                 <form id="profile-form" method="post" th:action="@{/customer/saveProfile}" th:object="${profileForm}">
                     <label>
                         Imię

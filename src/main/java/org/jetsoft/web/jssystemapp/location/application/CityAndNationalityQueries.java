@@ -9,4 +9,5 @@ public interface CityAndNationalityQueries {
     String getNationalityNameByNationalityId(Long id);
 
     List<NationalityDto> getNationalityDtoList();
+    List<NationalityAndCityWithIdDto> getNationalityAndCityWithIdDtoList();
 }

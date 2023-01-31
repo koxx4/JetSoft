@@ -26,6 +26,6 @@ class CustomerFlightReservationController {
 
         model.addAttribute("reservationNumber", reservationNumber);
 
-        return "customer-reservation-success-view";
+        return "customer/customer-reservation-success-view";
     }
 }
