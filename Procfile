@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=8080 -Dspring.profiles.active=dev -jar build/libs/jssystemapp-0.0.1-SNAPSHOT.jar
+web: java $JAVA_OPTS -Dserver.port=$PORT -Dspring.profiles.active=dev -jar build/libs/jssystemapp-0.0.1-SNAPSHOT.jar
