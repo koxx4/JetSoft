@@ -28,7 +28,7 @@ insert into data.city (id, nationality_id , name) values (13, 6, 'Lyon');
 insert into data.city (id, nationality_id , name) values (14, 7, 'Ateny');
 insert into data.city (id, nationality_id , name) values (15, 8, 'Wiedeń');
 insert into data.city (id, nationality_id , name) values (16, 9, 'Sztokholm');
-insert into data.city (id, nationality_id , name) values (17, 10, 'Zagrzeb');
+insert into data.city (id, nationality_id , name) values (17, 10, 'Zagrzeb'); --zagrzeb pogrzeb wygrzeb
 
 -- vehicle_type
 
@@ -40,7 +40,6 @@ insert into data.vehicle_type (id, type_name) values (2, 'Śmigłowiec');
 insert into ppd.pilot_status (id, status) values (1, 'AVAILABLE');
 insert into ppd.pilot_status (id, status) values (2, 'IN_FLIGHT');
 insert into ppd.pilot_status (id, status) values (3, 'ON_LEAVE');
-insert into ppd.pilot_status (id, status) values (4, 'ALREADY_ASSIGNED');
 
 -- vehicle_manufacturer
 
@@ -61,7 +60,9 @@ insert into data.vehicle_model (manufacturer_id, manufacture_code, max_passenger
 
 INSERT INTO data.route
 (source_city_id, destination_city_id, distance)
-VALUES(1, 2, 300);
+VALUES
+    (1, 2, 300),
+    (17,16,1510); -- Zagrzeb -> Sztokholm
 
 INSERT INTO data.route
 (source_city_id, destination_city_id, distance)
@@ -104,7 +105,7 @@ insert into ppd.employee (first_name, last_name, employment_date) values ('Elihu
 insert into ppd.employee (first_name, last_name, employment_date) values ( 'Thorny', 'Bedbury', '2021-07-04'); -- prezes
 
 
-insert into ppd.pilot (id, nationality_id, pilot_status_id, license_number, hours_flown) values (1, 5, 4, 'WAULH54B01N812477', 4875);
+insert into ppd.pilot (id, nationality_id, pilot_status_id, license_number, hours_flown) values (1, 5, 1, 'WAULH54B01N812477', 4875);
 insert into ppd.pilot (id, nationality_id, pilot_status_id, license_number, hours_flown) values (2, 7, 3, '1GYFK63807R460901', 4109);
 insert into ppd.pilot (id, nationality_id, pilot_status_id, license_number, hours_flown) values (3, 7, 1, '1GYFK6380AAXX46091', 420);
 
@@ -124,13 +125,18 @@ INSERT INTO data.flight
     planned_departure,
     planned_arrival
 )
-VALUES(2, 1, null, true, 'POLWARWŁORZY', 100, 2, false, '2022-10-15 08:27:53+02', false, '2023-10-15 12:27:53+02', '2023-10-15 18:27:53+02');
+VALUES
+    (1, 1, null, true, 'POLWARWŁORZY001', 100, 2, false, '2022-10-15 08:00:00+02', false, '2023-10-15 12:27:53+02', '2023-10-15 18:27:53+02'),
+    (2, 2, null, true, 'CHOZAGSZWSZT001', 100, 2, false, '2022-10-15 08:00:00+02', false, '2022-10-20 09:00:00+02', '2023-10-20 15:27:53+02');
 
 --flight_pilot
 
 INSERT INTO data.flight_pilot
 (pilot_id, flight_id, assigned_by_employee_id, assigned_date)
-VALUES(1, 1, 4, '2022-10-14 08:27:53+02');
+VALUES
+(1, 1, 10, '2022-10-14 08:27:53+02'),
+(1, 2, 10, '2022-10-14 08:27:53+02'),
+(3, 2, 10, '2022-10-14 08:27:53+02');
 
 
 -- employee_role

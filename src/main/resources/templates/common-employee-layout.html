@@ -10,20 +10,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet">
 </head>
 <body>
-    <main class="container">
+    <main class="container-fluid">
         <header>
             <nav class="dimmed-nav">
                 <ul>
-                    <li><strong>JetSoft - <b>portal pracownika</b></strong></li>
+                    <li><strong>JetSoft - portal pracownika</strong></li>
                 </ul>
                 <ul>
-                    <li><a href="/employee/flightList" role="button">Przeglądaj lub dodaj loty</a></li>
-                    <li><a href="/employee/flightList" role="button">Przeglądaj lub dodaj loty</a></li>
-                    <li><a href="/employee/vehicleList" role="button">Przeglądaj lub dodaj pojazdy</a></li>
-                    <li><a href="/employee/employeeList" role="button">Zarządzaj pracownikami</a></li>
-                    <li><a href="/employee/customerList" role="button">Przeglądaj listę zarejestrowanych użytkowników</a></li>
-                    <li><a href="/employee/profileView" role="button" class="secondary">Twój profil</a></li>
-                    <li><a href="/logout" role="button" class="secondary outline">Wyloguj</a></li>
+                    <li role="list" dir="rtl">
+                        <a href="#" aria-haspopup="listbox">Menu</a>
+                        <ul role="listbox">
+                            <li><a href="/employee/flightList">Zarządzaj lotami</a></li>
+                            <li><a href="/employee/routeList">Zarządzaj trasami przelotowymi</a></li>
+                            <li><a href="/employee/vehicleList">Zrządzaj pojazdami</a></li>
+                            <li><a href="/employee/employeeList">Zarządzaj pracownikami</a></li>
+                            <li><a href="/employee/customerList">Przeglądaj listę zarejestrowanych użytkowników</a></li>
+                            <li><a href="/employee/profileView" class="secondary">Twój profil</a></li>
+                            <li><a href="/logout" role="button" class="secondary outline" style="margin: 0.2em">Wyloguj</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </header>

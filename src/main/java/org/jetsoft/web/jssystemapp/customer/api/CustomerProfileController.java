@@ -13,6 +13,7 @@ import java.security.Principal;
 @Controller
 class CustomerProfileController {
 
+    private static final String V_CUSTOMER_PROFILE = "customer/customer-profile-view";
     private final CustomerQueries customerQueries;
     private final CustomerService customerService;
 
@@ -34,6 +35,6 @@ class CustomerProfileController {
         model.addAttribute("profile", customerProfile);
         model.addAttribute("profileForm", profileForm);
 
-        return "customer-profile-view";
+        return V_CUSTOMER_PROFILE;
     }
 }

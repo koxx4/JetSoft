@@ -69,6 +69,23 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
                 .toList();
     }
 
+    /**
+     * Returns a list of strings that represent the roles of an employee account
+     *
+     * @param login the login of the employee account
+     * @return A list of strings.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> getEmployeeRoleNamesByAccountLogin(String login) {
+
+        return findByLogin(login)
+                .map(EmployeeAccountData::getEmployeeRole)
+                .orElseThrow(EntityNotFoundException::new).stream()
+                .map(EmployeeRole::getRole)
+                .toList();
+    }
+
     @Override
     public List<Long> getEmployeeRoleIdListByAccountId(Long id) {
 
@@ -79,8 +96,29 @@ class JpaEmployeeAccountQueries extends JpaQueries<EmployeeAccountData> implemen
                 .toList();
     }
 
+
+    private Optional<EmployeeAccountData> findByLogin(String login) {
+
+        var criteriaBuilder = getCriteriaBuilder();
+        var criteriaQuery = getCriteriaQuery(criteriaBuilder);
+        Root<EmployeeAccountData> root = criteriaQuery.from(EmployeeAccountData.class);
+
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"), login));
+
+        try {
+
+            EmployeeAccountData accountData = getEntityManager().createQuery(criteriaQuery).getSingleResult();
+
+            return Optional.of(accountData);
+
+        } catch (Exception exception) {
+
+            return Optional.empty();
+        }
+    }
+
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<UserDetails> getUserDetailsForAuthenticationByLogin(String login) {
 
         var criteriaBuilder = getCriteriaBuilder();

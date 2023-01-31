@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common-employee-layout}">
+<body>
+<main class="container">
+    <section layout:fragment="content">
+        <div>
+            <form method="post" th:action="@{saveRoute}" th:object="${routeForm}">
+                <div>
+                    <label>
+                        Miasto wylotowe
+                        <select th:field="*{sourceCityId}">
+                            <option th:each="c : ${cities}"
+                                    th:value="${c.cityId}"
+                                    th:text="|${c.nationalityName}, ${c.cityName}|">
+                            </option>
+                        </select>
+                    </label>
+                    <label>
+                        Miasto docelowe
+                        <select th:field="*{destinationCityId}">
+                            <option th:each="c : ${cities}"
+                                    th:value="${c.cityId}"
+                                    th:text="|${c.nationalityName}, ${c.cityName}|">
+                            </option>
+                        </select>
+                    </label>
+                    <div>
+                        <label>
+                            Dystans (w kilometrach):
+                            <input type="number" th:field="*{distance}"/>
+                        </label>
+                    </div>
+                </div>
+                <input type="hidden" th:field="*{routeId}">
+                <input type="submit" value="Zapisz"/>
+            </form>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common-logged-customer-layout}">
+      layout:decorate="~{customer/common-logged-customer-layout}">
 <head>
     <title>Lista rezerwacji</title>
 </head>
@@ -9,7 +9,7 @@
     <section layout:fragment="content">
         <div>
             <h1>Lista rezerwacji</h1>
-            <a role="button" class="secondary" href="/customer/flightList?page=0"><-- Przeglądaj dostępne loty</a>
+            <a role="button" class="secondary" href="/customerPublic/flightList?page=0"><-- Przeglądaj dostępne loty</a>
             <div th:if="${#lists.isEmpty(reservations)}">
                 Brak złożonych rezerwacji!
             </div>

@@ -1,23 +1,19 @@
 package org.jetsoft.web.jssystemapp.employee.infrastructure;
 
 import jakarta.persistence.EntityManager;
-import java.util.Collections;
-
 import jakarta.persistence.criteria.Root;
 import org.jetsoft.web.jssystemapp.core.JpaQueries;
-import org.jetsoft.web.jssystemapp.employee.application.EmployeeFirstAndLastNameDto;
-import org.jetsoft.web.jssystemapp.employee.application.EmployeeQueries;
-import org.jetsoft.web.jssystemapp.employee.application.PilotDto;
-import org.jetsoft.web.jssystemapp.employee.application.PilotQueries;
-import org.jetsoft.web.jssystemapp.employee.domain.EmployeeAccountData;
+import org.jetsoft.web.jssystemapp.employee.application.*;
 import org.jetsoft.web.jssystemapp.employee.domain.Pilot;
 import org.jetsoft.web.jssystemapp.employee.domain.PilotStatus;
+import org.jetsoft.web.jssystemapp.flight.application.FlightQueries;
 import org.jetsoft.web.jssystemapp.flight.domain.PilotToFlight;
 import org.jetsoft.web.jssystemapp.location.application.CityAndNationalityQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,12 +21,19 @@ class JpaPilotQueries extends JpaQueries<Pilot> implements PilotQueries {
 
     private final EmployeeQueries employeeQueries;
     private final CityAndNationalityQueries cityAndNationalityQueries;
+    private final FlightQueries flightQueries;
 
     @Autowired
-    JpaPilotQueries(EntityManager entityManager, EmployeeQueries employeeQueries, CityAndNationalityQueries cityAndNationalityQueries) {
+    JpaPilotQueries(
+            EntityManager entityManager,
+            EmployeeQueries employeeQueries,
+            CityAndNationalityQueries cityAndNationalityQueries,
+            FlightQueries flightQueries) {
+
         super(entityManager, Pilot.class);
         this.employeeQueries = employeeQueries;
         this.cityAndNationalityQueries = cityAndNationalityQueries;
+        this.flightQueries = flightQueries;
     }
 
     @Override
@@ -66,18 +69,61 @@ class JpaPilotQueries extends JpaQueries<Pilot> implements PilotQueries {
                 .toList();
     }
 
+    @Override
+    public List<String> getAllFlightNumbersAssignedToPilot(Long pilotId) {
+
+        return findById(pilotId)
+                .map(Pilot::getFlights)
+                .orElse(Collections.emptyList()).stream()
+                .map(PilotToFlight::getFlightId)
+                .map(flightQueries::getFlightNumberByFlightId)
+                .toList();
+    }
+
+    @Override
+    public List<PilotListRowDto> getPilotListRowDtoList() {
+        return getAll().stream()
+                .map(this::toPilotListRowDto)
+                .toList();
+    }
+
+    private PilotListRowDto toPilotListRowDto(Pilot pilot) {
+
+        PilotStatus pilotStatus = getById(PilotStatus.class, pilot.getPilotStatusId());
+
+        EmployeeFirstAndLastNameDto employeeFirstAndLastName = employeeQueries.getEmployeeFirstAndLastNameDto(pilot.getId());
+
+        String nationalityName = cityAndNationalityQueries.getNationalityNameByNationalityId(pilot.getNationalityId());
+
+        List<String> assignedFlightsNumbers = pilot.getFlights().stream()
+                .map(PilotToFlight::getFlightId)
+                .map(flightQueries::getFlightNumberByFlightId)
+                .toList();
+
+        return new PilotListRowDto(
+                pilot.getId(),
+                employeeFirstAndLastName.firstName(),
+                employeeFirstAndLastName.lastName(),
+                pilotStatus.getStatus(),
+                nationalityName,
+                pilot.getLicenseNumber(),
+                pilot.getHoursFlown(),
+                assignedFlightsNumbers
+        );
+    }
+
     private PilotDto toPilotDto(Pilot pilot) {
 
         PilotStatus pilotStatus = getById(PilotStatus.class, pilot.getPilotStatusId());
         EmployeeFirstAndLastNameDto employeeFirstAndLastName = employeeQueries.getEmployeeFirstAndLastNameDto(pilot.getId());
-        String statusName = cityAndNationalityQueries.getNationalityNameByNationalityId(pilot.getNationalityId());
+        String nationalityName = cityAndNationalityQueries.getNationalityNameByNationalityId(pilot.getNationalityId());
 
         return new PilotDto(
                 pilot.getId(),
                 employeeFirstAndLastName.firstName(),
                 employeeFirstAndLastName.lastName(),
                 pilotStatus.getStatus(),
-                statusName,
+                nationalityName,
                 pilot.getHoursFlown()
         );
     }

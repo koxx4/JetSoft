@@ -18,6 +18,14 @@
                 <ul th:each="role : ${profile.roleNames}">
                     <li th:text="|Rola: ${role}|"></li>
                 </ul>
+                <div th:if="${isPilot}">
+                    Jesteś pilotem.
+                    <span th:if="${#lists.isEmpty(flightNumbers)}">Nie jesteś przypisany obecnie do żadnych lotów.</span>
+                    <span th:unless="${#lists.isEmpty(flightNumbers)}">Jesteś przypisany do poniższych lotów:</span>
+                    <ul th:each="fn : ${flightNumbers}">
+                        <li th:text="|Lot o numerze: ${fn}|"></li>
+                    </ul>
+                </div>
             </article>
         </div>
     </section>

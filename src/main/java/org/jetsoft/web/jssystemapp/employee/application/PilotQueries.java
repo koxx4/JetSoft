@@ -9,4 +9,8 @@ public interface PilotQueries {
     List<PilotDto> getAllAvailableToAssignPilotsDtoList();
 
     List<PilotDto> getAllPilotsAssignedToFlight(Long flightId);
+
+    List<String> getAllFlightNumbersAssignedToPilot(Long pilotId);
+
+    List<PilotListRowDto> getPilotListRowDtoList();
 }

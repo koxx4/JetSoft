@@ -8,5 +8,6 @@ public interface EmployeeQueries {
     List<EmployeeBasicInfoDto> getEmployeeBasicInfoDtoList();
     EmployeeFirstAndLastNameDto getEmployeeFirstAndLastNameDto(Long id);
     EmployeeProfileDto getEmployeeProfileDto(Long employeeId);
+    boolean isEmployeePilot(String username);
     boolean employeeExists(Long id);
 }

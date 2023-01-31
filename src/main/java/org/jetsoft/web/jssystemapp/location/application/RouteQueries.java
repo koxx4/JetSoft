@@ -6,5 +6,7 @@ public interface RouteQueries {
 
     RouteFlatDto getRouteFlatDtoByRouteId(Long id);
     List<RouteFlatDto> getRouteFlatDtoList();
+    List<RouteListRowDto> getRouteListRowDtoList();
     Long getRouteDistanceByRouteId(Long id);
+    boolean exists(Long routeId);
 }

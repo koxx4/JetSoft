@@ -65,6 +65,35 @@ class JpaFlightQueries extends JpaQueries<Flight> implements FlightQueries {
     }
 
     @Override
+    public List<FlightEmployeeRowDto> getFlightEmployeeRowDtoList() {
+
+        return getAll().stream()
+                .map(flight -> {
+
+                    var routeFlatDto = routeQueries.getRouteFlatDtoByRouteId(flight.getRouteId());
+
+                    return toFlightPublicRowDto(flight, routeFlatDto);
+                })
+                .toList();
+    }
+
+    @Override
+    public List<FlightEmployeeRowDto> getFlightEmployeeRowDtoListFilteredByIdList(List<Long> flightIdList) {
+
+        return getFlightEmployeeRowDtoList().stream()
+                .filter(dto -> flightIdList.contains(dto.getFlightId()))
+                .toList();
+    }
+
+    @Override
+    public List<FlightEmployeeRowDto> getFlightEmployeeRowDtoListWithout(List<Long> flightIdList) {
+
+        return getFlightEmployeeRowDtoList().stream()
+                .filter(dto -> !flightIdList.contains(dto.getFlightId()))
+                .toList();
+    }
+
+    @Override
     public boolean exists(Long id) {
 
         return super.exists(id);

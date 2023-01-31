@@ -16,16 +16,19 @@
                 <li><strong>JetSoft</strong></li>
             </ul>
             <ul>
-                <li><a href="/customerPublic/flightList?page=0" role="button">Przeglądaj dostępne loty</a></li>
-                <li><a href="/customer/reservations" role="button">Twoje rezerwacje</a></li>
-                <li><a href="/customer/profileView" role="button" class="secondary">Twój profil</a></li>
-                <li><a href="/logout" role="button" class="secondary">Wyloguj się</a></li>
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox">Menu</a>
+                    <ul role="listbox">
+                        <li><a href="/customerPublic/flightList?page=0">Przeglądaj dostępne loty</a></li>
+                        <li><a href="/customer/reservations">Twoje rezerwacje</a></li>
+                        <li><a href="/customer/profileView" class="secondary">Twój profil</a></li>
+                        <li><a href="/logout" role="button" class="outline secondary" style="margin: 0.2em">Wyloguj się</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <section layout:fragment="content">
-            <div>
-
-            </div>
+            <div></div>
         </section>
         <footer>
             JetSoft copyright 2023. PW-KK-MT.

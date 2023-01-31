@@ -12,6 +12,7 @@ import java.security.Principal;
 @Controller
 class CustomerReservationEditController {
 
+    private static final String V_CUSTOMER_RESERVATION_REMOVE_SUCCESS = "customer/customer-reservation-remove-success-view";
     private final ReservationService reservationService;
     private final ReservationsQueries reservationsQueries;
 
@@ -35,6 +36,6 @@ class CustomerReservationEditController {
 
         model.addAttribute("reservationNumber", reservationNumber);
 
-        return "customer-reservation-remove-success-view";
+        return V_CUSTOMER_RESERVATION_REMOVE_SUCCESS;
     }
 }
