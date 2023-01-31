@@ -57,3 +57,7 @@ jar {
 		)
 	}
 }
+
+//Do Heroku
+task stage(dependsOn: ['clean', 'bootJar'])
+bootJar.mustRunAfter clean
