@@ -18,6 +18,8 @@ import java.util.Map;
 @Controller
 class MainErrorController implements ErrorController {
 
+    private static final String ERRORS_VIEWS_PATH = "errors/";
+
     @RequestMapping("/error")
     String handleError(HttpServletRequest request) {
 
@@ -27,17 +29,17 @@ class MainErrorController implements ErrorController {
             Integer statusCode = Integer.valueOf(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "error-404";
+                return ERRORS_VIEWS_PATH + "error-404";
             }
             else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "error-500";
+                return ERRORS_VIEWS_PATH + "error-500";
             }
             else if(statusCode == HttpStatus.FORBIDDEN.value() || statusCode == HttpStatus.UNAUTHORIZED.value()) {
-                return "error-403";
+                return ERRORS_VIEWS_PATH + "error-403";
             }
         }
 
-        return "error";
+        return ERRORS_VIEWS_PATH + "error";
     }
 
     @ModelAttribute("exceptions")
