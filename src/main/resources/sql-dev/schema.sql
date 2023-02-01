@@ -1,6 +1,20 @@
 create schema if not exists data;
 create schema if not exists ppd;
 
+-- DROP TABLE IF EXISTS
+--     data.city, data.flight, data.flight_interval,
+--     data.flight_pilot, data.nationality, data.nationality,
+--     data.reservation, data.reservation, data.route,
+--     data.schedule, data.schedule_route, data.vehicle,
+--     data.vehicle_manufacturer, data.vehicle_model, data.vehicle_type
+--     CASCADE;
+--
+-- DROP TABLE IF EXISTS
+--     ppd.customer, ppd.employee, ppd.employee_account_data,
+--     ppd.employee_role, ppd.passenger, ppd.pilot,
+--     ppd.pilot_status, ppd.role_to_employee, ppd.vehicle_model_pilot_preferation
+--     CASCADE;
+
 --#############################################################
 
 CREATE TABLE IF NOT EXISTS data.vehicle_type(
