@@ -72,10 +72,10 @@ INSERT INTO data.route
 (source_city_id, destination_city_id, distance)
 VALUES(1, 5, 400);
 
-insert into data.vehicle (id, vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (1, 1, 1, '2023-05-30', 'rutrum ac lobortis', '2021-09-05');
-insert into data.vehicle (id, vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (2, 1, 3, '2023-07-01', 'varius', '2021-10-30');
-insert into data.vehicle (id, vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (3, 1, 4, '2023-04-29', 'morbi vel', '2022-09-13');
-insert into data.vehicle (id, vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (4, 1, 1, '2023-06-11', 'luctus rutrum', '2021-09-05');
+insert into data.vehicle (vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (1, 1, '2023-05-30', 'rutrum ac lobortis', '2021-09-05');
+insert into data.vehicle (vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (1, 3, '2023-07-01', 'varius', '2021-10-30');
+insert into data.vehicle (vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (1, 4, '2023-04-29', 'morbi vel', '2022-09-13');
+insert into data.vehicle (vehicle_type_id, vehicle_model_id, next_maintenance_date, friendly_name, rent_date) values (1, 1, '2023-06-11', 'luctus rutrum', '2021-09-05');
 
 
 -- employee_account_data
@@ -126,7 +126,7 @@ INSERT INTO data.flight
     planned_arrival
 )
 VALUES
-    (1, 1, null, true, 'POLWARWŁORZY001', 100, 2, false, '2022-10-15 08:00:00+02', false, '2023-10-15 12:27:53+02', '2023-10-15 18:27:53+02'),
+    (1, 1, null, true, 'POLWROPOLWAR001', 100, 2, false, '2022-10-15 08:00:00+02', false, '2023-10-15 12:27:53+02', '2023-10-15 18:27:53+02'),
     (2, 2, null, true, 'CHOZAGSZWSZT001', 100, 2, false, '2022-10-15 08:00:00+02', false, '2022-10-20 09:00:00+02', '2023-10-20 15:27:53+02');
 
 --flight_pilot
