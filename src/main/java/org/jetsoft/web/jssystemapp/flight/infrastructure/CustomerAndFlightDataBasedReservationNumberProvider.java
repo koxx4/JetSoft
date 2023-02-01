@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 class CustomerAndFlightDataBasedReservationNumberProvider implements ReservationNumberProvider {
 
-    private final static char HYPHEN = '-';
+    private static final char HYPHEN = '-';
     private Long globalCounter = 0L;
 
     private final CustomerQueries customerQueries;

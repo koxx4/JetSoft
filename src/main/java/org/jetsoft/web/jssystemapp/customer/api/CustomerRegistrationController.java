@@ -24,6 +24,7 @@ import static org.jetsoft.web.jssystemapp.configuration.security.CommonSecurityC
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 @Controller
+public
 class CustomerRegistrationController {
 
     private static final String V_CUSTOMER_REGISTRATION = "customer/customer-registration-view";

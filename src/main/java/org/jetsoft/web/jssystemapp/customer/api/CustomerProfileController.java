@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.security.Principal;
 
 @Controller
+public
 class CustomerProfileController {
 
     private static final String V_CUSTOMER_PROFILE = "customer/customer-profile-view";

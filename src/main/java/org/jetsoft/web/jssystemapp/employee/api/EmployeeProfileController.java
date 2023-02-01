@@ -12,6 +12,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
+public
 class EmployeeProfileController {
 
     private final EmployeeQueries employeeQueries;
